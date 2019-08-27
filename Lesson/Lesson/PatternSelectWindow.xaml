@@ -1,0 +1,49 @@
+﻿<Window x:Class="Lesson.PatternSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lesson"
+        mc:Ignorable="d"
+        Title="PatternSelectWindow" Height="200" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <RadioButton x:Name="rbPattern1" Grid.Column="0" Content="Pattern1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+        <RadioButton x:Name="rbPattern2" Grid.Column="1" Content="Pattern2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+        <RadioButton x:Name="rbPattern3" Grid.Column="2" Content="Pattern3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+
+        <TextBlock x:Name="txtPattern1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Left" xml:space="preserve">
+*
+**
+***
+****
+*****
+        </TextBlock>
+        <TextBlock x:Name="txtPattern2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Right" xml:space="preserve">
+*****
+****
+***
+**
+*
+        </TextBlock>
+        <TextBlock x:Name="txtPattern3" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" xml:space="preserve">
+  *
+  ***
+  *****
+  ***
+  *
+        </TextBlock>
+
+        <Button x:Name="btnPatternSelect" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
+    </Grid>
+</Window>
