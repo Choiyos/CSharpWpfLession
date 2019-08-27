@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lesson"
         mc:Ignorable="d"
-        Title="print star" Height="100" Width="200">
+        Title="print star" Height="300" Width="200">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Name="txtHello" Margin="1,1,20,1">print star</TextBlock>
-        <Button x:Name="btnShow" Width="30" Height="30" HorizontalAlignment="Right" Margin="10" Click="BtnShow_Click">print</Button>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Name="txtShow" Margin="1,1,20,1">Show</TextBlock>
+        <Button x:Name="btnShow" Width="30" Height="30" HorizontalAlignment="Right" Margin="10" Click="BtnShow_Click">Btn</Button>
     </Grid>
 </Window>

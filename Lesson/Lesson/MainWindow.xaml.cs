@@ -35,11 +35,11 @@ namespace Lesson
             {
                 int num = i;
                 sum += num;
-                star = star.PadRight(sum, '*')+"\n";
+                star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }
 
-            MessageBox.Show(star);
+            txtShow.Text = star;
         }
     }
 }
