@@ -27,8 +27,8 @@ namespace Lesson
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
-            int inputNum = int.Parse(txtbxInput.Text);
-            if (inputNum > 0 && inputNum < 101)
+            if (int.TryParse(txtbxInput.Text, out int inputNum) 
+                && (inputNum > 0 && inputNum < 101))
             {
                 int sum = 0;
                 string star = string.Empty;
@@ -47,7 +47,6 @@ namespace Lesson
                 MessageBox.Show("정상적인 숫자 범위를 입력해주세요(1~100).");
                 txtbxInput.Text = "1";
             }
-
         }
     }
 }
