@@ -27,19 +27,37 @@ namespace Lesson
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
-            int sum = 0;
-
-            string star = string.Empty;
-
-            for (int i = 1; i <= 5; i++)
+            int inputNum = int.Parse(txtbxInput.Text);
+            if (inputNum > 0 && inputNum < 101)
             {
-                int num = i;
-                sum += num;
-                star = star.PadRight(sum, '*') + "\n";
-                sum++;
+                int sum = 0;
+                string star = string.Empty;
+
+                for (int i = 1; i <= inputNum; i++)
+                {
+                    sum += i;
+                    star = star.PadRight(sum, '*') + "\n";
+                    sum++;
+                }
+
+                txtDisplay.Text = star;
+
+                txtDisplay.Measure(new Size(10, Double.PositiveInfinity));
+                txtDisplay.Arrange(new Rect(txtDisplay.DesiredSize));
+
+
+                if (txtDisplay.ActualHeight >= Height * 0.85d)
+                {
+                    ScaleTransform scale = new ScaleTransform();
+                    Height = txtDisplay.ActualHeight * 1.25d;
+                }
+            }
+            else
+            {
+                MessageBox.Show("숫자를 다시 입력해주세요.");
+                txtbxInput.Text = string.Empty;
             }
 
-            txtShow.Text = star;
         }
     }
 }
