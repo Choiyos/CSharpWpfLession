@@ -41,21 +41,11 @@ namespace Lesson
                 }
 
                 txtDisplay.Text = star;
-
-                txtDisplay.Measure(new Size(10, Double.PositiveInfinity));
-                txtDisplay.Arrange(new Rect(txtDisplay.DesiredSize));
-
-
-                if (txtDisplay.ActualHeight >= Height * 0.85d)
-                {
-                    ScaleTransform scale = new ScaleTransform();
-                    Height = txtDisplay.ActualHeight * 1.25d;
-                }
             }
             else
             {
-                MessageBox.Show("숫자를 다시 입력해주세요.");
-                txtbxInput.Text = string.Empty;
+                MessageBox.Show("정상적인 숫자 범위를 입력해주세요(1~100).");
+                txtbxInput.Text = "1";
             }
 
         }
