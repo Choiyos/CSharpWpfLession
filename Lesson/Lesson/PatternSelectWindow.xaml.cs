@@ -19,36 +19,57 @@ namespace Lesson
     /// </summary>
     public partial class PatternSelectWindow : Window
     {
-        RadioButton rb = null;
+        RadioButton _rb = null;
 
         public PatternSelectWindow()
         {
             InitializeComponent();
 
         }
-        public delegate void OnChildSelectPatternHander(string patternName);
-        public event OnChildSelectPatternHander OnChildSelectPatternEvent;
+        public event EventHandler<string> OnChildSelectPatternEvent;
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
         {
-            if (OnChildSelectPatternEvent != null)
-            {
-                OnChildSelectPatternEvent(rb.Content.ToString());
-            }
+            OnChildSelectPatternEvent?.Invoke(sender, _rb.Content.ToString());
         }
 
         private void RadioButtonClicked(object sender, RoutedEventArgs e)
         {
-            rb = (RadioButton)sender;
+            _rb = (RadioButton)sender;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // 닫는 시점에 이벤트가 비어있지 않다면, Select 버튼을 클릭하지 않고 패턴 윈도우 닫기 버튼을 클릭한 것.
-            if (OnChildSelectPatternEvent != null)
-            {
-                OnChildSelectPatternEvent(string.Empty);
-            }
+            OnChildSelectPatternEvent?.Invoke(sender, string.Empty);
+        }
+
+        private void TxtPattern1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // 바인딩하거나 더 깔끔한 방법이 있을 것 같은데 더 고민해봐야 할 듯.            
+            rbPattern1.IsChecked = true;
+            rbPattern2.IsChecked = false;
+            rbPattern3.IsChecked = false;
+
+            _rb = rbPattern1;
+        }
+
+        private void TxtPattern2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            rbPattern1.IsChecked = false;
+            rbPattern2.IsChecked = true;
+            rbPattern3.IsChecked = false;
+
+            _rb = rbPattern2;
+        }
+
+        private void TxtPattern3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            rbPattern1.IsChecked = false;
+            rbPattern2.IsChecked = false;
+            rbPattern3.IsChecked = true;
+
+            _rb = rbPattern3;
         }
     }
 }

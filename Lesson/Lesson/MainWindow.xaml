@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lesson"
         mc:Ignorable="d"
-        Title="print star" Height="300" Width="200">
+        Title="print star" Height="300" Width="250">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,7 +22,7 @@
         <Button  x:Name="btnShow" Grid.Column="2" Width="20" Height="20" HorizontalAlignment="Center" Click="BtnShow_Click" >Ok</Button>
 
         <TextBlock x:Name="txtPatternQuestion"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">What Pattern?</TextBlock>
-        <TextBlock x:Name="txtPattern" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="23" Text="1" VerticalAlignment="Center" Width="25" TextAlignment="Center" />
+        <TextBlock x:Name="txtPattern" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="23" Text="Pattern 1" VerticalAlignment="Center" Width="50" TextAlignment="Center" />
         <Button  x:Name="btnPatternShow" Grid.Row="1" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnPatternShow_Click"  >Select</Button>
 
         <ScrollViewer Grid.Row="99"  Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Auto">

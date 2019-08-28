@@ -20,8 +20,8 @@ namespace Lesson
     /// </summary>
     public partial class MainWindow : Window
     {
-        int pattern = 1;
-        PatternSelectWindow patternSelectWindow = null;
+        int _pattern = 1;
+        PatternSelectWindow _patternSelectWindow = null;
 
 
         public MainWindow()
@@ -39,7 +39,7 @@ namespace Lesson
                 string star = string.Empty;
                 //lines가 홀수면 메시지 띄우기.
 
-                switch (pattern)
+                switch (_pattern)
                 {
                     case 1:
                         // 패턴1 출력.
@@ -95,38 +95,40 @@ namespace Lesson
             else
             {
                 MessageBox.Show("정상적인 숫자 범위를 입력해주세요(1~100).");
-                txtbxInput.Text = "1";
+                txtbxInput.Text = "Pattern 1";
             }
         }
 
 
         private void BtnPatternShow_Click(object sender, RoutedEventArgs e)
         {
-            if (patternSelectWindow == null)
+            if (_patternSelectWindow == null)
             {
-                patternSelectWindow = new PatternSelectWindow();
-                patternSelectWindow.OnChildSelectPatternEvent += new PatternSelectWindow.OnChildSelectPatternHander(psw_OnChildSelectPatternEvent);
-                patternSelectWindow.ShowDialog();
+                _patternSelectWindow = new PatternSelectWindow();
+                _patternSelectWindow.OnChildSelectPatternEvent += new EventHandler<string>(psw_OnChildSelectPatternEvent);
+                _patternSelectWindow.Owner = this;
+                _patternSelectWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                _patternSelectWindow.ShowDialog();
             }
         }
 
-        private void psw_OnChildSelectPatternEvent(string patternName)
+        private void psw_OnChildSelectPatternEvent(object sender, string patternName)
         {
             if (!string.IsNullOrEmpty(patternName) && int.TryParse(patternName.Substring(patternName.Length - 1, 1), out int parsedPattern))
             {
-                pattern = parsedPattern;
-                txtPattern.Text = pattern.ToString();
-                if (patternSelectWindow != null)
+                _pattern = parsedPattern;
+                txtPattern.Text = patternName;
+                if (_patternSelectWindow != null)
                 {
-                    patternSelectWindow.OnChildSelectPatternEvent -= new PatternSelectWindow.OnChildSelectPatternHander(psw_OnChildSelectPatternEvent);
-                    patternSelectWindow.Close();
-                    patternSelectWindow = null;
+                    _patternSelectWindow.OnChildSelectPatternEvent -= new EventHandler<string>(psw_OnChildSelectPatternEvent);
+                    _patternSelectWindow.Close();
+                    _patternSelectWindow = null;
                 }
             }
             else
             {
-                patternSelectWindow.OnChildSelectPatternEvent -= new PatternSelectWindow.OnChildSelectPatternHander(psw_OnChildSelectPatternEvent);
-                patternSelectWindow = null;
+                _patternSelectWindow.OnChildSelectPatternEvent -= new EventHandler<string>(psw_OnChildSelectPatternEvent);
+                _patternSelectWindow = null;
             }
         }
     }
