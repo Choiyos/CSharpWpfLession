@@ -21,8 +21,8 @@ namespace Lesson
     public partial class MainWindow : Window
     {
         private int _pattern = 1;
-        private PatternSelectWindow _patternSelectWindow = null;
 
+        private PatternSelectWindow _patternSelectWindow = null;
 
         public MainWindow()
         {
@@ -31,14 +31,14 @@ namespace Lesson
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
-
             if (int.TryParse(txtbxInput.Text, out int inputNum)
                 && (inputNum > 0 && inputNum < 101))
             {
                 int sum = 0;
-                string star = string.Empty;
-                //lines가 홀수면 메시지 띄우기.
 
+                string star = string.Empty;
+
+                //lines가 홀수면 메시지 띄우기.
                 switch (_pattern)
                 {
                     case 1:
@@ -89,7 +89,6 @@ namespace Lesson
                     default:
                         break;
                 }
-
                 txtDisplay.Text = star;
             }
             else
