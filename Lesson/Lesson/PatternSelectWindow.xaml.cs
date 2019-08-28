@@ -19,7 +19,7 @@ namespace Lesson
     /// </summary>
     public partial class PatternSelectWindow : Window
     {
-        RadioButton _rb = null;
+        private RadioButton _rb = null;
 
         public PatternSelectWindow()
         {

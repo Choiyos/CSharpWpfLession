@@ -20,8 +20,8 @@ namespace Lesson
     /// </summary>
     public partial class MainWindow : Window
     {
-        int _pattern = 1;
-        PatternSelectWindow _patternSelectWindow = null;
+        private int _pattern = 1;
+        private PatternSelectWindow _patternSelectWindow = null;
 
 
         public MainWindow()
