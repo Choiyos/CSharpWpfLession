@@ -38,7 +38,7 @@ namespace Lesson
 
                 string star = string.Empty;
 
-                //lines가 홀수면 메시지 띄우기.
+                // case가 늘어날 수록 가독성은 떨어질 듯, 가능하면 인터페이스화 시키는걸 시도해보자.
                 switch (_pattern)
                 {
                     case 1:
@@ -86,6 +86,31 @@ namespace Lesson
                             return;
                         }
                         break;
+                    case 4:
+                        // 패턴4 출력.
+                        // 맨 위줄부터 N-i만큼의 공백 추가.
+                        txtDisplay.TextAlignment = TextAlignment.Left;
+                        for (int i = 1; i <= inputNum; i++)
+                        {
+                            sum += inputNum - i;
+                            star = star.PadRight(sum, ' ');
+                            sum += inputNum;
+                            star = star.PadRight(sum, '*') + "\n";
+                            sum++;
+                        }
+                        break;
+                    case 5:
+                        // 패턴5 출력.
+                        txtDisplay.TextAlignment = TextAlignment.Left;
+                        for (int i = 1; i <= inputNum; i++)
+                        {
+                            sum += inputNum - i;
+                            star = star.PadRight(sum, ' ');
+                            sum += inputNum - i + 1;
+                            star = star.PadRight(sum, '*') + "\n";
+                            sum++;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -94,10 +119,9 @@ namespace Lesson
             else
             {
                 MessageBox.Show("정상적인 숫자 범위를 입력해주세요(1~100).");
-                txtbxInput.Text = "Pattern 1";
+                txtbxInput.Text = "1";
             }
         }
-
 
         private void BtnPatternShow_Click(object sender, RoutedEventArgs e)
         {
