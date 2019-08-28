@@ -21,10 +21,16 @@ namespace Lesson
     {
         private RadioButton _rb = null;
 
+        private List<RadioButton> _radioButtonList = new List<RadioButton>();
+
         public PatternSelectWindow()
         {
             InitializeComponent();
 
+            foreach (RadioButton radioButton in FindVisualChildren<RadioButton>(myGrid))
+            {
+                _radioButtonList.Add(radioButton);
+            }
         }
 
         public event EventHandler<string> OnChildSelectPatternEvent;
@@ -45,32 +51,39 @@ namespace Lesson
             OnChildSelectPatternEvent?.Invoke(sender, string.Empty);
         }
 
-        private void TxtPattern1_MouseDown(object sender, MouseButtonEventArgs e)
+        #region 텍스트 마우스 클릭 이벤트 처리   
+        private void TxtPattern_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // 바인딩하거나 더 깔끔한 방법이 있을 것 같은데 더 고민해봐야 할 듯.            
-            rbPattern1.IsChecked = true;
-            rbPattern2.IsChecked = false;
-            rbPattern3.IsChecked = false;
+            string txtBlock = (sender as TextBlock).Name;
 
-            _rb = rbPattern1;
+            // TxtBlock Name을 파싱해서 쓰는게 아니라 그룹을 지정하고, 클릭된 박스의 인덱스 순서에 따라 구분할 수 있게하면 Name에 의존하지 않아도 됨.
+            if (int.TryParse(txtBlock.Substring(txtBlock.Length - 1, 1), out int radioButtonIndex))
+            {
+                radioButtonIndex--;
+                _radioButtonList[radioButtonIndex].IsChecked = true;
+                _rb = _radioButtonList[radioButtonIndex];
+            }
         }
+        #endregion
 
-        private void TxtPattern2_MouseDown(object sender, MouseButtonEventArgs e)
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
-            rbPattern1.IsChecked = false;
-            rbPattern2.IsChecked = true;
-            rbPattern3.IsChecked = false;
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
 
-            _rb = rbPattern2;
-        }
-
-        private void TxtPattern3_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            rbPattern1.IsChecked = false;
-            rbPattern2.IsChecked = false;
-            rbPattern3.IsChecked = true;
-
-            _rb = rbPattern3;
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
         }
     }
 }
