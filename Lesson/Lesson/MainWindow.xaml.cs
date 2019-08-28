@@ -43,6 +43,7 @@ namespace Lesson
                 {
                     case 1:
                         // 패턴1 출력.
+                        txtDisplay.TextAlignment = TextAlignment.Left;
                         for (int i = 1; i <= inputNum; i++)
                         {
                             sum += i;
@@ -52,6 +53,7 @@ namespace Lesson
                         break;
                     case 2:
                         // 패턴2 출력.
+                        txtDisplay.TextAlignment = TextAlignment.Right;
                         for (int i = inputNum; i >= 1; i--)
                         {
                             sum += i;
@@ -63,13 +65,14 @@ namespace Lesson
                         if (inputNum % 2 != 0)
                         {
                             // 다이아몬드모양 출력.
+                            txtDisplay.TextAlignment = TextAlignment.Center;
                             for (int i = 1; i <= inputNum / 2; i++)
                             {
                                 sum += i;
                                 star = star.PadRight(sum, '*') + "\n";
                                 sum++;
                             }
-                            for (int i = (inputNum / 2)+1; i >= 1; i--)
+                            for (int i = (inputNum / 2) + 1; i >= 1; i--)
                             {
                                 sum += i;
                                 star = star.PadRight(sum, '*') + "\n";
@@ -109,17 +112,21 @@ namespace Lesson
 
         private void psw_OnChildSelectPatternEvent(string patternName)
         {
-            if(int.TryParse(patternName.Substring(patternName.Length-1,1),out int parsedPattern))
+            if (!string.IsNullOrEmpty(patternName) && int.TryParse(patternName.Substring(patternName.Length - 1, 1), out int parsedPattern))
             {
                 pattern = parsedPattern;
                 txtPattern.Text = pattern.ToString();
                 if (patternSelectWindow != null)
                 {
-                    patternSelectWindow.Close();
                     patternSelectWindow.OnChildSelectPatternEvent -= new PatternSelectWindow.OnChildSelectPatternHander(psw_OnChildSelectPatternEvent);
+                    patternSelectWindow.Close();
                     patternSelectWindow = null;
                 }
-                MessageBox.Show(pattern.ToString());
+            }
+            else
+            {
+                patternSelectWindow.OnChildSelectPatternEvent -= new PatternSelectWindow.OnChildSelectPatternHander(psw_OnChildSelectPatternEvent);
+                patternSelectWindow = null;
             }
         }
     }

@@ -24,9 +24,9 @@
         <TextBlock x:Name="txtPatternQuestion"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">What Pattern?</TextBlock>
         <TextBlock x:Name="txtPattern" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="23" Text="1" VerticalAlignment="Center" Width="25" TextAlignment="Center" />
         <Button  x:Name="btnPatternShow" Grid.Row="1" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnPatternShow_Click"  >Select</Button>
-        
+
         <ScrollViewer Grid.Row="99"  Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Auto">
-            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center"  ></TextBlock>
+            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center"  ></TextBlock>
         </ScrollViewer>
     </Grid>
 </Window>

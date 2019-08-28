@@ -5,22 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lesson"
         mc:Ignorable="d"
-        Title="PatternSelectWindow" Height="200" Width="400">
-    <Grid>
+        Title="PatternSelectWindow" Height="200" Width="400"
+        Closing="Window_Closing">
+
+    <Grid x:Name="mygrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <RadioButton x:Name="rbPattern1" Grid.Column="0" Content="Pattern1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
-        <RadioButton x:Name="rbPattern2" Grid.Column="1" Content="Pattern2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
-        <RadioButton x:Name="rbPattern3" Grid.Column="2" Content="Pattern3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+        <RadioButton x:Name="rbPattern1" IsChecked="True" Checked="RadioButtonClicked" Grid.Column="0" Content="Pattern1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+        <RadioButton x:Name="rbPattern2" Checked="RadioButtonClicked" Grid.Column="1" Content="Pattern2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+        <RadioButton x:Name="rbPattern3"  Checked="RadioButtonClicked" Grid.Column="2" Content="Pattern3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
 
         <TextBlock x:Name="txtPattern1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Left" xml:space="preserve">
 *

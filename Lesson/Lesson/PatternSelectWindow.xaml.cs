@@ -19,19 +19,35 @@ namespace Lesson
     /// </summary>
     public partial class PatternSelectWindow : Window
     {
+        RadioButton rb = null;
+
         public PatternSelectWindow()
         {
             InitializeComponent();
+
         }
         public delegate void OnChildSelectPatternHander(string patternName);
         public event OnChildSelectPatternHander OnChildSelectPatternEvent;
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(RadioButton.IsCheckedProperty.Name);
             if (OnChildSelectPatternEvent != null)
             {
-                OnChildSelectPatternEvent(RadioButton.IsCheckedProperty.Name);
+                OnChildSelectPatternEvent(rb.Content.ToString());
+            }
+        }
+
+        private void RadioButtonClicked(object sender, RoutedEventArgs e)
+        {
+            rb = (RadioButton)sender;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // 닫는 시점에 이벤트가 비어있지 않다면, Select 버튼을 클릭하지 않고 패턴 윈도우 닫기 버튼을 클릭한 것.
+            if (OnChildSelectPatternEvent != null)
+            {
+                OnChildSelectPatternEvent(string.Empty);
             }
         }
     }
