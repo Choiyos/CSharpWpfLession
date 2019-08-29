@@ -72,26 +72,5 @@ namespace Lesson
             _rb = _radioButtonList[radioButtonIndex];
 
         }
-
-        // 현재로써는 public static일 이유가 없기 때문에 private로 설정. commit amend Test용.
-        private IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        yield return (T)child;
-                    }
-
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
-                }
-            }
-        }
     }
 }
