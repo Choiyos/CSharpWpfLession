@@ -37,7 +37,12 @@ namespace Lesson
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
         {
-            OnChildSelectPatternEvent?.Invoke(sender, _rb.Content.ToString());
+            if (_rb is null)
+            {
+                MessageBox.Show("선택된 패턴이 없습니다.");
+            }
+            else
+                OnChildSelectPatternEvent?.Invoke(sender, _rb?.Content.ToString());
         }
 
         private void RadioButtonClicked(object sender, RoutedEventArgs e)
@@ -56,17 +61,12 @@ namespace Lesson
             string txtBlock = (sender as TextBlock).Name;
 
             // TxtBlock Name을 파싱해서 쓰는게 아니라 그룹을 지정하고, 클릭된 박스의 인덱스 순서에 따라 구분할 수 있게하면 Name에 의존하지 않아도 됨.
-            if (int.TryParse(txtBlock.Substring(txtBlock.Length - 1, 1), out int radioButtonIndex))
+            if (int.TryParse(txtBlock?.Substring(txtBlock.Length - 1, 1), out int radioButtonIndex))
             {
                 radioButtonIndex--;
                 _radioButtonList[radioButtonIndex].IsChecked = true;
                 _rb = _radioButtonList[radioButtonIndex];
             }
-            
-            // 인덱스 순서로 구분하려는 시도.
-            //MessageBox.Show(myGrid.Children.IndexOf(myGrid.Children.OfType<TextBlock>().Select().FirstOrDefault()).ToString());
-            //MessageBox.Show(myGrid.Children.IndexOf(myGrid.Children.OfType<TextBlock>().Where(x => x.Name == (sender as TextBlock).Name) as UIElement).ToString());
-            //int rbListIndex = myGrid.Children.OfType<TextBlock>().Where(x => x.Name == (sender as TextBlock).Name).FirstOrDefault().;
 
             _radioButtonList[radioButtonIndex].IsChecked = true;
             _rb = _radioButtonList[radioButtonIndex];
