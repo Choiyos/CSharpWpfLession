@@ -27,7 +27,7 @@ namespace Lesson
         {
             InitializeComponent();
 
-            foreach (RadioButton radioButton in FindVisualChildren<RadioButton>(myGrid))
+            foreach (RadioButton radioButton in myGrid.Children.OfType<RadioButton>())
             {
                 _radioButtonList.Add(radioButton);
             }
@@ -51,7 +51,6 @@ namespace Lesson
             OnChildSelectPatternEvent?.Invoke(sender, string.Empty);
         }
 
-        #region 텍스트 마우스 클릭 이벤트 처리   
         private void TxtPattern_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string txtBlock = (sender as TextBlock).Name;
@@ -63,8 +62,16 @@ namespace Lesson
                 _radioButtonList[radioButtonIndex].IsChecked = true;
                 _rb = _radioButtonList[radioButtonIndex];
             }
+            
+            // 인덱스 순서로 구분하려는 시도.
+            //MessageBox.Show(myGrid.Children.IndexOf(myGrid.Children.OfType<TextBlock>().Select().FirstOrDefault()).ToString());
+            //MessageBox.Show(myGrid.Children.IndexOf(myGrid.Children.OfType<TextBlock>().Where(x => x.Name == (sender as TextBlock).Name) as UIElement).ToString());
+            //int rbListIndex = myGrid.Children.OfType<TextBlock>().Where(x => x.Name == (sender as TextBlock).Name).FirstOrDefault().;
+
+            _radioButtonList[radioButtonIndex].IsChecked = true;
+            _rb = _radioButtonList[radioButtonIndex];
+
         }
-        #endregion
 
         // 현재로써는 public static일 이유가 없기 때문에 private로 설정. commit amend Test용.
         private IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
