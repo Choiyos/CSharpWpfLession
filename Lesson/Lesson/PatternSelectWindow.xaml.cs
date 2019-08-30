@@ -21,16 +21,17 @@ namespace Lesson
     {
         private RadioButton _rb = null;
 
-        private List<RadioButton> _radioButtonList = new List<RadioButton>();
+        private List<RadioButton> _patternRadioButtonList = new List<RadioButton>();
+
+        private List<TextBlock> _patternTextList = new List<TextBlock>();
 
         public PatternSelectWindow()
         {
             InitializeComponent();
 
-            foreach (RadioButton radioButton in myGrid.Children.OfType<RadioButton>())
-            {
-                _radioButtonList.Add(radioButton);
-            }
+            // xaml에 새로운 패턴을 만들 때에 Name속성의 Format을 맞춰주어야 누락되지 않음.
+            _patternRadioButtonList = myGrid.Children.OfType<RadioButton>().Where(x => x.Name.Contains("rbPattern")).ToList();
+            _patternTextList = myGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("txtPattern")).ToList();
         }
 
         public event EventHandler<string> OnChildSelectPatternEvent;
@@ -60,17 +61,12 @@ namespace Lesson
         {
             string txtBlock = (sender as TextBlock).Name;
 
-            // TxtBlock Name을 파싱해서 쓰는게 아니라 그룹을 지정하고, 클릭된 박스의 인덱스 순서에 따라 구분할 수 있게하면 Name에 의존하지 않아도 됨.
-            if (int.TryParse(txtBlock?.Substring(txtBlock.Length - 1, 1), out int radioButtonIndex))
-            {
-                radioButtonIndex--;
-                _radioButtonList[radioButtonIndex].IsChecked = true;
-                _rb = _radioButtonList[radioButtonIndex];
-            }
+            // 라디오버튼List와 TextBlock의 순서가 동일하게 들어가야한다는 제한점이 있음. 
+            // xaml에서 TextBlock 작성 순서가 꼬이면 리스트에 들어가는 순서도 꼬일듯.
+            int raduiButtonIndex = _patternTextList.IndexOf(_patternTextList.Where( x => x == (TextBlock)sender).FirstOrDefault());
 
-            _radioButtonList[radioButtonIndex].IsChecked = true;
-            _rb = _radioButtonList[radioButtonIndex];
-
+            _patternRadioButtonList[raduiButtonIndex].IsChecked = true;
+            _rb = _patternRadioButtonList[raduiButtonIndex];
         }
     }
 }
