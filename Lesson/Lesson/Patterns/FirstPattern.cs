@@ -8,23 +8,22 @@ using System.Windows.Controls;
 
 namespace Lesson
 {
-    public class SecondPattern : IPattern
+    public class FirstPattern : IPattern
     {
-        public string PrintPattern(TextBlock txtDisplay, int inputNum)
+        public PatternModel Create(int inputNum)
         {
             int sum = 0;
 
             string star = string.Empty;
 
-            txtDisplay.TextAlignment = TextAlignment.Right;
-            for (int i = inputNum; i >= 1; i--)
+            for (int i = 1; i <= inputNum; i++)
             {
                 sum += i;
                 star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }
 
-            return star;
+            return new PatternModel(star, TextAlignment.Left);
         }
     }
 }

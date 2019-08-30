@@ -24,36 +24,18 @@ namespace Lesson
 
         private PatternSelectWindow _patternSelectWindow = null;
 
+        private Dictionary<int, IPattern> _patternDic = new Dictionary<int, IPattern>
+        {
+            { 1, new FirstPattern() },
+            { 2, new SecondPattern() },
+            { 3, new ThirdPattern() },
+            { 4, new FourthPattern() },
+            { 5, new FifthPattern() }
+        };
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public IPattern SelectPattern(int patternNumber)
-        {
-            IPattern pattern = null;
-
-            switch (patternNumber)
-            {
-                case 1:
-                    pattern = new FirstPattern();
-                    break;
-                case 2:
-                    pattern = new SecondPattern();
-                    break;
-                case 3:
-                    pattern = new ThirdPattern();
-                    break;
-                case 4:
-                    pattern = new FourthPattern();
-                    break;
-                case 5:
-                    pattern = new FifthPattern();
-                    break;
-                default:
-                    break;
-            }
-            return pattern;
         }
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
@@ -61,9 +43,12 @@ namespace Lesson
             if (int.TryParse(txtbxInput.Text, out int inputNum)
                 && (inputNum > 0 && inputNum < 101))
             {
-                IPattern pattern = SelectPattern(_pattern);
+                IPattern pattern = _patternDic[_pattern];
 
-                txtDisplay.Text = pattern.PrintPattern(txtDisplay, inputNum);
+                PatternModel patternModel = pattern?.Create(inputNum);
+
+                txtDisplay.Text = patternModel?.Content;
+                txtDisplay.TextAlignment = patternModel.TextAlignment;
             }
             else
             {

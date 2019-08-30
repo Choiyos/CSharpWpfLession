@@ -10,7 +10,7 @@ namespace Lesson
 {
     public class ThirdPattern : IPattern
     {
-        public string PrintPattern(TextBlock txtDisplay, int inputNum)
+        public PatternModel Create(int inputNum)
         {
             int sum = 0;
 
@@ -19,7 +19,6 @@ namespace Lesson
             if (inputNum % 2 != 0)
             {
                 // 다이아몬드모양 출력.
-                txtDisplay.TextAlignment = TextAlignment.Center;
                 for (int i = 1; i <= inputNum / 2; i++)
                 {
                     sum += i;
@@ -37,10 +36,10 @@ namespace Lesson
             {
                 // 입력값이 짝수이므로 취소.
                 MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
-                return string.Empty;
+                return new PatternModel(string.Empty, TextAlignment.Center);
             }
 
-            return star;
+            return new PatternModel(star, TextAlignment.Center);
         }
     }
 }

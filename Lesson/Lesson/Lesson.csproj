@@ -55,15 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FifthPattern.cs" />
-    <Compile Include="FirstPattern.cs" />
-    <Compile Include="FourthPattern.cs" />
-    <Compile Include="IPattern.cs" />
+    <Compile Include="Patterns\FifthPattern.cs" />
+    <Compile Include="Patterns\FirstPattern.cs" />
+    <Compile Include="Patterns\FourthPattern.cs" />
+    <Compile Include="Interface\IPattern.cs" />
+    <Compile Include="Model\PatternModel.cs" />
     <Compile Include="PatternSelectWindow.xaml.cs">
       <DependentUpon>PatternSelectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SecondPattern.cs" />
-    <Compile Include="ThirdPattern.cs" />
+    <Compile Include="Patterns\SecondPattern.cs" />
+    <Compile Include="Patterns\ThirdPattern.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
