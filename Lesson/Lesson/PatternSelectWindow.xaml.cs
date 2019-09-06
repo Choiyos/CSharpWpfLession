@@ -18,7 +18,6 @@ namespace Lesson
 
         private List<TextBlock> _patternTextList = new List<TextBlock>();
 
-        private dllPattern _pattern_dll = dllPattern.Instance;
 
         public PatternSelectWindow()
         {
