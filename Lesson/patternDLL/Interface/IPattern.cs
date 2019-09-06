@@ -1,4 +1,4 @@
-﻿namespace myPatternDLL
+﻿namespace patternDLL
 {
     public interface IPattern
     {

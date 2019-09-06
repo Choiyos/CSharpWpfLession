@@ -1,4 +1,4 @@
-﻿using myPatternDLL;
+﻿using patternDLL;
 using System.Windows;
 
 namespace Lesson
@@ -11,7 +11,7 @@ namespace Lesson
 
         private PatternSelectWindow _patternSelectWindow = null;
 
-        private dllPattern _dllpattern = dllPattern.Instance;
+        private Pattern _pattern = Pattern.Instance;
 
         public MainWindow()
         {
@@ -20,10 +20,10 @@ namespace Lesson
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
-            if (_dllpattern.Create(txtbxInput.Text))
+            if (_pattern.Create(txtbxInput.Text))
             {
-                txtDisplay.Text = _dllpattern.PatternResult;
-                txtDisplay.TextAlignment = _dllpattern.TextAlignment;
+                txtDisplay.Text = _pattern.PatternResult;
+                txtDisplay.TextAlignment = _pattern.TextAlignment;
             }
             else
             {
@@ -43,7 +43,7 @@ namespace Lesson
 
         private void _patternSelectWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            txtPattern.Text = _dllpattern.PatternName;
+            txtPattern.Text = _pattern.PatternName;
         }
     }
 }

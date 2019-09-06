@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace myPatternDLL
+namespace patternDLL
 {
     public class SecondPattern : IPattern
     {

@@ -1,4 +1,4 @@
-﻿using myPatternDLL;
+﻿using patternDLL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -18,6 +18,7 @@ namespace Lesson
 
         private List<TextBlock> _patternTextList = new List<TextBlock>();
 
+        private Pattern _pattern = Pattern.Instance;
 
         public PatternSelectWindow()
         {
@@ -31,7 +32,7 @@ namespace Lesson
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
         {
-            if (_pattern_dll.ChangePattern(_rb?.Content.ToString()))
+            if (_pattern.ChangePattern(_rb?.Content.ToString()))
             {
                 Close();
             }

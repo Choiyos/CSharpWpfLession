@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 
-namespace myPatternDLL
+namespace patternDLL
 {
-    public class FifthPattern : IPattern
+    public class FirstPattern : IPattern
     {
         public PatternModel Create(int inputNum)
         {
@@ -10,12 +10,9 @@ namespace myPatternDLL
 
             string star = string.Empty;
 
-
             for (int i = 1; i <= inputNum; i++)
             {
-                sum += inputNum - i;
-                star = star.PadRight(sum, ' ');
-                sum += inputNum - i + 1;
+                sum += i;
                 star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }

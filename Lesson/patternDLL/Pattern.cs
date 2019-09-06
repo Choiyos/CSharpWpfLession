@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace myPatternDLL
+namespace patternDLL
 {
-    public class dllPattern
+    public class Pattern
     {
-        private static dllPattern _instance = null;
+        private static Pattern _instance = null;
 
-        public static dllPattern Instance
+        public static Pattern Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new dllPattern();
+                    _instance = new Pattern();
                 }
                 return _instance;
             }

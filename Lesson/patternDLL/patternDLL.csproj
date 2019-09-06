@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4598A0BC-739E-4809-8BF1-D1BC941C85AC}</ProjectGuid>
+    <ProjectGuid>{03A9DFEB-D537-4AC5-89B9-ED9E9F6B5AB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>myPatternDLL</RootNamespace>
-    <AssemblyName>myPatternDLL</AssemblyName>
+    <RootNamespace>patternDLL</RootNamespace>
+    <AssemblyName>patternDLL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dllPattern.cs" />
     <Compile Include="Interface\IPattern.cs" />
     <Compile Include="Model\PatternModel.cs" />
+    <Compile Include="Pattern.cs" />
     <Compile Include="Patterns\FifthPattern.cs" />
     <Compile Include="Patterns\FirstPattern.cs" />
     <Compile Include="Patterns\FourthPattern.cs" />
