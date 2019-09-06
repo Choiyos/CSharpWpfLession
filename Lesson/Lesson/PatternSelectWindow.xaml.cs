@@ -1,4 +1,4 @@
-﻿using patternDLL;
+﻿using lessonLibrary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -18,7 +18,7 @@ namespace Lesson
 
         private List<TextBlock> _patternTextList = new List<TextBlock>();
 
-        private Pattern _pattern = Pattern.Instance;
+        private lessonLibrary.pattern _pattern = lessonLibrary.pattern.Instance;
 
         public PatternSelectWindow()
         {

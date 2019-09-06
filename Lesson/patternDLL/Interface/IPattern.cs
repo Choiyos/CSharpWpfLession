@@ -1,4 +1,6 @@
-﻿namespace patternDLL
+﻿using lessonLibrary.Model;
+
+namespace lessonLibrary.Interface
 {
     public interface IPattern
     {

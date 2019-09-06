@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Interface\IPattern.cs" />
     <Compile Include="Model\PatternModel.cs" />
-    <Compile Include="Pattern.cs" />
+    <Compile Include="pattern.cs" />
     <Compile Include="Patterns\FifthPattern.cs" />
     <Compile Include="Patterns\FirstPattern.cs" />
     <Compile Include="Patterns\FourthPattern.cs" />

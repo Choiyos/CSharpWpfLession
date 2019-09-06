@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using lessonLibrary.Interface;
+using lessonLibrary.Patterns;
+using lessonLibrary.Model;
 
-namespace patternDLL
+namespace lessonLibrary
 {
-    public class Pattern
+    public class pattern
     {
-        private static Pattern _instance = null;
+        private static pattern _instance = null;
 
-        public static Pattern Instance
+        public static pattern Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new Pattern();
+                    _instance = new pattern();
                 }
                 return _instance;
             }

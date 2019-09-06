@@ -1,4 +1,4 @@
-﻿using patternDLL;
+﻿using lessonLibrary;
 using System.Windows;
 
 namespace Lesson
@@ -11,7 +11,7 @@ namespace Lesson
 
         private PatternSelectWindow _patternSelectWindow = null;
 
-        private Pattern _pattern = Pattern.Instance;
+        private pattern _pattern = pattern.Instance;
 
         public MainWindow()
         {

@@ -1,6 +1,8 @@
 ﻿using System.Windows;
+using lessonLibrary.Interface;
+using lessonLibrary.Model;
 
-namespace patternDLL
+namespace lessonLibrary.Patterns
 {
     public class FirstPattern : IPattern
     {

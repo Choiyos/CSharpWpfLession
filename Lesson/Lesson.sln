@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson", "Lesson\Lesson.csproj", "{7FA5849E-67BE-4EE0-97DE-AF2852EF59F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "patternDLL", "patternDLL\patternDLL.csproj", "{03A9DFEB-D537-4AC5-89B9-ED9E9F6B5AB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pattern", "patternDLL\pattern.csproj", "{03A9DFEB-D537-4AC5-89B9-ED9E9F6B5AB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
