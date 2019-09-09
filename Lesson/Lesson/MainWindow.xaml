@@ -19,22 +19,22 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="txtLineQuestion"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">How many lines?</TextBlock>
-        <TextBox x:Name="txtbxInput" Grid.Column="1" KeyDown="TxtbxInput_KeyDown" TextAlignment="Center" HorizontalAlignment="Center" Height="23" Text="1" VerticalAlignment="Center" Width="25" />
-        <Button  x:Name="btnShow" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnShow_Click" >Print</Button>
+        <TextBlock   Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">How many lines?</TextBlock>
+        <TextBox x:Name="txtbxInput" Grid.Row="0" Grid.Column="1" KeyDown="TxtbxInput_KeyDown" TextAlignment="Center" HorizontalAlignment="Center" Height="23" Text="1" VerticalAlignment="Center" Width="25" />
+        <Button  x:Name="btnShow" Grid.Row="0" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnShow_Click" >Print</Button>
 
-        <TextBlock x:Name="txtPatternQuestion"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">What Pattern?</TextBlock>
+        <TextBlock  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">What Pattern?</TextBlock>
         <TextBlock x:Name="txtPattern" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="23" Text="Pattern 1" VerticalAlignment="Center" Width="50" TextAlignment="Center" />
         <Button  x:Name="btnPatternShow" Grid.Row="1" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnPatternShow_Click"  >Select</Button>
 
-        <TextBlock x:Name="txtHistory" Grid.Column="0" Grid.Row="2" Text="History" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="History" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="txtbxHistory" Grid.Column="1" Grid.Row="2" KeyDown="TxtbxHistory_KeyDown" Width="25" Height="23" TextAlignment="Center" Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,30,0"/>
         <TextBlock x:Name="txtMaxHistory" Grid.Column="1" Grid.Row="2" Width="25" Height="20" TextAlignment="Center" Text="/  0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"/>
         <Button x:Name="btnPreviousHistory" Grid.Column="2" Grid.Row="2" Click="BtnPreviousHistory_Click" IsEnabled="False" Width="20" Height="20" Content="&lt;" Margin="0,0,30,0"  />
         <Button x:Name="btnNextHistory" Grid.Column="2" Grid.Row="2" Click="BtnNextHistory_Click" IsEnabled="False" Width="20" Height="20" Content="&gt;" Margin="30,0,0,0"  />
 
 
-        <ScrollViewer Grid.Row="99"  Grid.ColumnSpan="4" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="3"  Grid.ColumnSpan="4" Grid.Column="0" HorizontalScrollBarVisibility="Auto">
             <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center"  ></TextBlock>
         </ScrollViewer>
     </Grid>

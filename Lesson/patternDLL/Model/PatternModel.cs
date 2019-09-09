@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace lessonLibrary.Model
+namespace LessonLibrary.Model
 {
     public class PatternModel
     {
