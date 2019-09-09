@@ -3,6 +3,7 @@ using System.Windows;
 using lessonLibrary.Interface;
 using lessonLibrary.Patterns;
 using lessonLibrary.Model;
+using System;
 
 namespace lessonLibrary
 {
@@ -39,6 +40,16 @@ namespace lessonLibrary
             { 5, new FifthPattern() }
         };
 
+        private List<KeyValuePair<string, TextAlignment>> _patternHistoryList = new List<KeyValuePair<string, TextAlignment>>();
+
+        private int _currentHistory = 1;
+
+        private const int _historyMax = 10;
+
+        public int CurrentHistory { get => _currentHistory; }
+
+        public int MaxHistory { get => _patternHistoryList.Count; }
+
         public TextAlignment TextAlignment { get => _textAlignment; }
 
         public string PatternName { get => _patternName; }
@@ -57,6 +68,14 @@ namespace lessonLibrary
                 _patternResult = patternModel.Content;
                 _textAlignment = patternModel.TextAlignment;
 
+                _currentHistory = 1;
+
+                if (_patternHistoryList.Count == _historyMax)
+                {
+                    _patternHistoryList.RemoveAt(0);
+                }
+                _patternHistoryList.Add(new KeyValuePair<string, TextAlignment>(patternModel.Content, patternModel.TextAlignment));
+
                 return true;
             }
             else return false;
@@ -74,6 +93,24 @@ namespace lessonLibrary
             {
                 return false;
             }
+        }
+
+        public KeyValuePair<string, TextAlignment> GetHistory(int index)
+        {
+            _currentHistory = index;
+            return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
+        }
+
+        public KeyValuePair<string, TextAlignment> GetNextHistory()
+        {
+            _currentHistory++;
+            return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
+        }
+
+        public KeyValuePair<string, TextAlignment> GetPreviousHistory()
+        {
+            _currentHistory--;
+            return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
     }
 }
