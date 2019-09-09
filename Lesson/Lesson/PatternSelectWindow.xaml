@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lesson"
         mc:Ignorable="d"
         Title="PatternSelectWindow" Height="200" Width="650">
 
@@ -22,12 +21,13 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <RadioButton x:Name="rbPattern1" Checked="RadioButtonClicked" Grid.Column="0" Content="Pattern 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
-        <RadioButton x:Name="rbPattern2" Checked="RadioButtonClicked" Grid.Column="1" Content="Pattern 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
-        <RadioButton x:Name="rbPattern3" Checked="RadioButtonClicked" Grid.Column="2" Content="Pattern 3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
-        <RadioButton x:Name="rbPattern4" Checked="RadioButtonClicked" Grid.Column="3" Content="Pattern 4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
-        <RadioButton x:Name="rbPattern5" Checked="RadioButtonClicked" Grid.Column="4" Content="Pattern 5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
+        <RadioButton x:Name="rbPattern2" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="1" Content="Pattern 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
+        <RadioButton x:Name="rbPattern3" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="2" Content="Pattern 3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
+        <RadioButton x:Name="rbPattern4" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="3" Content="Pattern 4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
+        <RadioButton x:Name="rbPattern5" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="4" Content="Pattern 5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
 
-        <TextBlock x:Name="txtPattern1" Margin="0,-10,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Left" xml:space="preserve"   Grid.Row="1" MouseDown="TxtPattern_MouseDown">
+        <TextBlock x:Name="txtPattern1" Margin="0,-10,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Left" xml:space="preserve"   Grid.Row="1"
+                   Grid.Column="0" MouseDown="TxtPattern_MouseDown">
             *
             **
             ***
@@ -61,6 +61,6 @@
 *
         </TextBlock>
 
-        <Button x:Name="btnPatternSelect" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="99" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
+        <Button x:Name="btnPatternSelect" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
     </Grid>
 </Window>

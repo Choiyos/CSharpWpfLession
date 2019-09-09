@@ -1,31 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using lessonLibrary.Interface;
-using lessonLibrary.Patterns;
-using lessonLibrary.Model;
-using System;
+using LessonLibrary.Interface;
+using LessonLibrary.Model;
+using LessonLibrary.Patterns;
 
-namespace lessonLibrary
+namespace LessonLibrary
 {
-    public class pattern
+    public class Pattern
     {
-        private static pattern _instance = null;
+        private static Pattern _instance;
 
-        public static pattern Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new pattern();
-                }
-                return _instance;
-            }
-        }
+        public static Pattern Instance => _instance ?? (_instance = new Pattern());
 
         private int _pattern = 1;
 
-        private Dictionary<int, IPattern> _patternDic = new Dictionary<int, IPattern>
+        private readonly Dictionary<int, IPattern> _patternDic = new Dictionary<int, IPattern>
         {
             { 1, new FirstPattern() },
             { 2, new SecondPattern() },
@@ -34,13 +23,13 @@ namespace lessonLibrary
             { 5, new FifthPattern() }
         };
 
-        private List<PatternModel> _patternHistoryList = new List<PatternModel>();
+        private readonly List<PatternModel> _patternHistoryList = new List<PatternModel>();
 
-        private const int _historyMax = 10;
+        private const int HistoryMax = 10;
 
-        public int CurrentHistory { get; private set; } = 0;
+        public int CurrentHistory { get; private set; }
 
-        public int MaxHistory { get => _patternHistoryList.Count; }
+        public int MaxHistory => _patternHistoryList.Count;
 
         public TextAlignment TextAlignment { get; private set; }
 
@@ -62,7 +51,7 @@ namespace lessonLibrary
 
                 CurrentHistory = 1;
 
-                if (_patternHistoryList.Count == _historyMax)
+                if (_patternHistoryList.Count == HistoryMax)
                 {
                     _patternHistoryList.RemoveAt(0);
                 }

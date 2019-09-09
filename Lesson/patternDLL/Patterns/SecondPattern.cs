@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using lessonLibrary.Interface;
-using lessonLibrary.Model;
+using LessonLibrary.Interface;
+using LessonLibrary.Model;
 
-namespace lessonLibrary.Patterns
+namespace LessonLibrary.Patterns
 {
     public class SecondPattern : IPattern
     {

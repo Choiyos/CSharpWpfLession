@@ -1,6 +1,6 @@
-﻿using lessonLibrary.Model;
+﻿using LessonLibrary.Model;
 
-namespace lessonLibrary.Interface
+namespace LessonLibrary.Interface
 {
     public interface IPattern
     {

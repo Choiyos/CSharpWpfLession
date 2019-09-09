@@ -1,17 +1,16 @@
-﻿using lessonLibrary;
-using System.Collections.Generic;
+﻿using LessonLibrary;
 using System.Windows;
 using System.Windows.Controls;
-using lessonLibrary.Model;
+using LessonLibrary.Model;
 
 namespace Lesson
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private pattern _pattern = pattern.Instance;
+        private readonly Pattern _pattern = Pattern.Instance;
 
         public MainWindow()
         {
@@ -25,11 +24,10 @@ namespace Lesson
 
         private void TxtbxInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                Print();
-                txtbxInput.SelectAll();
-            }
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            Print();
+            txtbxInput.SelectAll();
         }
 
         private void Print()
@@ -104,43 +102,42 @@ namespace Lesson
 
         private void TxtbxHistory_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            TextBox textBox = (TextBox)sender;
+
+            if (int.TryParse(textBox.Text, out int historyNum)
+                && historyNum > 0 && historyNum <= _pattern.MaxHistory)
             {
-                TextBox textBox = (TextBox)sender;
-
-                if (int.TryParse(textBox.Text, out int historyNum)
-                    && historyNum > 0 && historyNum <= _pattern.MaxHistory)
-                {
-                    ApllyPattern(_pattern.GetHistory(historyNum));
-                    textBox.SelectAll();
-                }
+                ApllyPattern(_pattern.GetHistory(historyNum));
+                textBox.SelectAll();
+            }
+            else
+            {
+                if (_pattern.MaxHistory == 0)
+                    MessageBox.Show("아직 생성된 패턴이 없습니다.");
                 else
-                {
-                    if (_pattern.MaxHistory == 0)
-                        MessageBox.Show("아직 생성된 패턴이 없습니다.");
-                    else
-                        MessageBox.Show("1부터 " + _pattern.MaxHistory + "까지의 숫자만 입력해주세요!");
+                    MessageBox.Show("1부터 " + _pattern.MaxHistory + "까지의 숫자만 입력해주세요!");
 
-                    textBox.Text = _pattern.CurrentHistory.ToString();
-                    return;
-                }
+                textBox.Text = _pattern.CurrentHistory.ToString();
+                return;
+            }
 
-                if (_pattern.CurrentHistory == 1)
-                {
-                    btnPreviousHistory.IsEnabled = false;
+            if (_pattern.CurrentHistory == 1)
+            {
+                btnPreviousHistory.IsEnabled = false;
 
-                    if (_pattern.MaxHistory > 1) btnNextHistory.IsEnabled = true;
-                }
-                else if (_pattern.CurrentHistory == _pattern.MaxHistory)
-                {
-                    btnNextHistory.IsEnabled = false;
-                    btnPreviousHistory.IsEnabled = true;
-                }
-                else
-                {
-                    btnNextHistory.IsEnabled = true;
-                    btnPreviousHistory.IsEnabled = true;
-                }
+                if (_pattern.MaxHistory > 1) btnNextHistory.IsEnabled = true;
+            }
+            else if (_pattern.CurrentHistory == _pattern.MaxHistory)
+            {
+                btnNextHistory.IsEnabled = false;
+                btnPreviousHistory.IsEnabled = true;
+            }
+            else
+            {
+                btnNextHistory.IsEnabled = true;
+                btnPreviousHistory.IsEnabled = true;
             }
         }
 
