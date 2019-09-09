@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="PatternSelectWindow" Height="200" Width="650">
+        Title="PatternSelectWindow" Height="200" Width="650" MinHeight="200" MinWidth="650">
 
     <Grid x:Name="myGrid" >
         <Grid.ColumnDefinitions >
@@ -61,6 +61,6 @@
 *
         </TextBlock>
 
-        <Button x:Name="btnPatternSelect" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
+        <Button x:Name="btnPatternSelect" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
     </Grid>
 </Window>
