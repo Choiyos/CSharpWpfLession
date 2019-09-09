@@ -11,9 +11,6 @@ namespace Lesson
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private PatternSelectWindow _patternSelectWindow = null;
-
         private pattern _pattern = pattern.Instance;
 
         public MainWindow()
@@ -42,7 +39,7 @@ namespace Lesson
                 txtDisplay.Text = _pattern.PatternResult;
                 txtDisplay.TextAlignment = _pattern.TextAlignment;
 
-                if (_pattern.MaxHistory != 1)
+                if (_pattern.MaxHistory > 1)
                 {
                     btnNextHistory.IsEnabled = true;
                     btnPreviousHistory.IsEnabled = false;
@@ -60,14 +57,15 @@ namespace Lesson
 
         private void BtnPatternShow_Click(object sender, RoutedEventArgs e)
         {
-            _patternSelectWindow = new PatternSelectWindow();
-            _patternSelectWindow.Closing += _patternSelectWindow_Closing;
-            _patternSelectWindow.Owner = this;
-            _patternSelectWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            _patternSelectWindow.ShowDialog();
+            PatternSelectWindow patternSelectWindow = new PatternSelectWindow();
+
+            patternSelectWindow.Closing += PatternSelectWindow_Closing;
+            patternSelectWindow.Owner = this;
+            patternSelectWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            patternSelectWindow.ShowDialog();
         }
 
-        private void _patternSelectWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void PatternSelectWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             txtPattern.Text = _pattern.PatternName;
         }
@@ -81,6 +79,11 @@ namespace Lesson
                 btnPreviousHistory.IsEnabled = false;
                 btnNextHistory.IsEnabled = true;
             }
+            else
+            {
+                btnNextHistory.IsEnabled = true;
+                btnPreviousHistory.IsEnabled = true;
+            }
         }
 
         private void BtnNextHistory_Click(object sender, RoutedEventArgs e)
@@ -90,6 +93,11 @@ namespace Lesson
             if (_pattern.CurrentHistory == _pattern.MaxHistory)
             {
                 btnNextHistory.IsEnabled = false;
+                btnPreviousHistory.IsEnabled = true;
+            }
+            else
+            {
+                btnNextHistory.IsEnabled = true;
                 btnPreviousHistory.IsEnabled = true;
             }
         }
@@ -108,7 +116,11 @@ namespace Lesson
                 }
                 else
                 {
-                    MessageBox.Show("1부터 " + _pattern.MaxHistory + "까지의 숫자만 입력해주세요!");
+                    if (_pattern.MaxHistory == 0)
+                        MessageBox.Show("아직 생성된 패턴이 없습니다.");
+                    else
+                        MessageBox.Show("1부터 " + _pattern.MaxHistory + "까지의 숫자만 입력해주세요!");
+
                     textBox.Text = _pattern.CurrentHistory.ToString();
                     return;
                 }
@@ -116,11 +128,17 @@ namespace Lesson
                 if (_pattern.CurrentHistory == 1)
                 {
                     btnPreviousHistory.IsEnabled = false;
-                    btnNextHistory.IsEnabled = true;
+
+                    if (_pattern.MaxHistory > 1) btnNextHistory.IsEnabled = true;
                 }
                 else if (_pattern.CurrentHistory == _pattern.MaxHistory)
                 {
                     btnNextHistory.IsEnabled = false;
+                    btnPreviousHistory.IsEnabled = true;
+                }
+                else
+                {
+                    btnNextHistory.IsEnabled = true;
                     btnPreviousHistory.IsEnabled = true;
                 }
             }

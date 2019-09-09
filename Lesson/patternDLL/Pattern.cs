@@ -25,12 +25,6 @@ namespace lessonLibrary
 
         private int _pattern = 1;
 
-        private string _patternName = string.Empty;
-
-        private string _patternResult = string.Empty;
-
-        private TextAlignment _textAlignment;
-
         private Dictionary<int, IPattern> _patternDic = new Dictionary<int, IPattern>
         {
             { 1, new FirstPattern() },
@@ -42,19 +36,17 @@ namespace lessonLibrary
 
         private List<PatternModel> _patternHistoryList = new List<PatternModel>();
 
-        private int _currentHistory = 1;
-
         private const int _historyMax = 10;
 
-        public int CurrentHistory { get => _currentHistory; }
+        public int CurrentHistory { get; private set; } = 0;
 
         public int MaxHistory { get => _patternHistoryList.Count; }
 
-        public TextAlignment TextAlignment { get => _textAlignment; }
+        public TextAlignment TextAlignment { get; private set; }
 
-        public string PatternName { get => _patternName; }
+        public string PatternName { get; private set; } = string.Empty;
 
-        public string PatternResult { get => _patternResult; }
+        public string PatternResult { get; private set; } = string.Empty;
 
         public bool Create(string printNum)
         {
@@ -65,16 +57,17 @@ namespace lessonLibrary
 
                 PatternModel patternModel = pattern.Create(inputNum);
 
-                _patternResult = patternModel.Content;
-                _textAlignment = patternModel.TextAlignment;
+                PatternResult = patternModel.Content;
+                TextAlignment = patternModel.TextAlignment;
 
-                _currentHistory = 1;
+                CurrentHistory = 1;
 
                 if (_patternHistoryList.Count == _historyMax)
                 {
                     _patternHistoryList.RemoveAt(0);
                 }
-                _patternHistoryList.Add(new PatternModel(patternModel.Content, patternModel.TextAlignment));
+
+                _patternHistoryList.Add(new PatternModel(PatternResult, TextAlignment));
 
                 return true;
             }
@@ -86,7 +79,7 @@ namespace lessonLibrary
             if (!string.IsNullOrEmpty(patternName) && int.TryParse(patternName.Substring(patternName.Length - 1, 1), out int parsedPattern))
             {
                 _pattern = parsedPattern;
-                _patternName = patternName;
+                PatternName = patternName;
                 return true;
             }
             else
@@ -97,19 +90,19 @@ namespace lessonLibrary
 
         public PatternModel GetHistory(int index)
         {
-            _currentHistory = index;
+            CurrentHistory = index;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
 
         public PatternModel GetNextHistory()
         {
-            _currentHistory++;
+            CurrentHistory++;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
 
         public PatternModel GetPreviousHistory()
         {
-            _currentHistory--;
+            CurrentHistory--;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
     }

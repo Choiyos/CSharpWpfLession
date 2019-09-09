@@ -18,16 +18,14 @@ namespace Lesson
 
         private List<TextBlock> _patternTextList = new List<TextBlock>();
 
-        private lessonLibrary.pattern _pattern = lessonLibrary.pattern.Instance;
+        private pattern _pattern = pattern.Instance;
 
         public PatternSelectWindow()
         {
             InitializeComponent();
 
-            // xaml에 새로운 패턴을 만들 때에 Name속성의 Format을 맞춰주어야 누락되지 않음.
             _patternRadioButtonList = myGrid.Children.OfType<RadioButton>().Where(x => x.Name.Contains("rbPattern")).ToList();
             _patternTextList = myGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("txtPattern")).ToList();
-
         }
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
