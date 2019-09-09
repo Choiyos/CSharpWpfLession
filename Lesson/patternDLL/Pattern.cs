@@ -33,48 +33,45 @@ namespace LessonLibrary
 
         public TextAlignment TextAlignment { get; private set; }
 
-        public string PatternName { get; private set; } = string.Empty;
+        public string PatternName { get; private set; } = "Pattern 1";
 
         public string PatternResult { get; private set; } = string.Empty;
 
         public bool Create(string printNum)
         {
-            if (int.TryParse(printNum, out int inputNum)
-            && (inputNum > 0 && inputNum < 101))
+            if (!int.TryParse(printNum, out int inputNum) || (inputNum <= 0 || inputNum >= 101)) return false;
+
+            IPattern pattern = _patternDic[_pattern];
+
+            PatternModel patternModel = pattern.Create(inputNum);
+
+            PatternResult = patternModel.Content;
+            TextAlignment = patternModel.TextAlignment;
+
+            CurrentHistory = 1;
+
+            if (_patternHistoryList.Count == HistoryMax)
             {
-                IPattern pattern = _patternDic[_pattern];
-
-                PatternModel patternModel = pattern.Create(inputNum);
-
-                PatternResult = patternModel.Content;
-                TextAlignment = patternModel.TextAlignment;
-
-                CurrentHistory = 1;
-
-                if (_patternHistoryList.Count == HistoryMax)
-                {
-                    _patternHistoryList.RemoveAt(0);
-                }
-
-                _patternHistoryList.Add(new PatternModel(PatternResult, TextAlignment));
-
-                return true;
+                _patternHistoryList.RemoveAt(0);
             }
-            else return false;
+                
+            _patternHistoryList.Add(new PatternModel(PatternResult, TextAlignment));
+
+            return true;
+
         }
 
         public bool ChangePattern(string patternName)
         {
-            if (!string.IsNullOrEmpty(patternName) && int.TryParse(patternName.Substring(patternName.Length - 1, 1), out int parsedPattern))
+            if (!string.IsNullOrEmpty(patternName) 
+                && int.TryParse(patternName.Substring(patternName.Length - 1, 1), out int parsedPattern))
             {
                 _pattern = parsedPattern;
                 PatternName = patternName;
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public PatternModel GetHistory(int index)
