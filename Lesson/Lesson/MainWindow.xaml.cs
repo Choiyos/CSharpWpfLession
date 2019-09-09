@@ -1,7 +1,8 @@
-using lessonLibrary;
+﻿using lessonLibrary;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using lessonLibrary.Model;
 
 namespace Lesson
 {
@@ -22,10 +23,33 @@ namespace Lesson
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
+            Print();
+        }
+
+        private void TxtbxInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                Print();
+                txtbxInput.SelectAll();
+            }
+        }
+
+        private void Print()
+        {
             if (_pattern.Create(txtbxInput.Text))
             {
                 txtDisplay.Text = _pattern.PatternResult;
                 txtDisplay.TextAlignment = _pattern.TextAlignment;
+
+                if (_pattern.MaxHistory != 1)
+                {
+                    btnNextHistory.IsEnabled = true;
+                    btnPreviousHistory.IsEnabled = false;
+                }
+
+                txtbxHistory.Text = "1";
+                txtMaxHistory.Text = "/ " + _pattern.MaxHistory.ToString();
             }
             else
             {
@@ -102,10 +126,10 @@ namespace Lesson
             }
         }
 
-        private void ApllyPattern(KeyValuePair<string, TextAlignment> pattern)
+        private void ApllyPattern(PatternModel pattern)
         {
-            txtDisplay.Text = pattern.Key;
-            txtDisplay.TextAlignment = pattern.Value;
+            txtDisplay.Text = pattern.Content;
+            txtDisplay.TextAlignment = pattern.TextAlignment;
             txtbxHistory.Text = _pattern.CurrentHistory.ToString();
         }
     }

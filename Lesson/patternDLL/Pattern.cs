@@ -40,7 +40,7 @@ namespace lessonLibrary
             { 5, new FifthPattern() }
         };
 
-        private List<KeyValuePair<string, TextAlignment>> _patternHistoryList = new List<KeyValuePair<string, TextAlignment>>();
+        private List<PatternModel> _patternHistoryList = new List<PatternModel>();
 
         private int _currentHistory = 1;
 
@@ -63,7 +63,7 @@ namespace lessonLibrary
             {
                 IPattern pattern = _patternDic[_pattern];
 
-                PatternModel patternModel = pattern?.Create(inputNum);
+                PatternModel patternModel = pattern.Create(inputNum);
 
                 _patternResult = patternModel.Content;
                 _textAlignment = patternModel.TextAlignment;
@@ -74,7 +74,7 @@ namespace lessonLibrary
                 {
                     _patternHistoryList.RemoveAt(0);
                 }
-                _patternHistoryList.Add(new KeyValuePair<string, TextAlignment>(patternModel.Content, patternModel.TextAlignment));
+                _patternHistoryList.Add(new PatternModel(patternModel.Content, patternModel.TextAlignment));
 
                 return true;
             }
@@ -95,19 +95,19 @@ namespace lessonLibrary
             }
         }
 
-        public KeyValuePair<string, TextAlignment> GetHistory(int index)
+        public PatternModel GetHistory(int index)
         {
             _currentHistory = index;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
 
-        public KeyValuePair<string, TextAlignment> GetNextHistory()
+        public PatternModel GetNextHistory()
         {
             _currentHistory++;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
         }
 
-        public KeyValuePair<string, TextAlignment> GetPreviousHistory()
+        public PatternModel GetPreviousHistory()
         {
             _currentHistory--;
             return _patternHistoryList[_patternHistoryList.Count - CurrentHistory];
