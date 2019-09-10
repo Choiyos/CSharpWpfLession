@@ -4,22 +4,25 @@ using LessonLibrary.Model;
 
 namespace LessonLibrary.Patterns
 {
-    public class FirstPattern : IPattern
+    public class FifthPattern : IPattern
     {
-        public PatternModel Create(int inputNum)
+        public PatternResultModel Create(int inputNum)
         {
             int sum = 0;
 
             string star = string.Empty;
 
+
             for (int i = 1; i <= inputNum; i++)
             {
-                sum += i;
+                sum += inputNum - i;
+                star = star.PadRight(sum, ' ');
+                sum += inputNum - i + 1;
                 star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }
 
-            return new PatternModel(star, TextAlignment.Left);
+            return new PatternResultModel(star, TextAlignment.Left);
         }
     }
 }

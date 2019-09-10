@@ -102,7 +102,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\patternDLL\pattern.csproj">
+    <ProjectReference Include="..\pattern\pattern.csproj">
       <Project>{03a9dfeb-d537-4ac5-89b9-ed9e9f6b5ab1}</Project>
       <Name>pattern</Name>
     </ProjectReference>

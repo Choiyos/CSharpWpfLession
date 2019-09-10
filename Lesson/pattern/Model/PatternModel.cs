@@ -2,12 +2,12 @@
 
 namespace LessonLibrary.Model
 {
-    public class PatternModel
+    public class PatternResultModel
     {
         public TextAlignment TextAlignment { get; }
         public string Content { get; }
 
-        public PatternModel(string content, TextAlignment textAlignment)
+        public PatternResultModel(string content, TextAlignment textAlignment)
         {
             Content = content;
             TextAlignment = textAlignment;

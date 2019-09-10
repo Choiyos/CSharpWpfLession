@@ -4,6 +4,6 @@ namespace LessonLibrary.Interface
 {
     public interface IPattern
     {
-        PatternModel Create(int inputNum);
+        PatternResultModel Create(int inputNum);
     }
 }

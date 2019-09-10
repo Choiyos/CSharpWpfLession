@@ -1,16 +1,18 @@
 ﻿using LessonLibrary;
+using LessonLibrary.Model;
 using System.Windows;
 using System.Windows.Controls;
-using LessonLibrary.Model;
 
 namespace Lesson
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly Pattern _pattern = Pattern.Instance;
+
+        private PatternSelectWindow _patternSelectWindow;
 
         public MainWindow()
         {
@@ -25,7 +27,6 @@ namespace Lesson
         private void TxtbxInput_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key != System.Windows.Input.Key.Enter) return;
-
             Print();
             txtbxInput.SelectAll();
         }
@@ -36,15 +37,13 @@ namespace Lesson
             {
                 txtDisplay.Text = _pattern.PatternResult;
                 txtDisplay.TextAlignment = _pattern.TextAlignment;
-
-                if (_pattern.MaxHistory > 1)
+                if (_pattern.ResultStorageCount > 1)
                 {
-                    btnNextHistory.IsEnabled = true;
-                    btnPreviousHistory.IsEnabled = false;
+                    btnNextResult.IsEnabled = true;
+                    btnPreviousResult.IsEnabled = false;
                 }
-
-                txtbxHistory.Text = "1";
-                txtMaxHistory.Text = "/ " + _pattern.MaxHistory.ToString();
+                txtbxResult.Text = "1";
+                txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount.ToString();
             }
             else
             {
@@ -55,97 +54,98 @@ namespace Lesson
 
         private void BtnPatternShow_Click(object sender, RoutedEventArgs e)
         {
-            PatternSelectWindow patternSelectWindow = new PatternSelectWindow();
-
-            patternSelectWindow.Closing += PatternSelectWindow_Closing;
-            patternSelectWindow.Owner = this;
-            patternSelectWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            patternSelectWindow.ShowDialog();
-        }
-
-        private void PatternSelectWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            txtPattern.Text = _pattern.PatternName;
-        }
-
-        private void BtnPreviousHistory_Click(object sender, RoutedEventArgs e)
-        {
-            ApllyPattern(_pattern.GetPreviousHistory());
-
-            if (_pattern.CurrentHistory == 1)
+            if (_patternSelectWindow != null) return;
+            _patternSelectWindow = new PatternSelectWindow
             {
-                btnPreviousHistory.IsEnabled = false;
-                btnNextHistory.IsEnabled = true;
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            _patternSelectWindow.OnChildSelectPatternEvent += (o, s) =>
+            {
+                txtPattern.Text = s;
+                _patternSelectWindow = null;
+            };
+            _patternSelectWindow.Closing += (o, args) =>
+            {
+                _patternSelectWindow = null;
+            };
+            _patternSelectWindow.ShowDialog();
+        }
+
+        private void BtnPreviousResult_Click(object sender, RoutedEventArgs e)
+        {
+            ApllyPattern(_pattern.GetPreviousResult());
+            if (_pattern.ResultStorageOffset == 1)
+            {
+                btnPreviousResult.IsEnabled = false;
+                btnNextResult.IsEnabled = true;
             }
             else
             {
-                btnNextHistory.IsEnabled = true;
-                btnPreviousHistory.IsEnabled = true;
+                btnNextResult.IsEnabled = true;
+                btnPreviousResult.IsEnabled = true;
             }
         }
 
-        private void BtnNextHistory_Click(object sender, RoutedEventArgs e)
+        private void BtnNextResult_Click(object sender, RoutedEventArgs e)
         {
-            ApllyPattern(_pattern.GetNextHistory());
-
-            if (_pattern.CurrentHistory == _pattern.MaxHistory)
+            ApllyPattern(_pattern.GetNextResult());
+            if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
             {
-                btnNextHistory.IsEnabled = false;
-                btnPreviousHistory.IsEnabled = true;
+                btnNextResult.IsEnabled = false;
+                btnPreviousResult.IsEnabled = true;
             }
             else
             {
-                btnNextHistory.IsEnabled = true;
-                btnPreviousHistory.IsEnabled = true;
+                btnNextResult.IsEnabled = true;
+                btnPreviousResult.IsEnabled = true;
             }
         }
 
-        private void TxtbxHistory_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TxtbxResult_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key != System.Windows.Input.Key.Enter) return;
-
-            TextBox textBox = (TextBox)sender;
-
-            if (int.TryParse(textBox.Text, out int historyNum)
-                && historyNum > 0 && historyNum <= _pattern.MaxHistory)
+            var textBox = (TextBox)sender;
+            if (int.TryParse(textBox.Text, out var offset)
+                && offset > 0 && offset <= _pattern.ResultStorageCount)
             {
-                ApllyPattern(_pattern.GetHistory(historyNum));
+                ApllyPattern(_pattern.GetResult(offset));
                 textBox.SelectAll();
             }
             else
             {
-                if (_pattern.MaxHistory == 0)
+                if (_pattern.ResultStorageCount == 0)
                     MessageBox.Show("아직 생성된 패턴이 없습니다.");
                 else
-                    MessageBox.Show("1부터 " + _pattern.MaxHistory + "까지의 숫자만 입력해주세요!");
+                    MessageBox.Show("1부터 " + _pattern.ResultStorageCount + "까지의 숫자만 입력해주세요!");
 
-                textBox.Text = _pattern.CurrentHistory.ToString();
+                textBox.Text = _pattern.ResultStorageOffset.ToString();
                 return;
             }
 
-            if (_pattern.CurrentHistory == 1)
+            if (_pattern.ResultStorageOffset == 1)
             {
-                btnPreviousHistory.IsEnabled = false;
+                btnPreviousResult.IsEnabled = false;
 
-                if (_pattern.MaxHistory > 1) btnNextHistory.IsEnabled = true;
+                if (_pattern.ResultStorageCount > 1) btnNextResult.IsEnabled = true;
             }
-            else if (_pattern.CurrentHistory == _pattern.MaxHistory)
+            else if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
             {
-                btnNextHistory.IsEnabled = false;
-                btnPreviousHistory.IsEnabled = true;
+                btnNextResult.IsEnabled = false;
+                btnPreviousResult.IsEnabled = true;
             }
             else
             {
-                btnNextHistory.IsEnabled = true;
-                btnPreviousHistory.IsEnabled = true;
+                btnNextResult.IsEnabled = true;
+                btnPreviousResult.IsEnabled = true;
             }
         }
 
-        private void ApllyPattern(PatternModel pattern)
+        private void ApllyPattern(PatternResultModel pattern)
         {
             txtDisplay.Text = pattern.Content;
             txtDisplay.TextAlignment = pattern.TextAlignment;
-            txtbxHistory.Text = _pattern.CurrentHistory.ToString();
+            txtbxResult.Text = _pattern.ResultStorageOffset.ToString();
         }
     }
 }
