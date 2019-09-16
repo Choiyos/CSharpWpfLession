@@ -102,9 +102,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\pattern\pattern.csproj">
+    <ProjectReference Include="..\pattern\Pattern.csproj">
       <Project>{03a9dfeb-d537-4ac5-89b9-ed9e9f6b5ab1}</Project>
-      <Name>pattern</Name>
+      <Name>Pattern</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

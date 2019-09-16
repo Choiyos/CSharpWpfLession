@@ -44,7 +44,7 @@ namespace LessonLibrary
 
         public bool Create(string input)
         {
-            if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > Pattern.MaxLineInputNum))
+            if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > MaxLineInputNum))
             {
                 MessageBox.Show("1부터 " + MaxLineInputNum + "까지의 숫자만 입력해주세요!");
                 return false;

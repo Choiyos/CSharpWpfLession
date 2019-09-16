@@ -13,16 +13,24 @@ namespace Lesson
     /// </summary>
     public partial class PatternSelectWindow
     {
-        // 현재 선택되어있는 라디오 버튼 저장용.
+        /// <summary>
+        /// 현재 선택되어있는 라디오 버튼 저장용. 
+        /// </summary>
         private RadioButton _currentRadioButton;
 
-        // 패턴 선택 창에 있는 모든 라디오버튼을 저장하기 위한 리스트.
-        private readonly List<RadioButton> _patternRadioButtons;
+        /// <summary>
+        /// 패턴 선택 창에 있는 모든 라디오버튼을 저장하기 위한 리스트. 
+        /// </summary>
+        private List<RadioButton> _patternRadioButtons;
 
-        // 텍스트블록 클릭시 이름을 통해 라디오버튼의 순서를 반환하기 위한 맵.
+        /// <summary>
+        /// 텍스트블록 클릭시 이름을 통해 라디오버튼의 순서를 반환하기 위한 맵. 
+        /// </summary>
         private readonly Dictionary<string, int> _radioButtonIndexes = new Dictionary<string, int>();
 
-        // 패턴 라이브러리의 인스턴스.
+        /// <summary>
+        /// 패턴 라이브러리의 인스턴스. 
+        /// </summary>
         private readonly Pattern _pattern = Pattern.Instance;
 
         public event EventHandler<string> OnChildSelectPatternEvent;
@@ -31,11 +39,16 @@ namespace Lesson
         {
             InitializeComponent();
 
+            InitButtonList();
+        }
+
+        private void InitButtonList()
+        {
             // 패턴 선택 창에서 라디오버튼과 텍스트블록의 네이밍 규칙을 미리 정했다는 것을 전제로, 컨트롤 네임을 통해 리스트에 대입한다.
             _patternRadioButtons = myGrid.Children.OfType<RadioButton>().Where(x => x.Name.Contains("rbPattern")).ToList();
             var patternTextList = myGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("txtPattern")).ToList();
 
-            // 패턴 텍스트 네임을 딕셔너리에 넣고 네임을 Key로 주면 Rb의 인덱스로 사용할 수 있도록 입력.
+            // 패턴 텍스트 네임을 딕셔너리에 넣고 네임을 Key로 주면 RadioButton의 인덱스로 사용할 수 있도록 입력.
             for (var i = 0; i < patternTextList.Count; i++)
             {
                 _radioButtonIndexes[patternTextList[i].Name] = i;
@@ -64,7 +77,9 @@ namespace Lesson
         private void TxtPattern_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // 라디오버튼 리스트의 인덱스로 텍스트 네임이 Key인 딕셔너리를 이용해 순서값 반환.
-            var radioButton = _patternRadioButtons[_radioButtonIndexes[((TextBlock)sender).Name]];
+            var textBlockName = ((TextBlock)sender).Name;
+            var radioButtonIndex = _radioButtonIndexes[textBlockName];
+            var radioButton = _patternRadioButtons[radioButtonIndex];
 
             radioButton.IsChecked = true;
             _currentRadioButton = radioButton;

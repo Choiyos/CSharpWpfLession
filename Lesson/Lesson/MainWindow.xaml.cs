@@ -25,8 +25,10 @@ namespace Lesson
 
         private readonly string skipText = "\n.\n.\n.\n";
 
-        // 현재 : 세 번째 별까지 출력
-        private const int StartOutputLineNum = 8;
+        /// <summary>
+        /// 처음부터 N 번째 별까지 출력 
+        /// </summary>
+        private const int StartOutputLineNum = 3;
 
         public MainWindow()
         {
@@ -176,20 +178,16 @@ namespace Lesson
 
         private void SplitOutput(string output)
         {
+            var suffixMatch = Regex.Matches(output, "\n\n");
+            var prefixStartIndex = suffixMatch[StartOutputLineNum - 1].Index;
+            var suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
+            _prefixOutput = output.Substring(0, prefixStartIndex+1);
+            _suffixOutput = output.Substring(suffixStartIndex, length: output.Length - suffixStartIndex);
+
             // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화
             btnShowOrHide.Content = "Show All";
             btnShowOrHide.Visibility = Visibility.Visible;
             _totalOutput = output;
-
-            int prefixStartIndex = Regex.Matches(output, "\n")[StartOutputLineNum].Index;
-
-            _prefixOutput = output.Substring(0, length: prefixStartIndex);
-
-            MatchCollection suffixMatch = Regex.Matches(output, "\n\n");
-
-            int suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
-
-            _suffixOutput = output.Substring(suffixStartIndex, length: output.Length - suffixStartIndex);
         }
 
         private void BtnShowOrHide_OnClick(object sender, RoutedEventArgs e)
