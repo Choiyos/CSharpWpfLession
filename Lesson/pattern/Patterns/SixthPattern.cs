@@ -12,6 +12,8 @@ namespace LessonLibrary.Patterns
 
             string star = string.Empty;
 
+            int lineCount = 0;
+
             for (int i = 1; i <= inputNum; i++)
             {
                 for (int k = 1; k <= i; k++)
@@ -19,11 +21,13 @@ namespace LessonLibrary.Patterns
                     sum += k;
                     star = star.PadRight(sum, '*') + "\n";
                     sum++;
+                    lineCount++;
                 }
                 star += "\n";
                 sum++;
+                lineCount++;
             }
-            return new PatternResultModel(star, TextAlignment.Left);
+            return new PatternResultModel(star, TextAlignment.Left, lineCount);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using LessonLibrary.Interface;
 using LessonLibrary.Model;
@@ -35,35 +36,33 @@ namespace LessonLibrary
 
         public int ResultStorageCount => _resultStorage.Count;
 
-        public TextAlignment TextAlignment { get; private set; }
-
         public string PatternName { get; private set; }
 
-        public string PatternResult { get; private set; } = string.Empty;
+        public PatternResultModel CurrentResult { get; private set; }
 
-        public bool Create(string printNum)
+        public const int MaxLineInputNum = 100;
+
+        public bool Create(string input)
         {
-            if (!TryParse(printNum, out int inputNum) || (inputNum <= 0 || inputNum >= 101)) return false;
-
+            if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > Pattern.MaxLineInputNum))
+            {
+                MessageBox.Show("1부터 " + MaxLineInputNum + "까지의 숫자만 입력해주세요!");
+                return false;
+            }
             var pattern = _patternStorage[_patternIndex];
 
-            var resultModel = pattern?.Create(inputNum);
+            CurrentResult = pattern?.Create(inputNum);
 
-            if (resultModel != null)
+            if (String.IsNullOrEmpty(CurrentResult?.Output)) return false;
+
+            ResultStorageOffset = 1;
+
+            if (_resultStorage.Count == MaxStorageCapacity)
             {
-                PatternResult = resultModel.Content;
-                TextAlignment = resultModel.TextAlignment;
-
-                ResultStorageOffset = 1;
-
-                if (_resultStorage.Count == MaxStorageCapacity)
-                {
-                    _resultStorage.RemoveAt(0);
-                }
-
-                _resultStorage.Add(new PatternResultModel(PatternResult, TextAlignment));
+                _resultStorage.RemoveAt(0);
             }
 
+            _resultStorage.Add(CurrentResult);
             return true;
         }
 
@@ -71,6 +70,7 @@ namespace LessonLibrary
         {
             if (string.IsNullOrEmpty(patternName) || !TryParse(patternName.Substring(patternName.Length - 1, 1),
                     out var parsedPatternIndex)) return false;
+
             _patternIndex = parsedPatternIndex;
             PatternName = patternName;
             return true;
@@ -93,8 +93,7 @@ namespace LessonLibrary
         /// <returns></returns>
         public PatternResultModel GetNextResult()
         {
-            ResultStorageOffset++;
-            return _resultStorage[_resultStorage.Count - ResultStorageOffset];
+            return _resultStorage[_resultStorage.Count - (++ResultStorageOffset)];
         }
 
         /// <summary>
@@ -103,8 +102,7 @@ namespace LessonLibrary
         /// <returns></returns>
         public PatternResultModel GetPreviousResult()
         {
-            ResultStorageOffset--;
-            return _resultStorage[_resultStorage.Count - ResultStorageOffset];
+            return _resultStorage[_resultStorage.Count - (--ResultStorageOffset)];
         }
     }
 }

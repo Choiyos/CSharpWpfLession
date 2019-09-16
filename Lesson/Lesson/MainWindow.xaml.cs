@@ -1,8 +1,10 @@
-﻿using System;
-using LessonLibrary;
+﻿using LessonLibrary;
 using LessonLibrary.Model;
+using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using static System.Int32;
 
 namespace Lesson
 {
@@ -14,6 +16,17 @@ namespace Lesson
         private readonly Pattern _pattern = Pattern.Instance;
 
         private PatternSelectWindow _patternSelectWindow;
+
+        private string _totalOutput = String.Empty;
+
+        private string _prefixOutput = String.Empty;
+
+        private string _suffixOutput = String.Empty;
+
+        private readonly string skipText = "\n.\n.\n.\n";
+
+        // 현재 : 세 번째 별까지 출력
+        private const int StartOutputLineNum = 8;
 
         public MainWindow()
         {
@@ -36,21 +49,20 @@ namespace Lesson
         {
             if (_pattern.Create(txtbxInput.Text))
             {
-                if (_pattern.PatternResult == String.Empty) return;
-                txtDisplay.Text = _pattern.PatternResult;
-                txtDisplay.TextAlignment = _pattern.TextAlignment;
+                ApllyPattern(_pattern.CurrentResult);
+
                 if (_pattern.ResultStorageCount > 1)
                 {
                     btnNextResult.IsEnabled = true;
                     btnPreviousResult.IsEnabled = false;
                 }
+
                 txtbxResult.Text = "1";
                 txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount.ToString();
             }
             else
             {
                 txtbxInput.Text = "1";
-                MessageBox.Show("1부터 100까지의 숫자만 입력 가능합니다.");
             }
         }
 
@@ -108,7 +120,7 @@ namespace Lesson
         {
             if (e.Key != System.Windows.Input.Key.Enter) return;
             var textBox = (TextBox)sender;
-            if (int.TryParse(textBox.Text, out var offset)
+            if (TryParse(textBox.Text, out var offset)
                 && offset > 0 && offset <= _pattern.ResultStorageCount)
             {
                 ApllyPattern(_pattern.GetResult(offset));
@@ -143,11 +155,55 @@ namespace Lesson
             }
         }
 
-        private void ApllyPattern(PatternResultModel pattern)
+        private void ApllyPattern(PatternResultModel result)
         {
-            txtDisplay.Text = pattern.Content;
-            txtDisplay.TextAlignment = pattern.TextAlignment;
+            if (result.Lines > Pattern.MaxLineInputNum * 2)
+            {
+                SplitOutput(result.Output);
+                txtDisplay.Text = _prefixOutput + skipText + _suffixOutput;
+                txtDisplay.TextAlignment = result.TextAlignment;
+            }
+            else
+            {
+                btnShowOrHide.Visibility = Visibility.Hidden;
+                btnShowOrHide.Content = "Show All";
+                txtDisplay.Text = result.Output;
+                txtDisplay.TextAlignment = result.TextAlignment;
+            }
+
             txtbxResult.Text = _pattern.ResultStorageOffset.ToString();
+        }
+
+        private void SplitOutput(string output)
+        {
+            // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화
+            btnShowOrHide.Content = "Show All";
+            btnShowOrHide.Visibility = Visibility.Visible;
+            _totalOutput = output;
+
+            int prefixStartIndex = Regex.Matches(output, "\n")[StartOutputLineNum].Index;
+
+            _prefixOutput = output.Substring(0, length: prefixStartIndex);
+
+            MatchCollection suffixMatch = Regex.Matches(output, "\n\n");
+
+            int suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
+
+            _suffixOutput = output.Substring(suffixStartIndex, length: output.Length - suffixStartIndex);
+        }
+
+        private void BtnShowOrHide_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (btnShowOrHide.Content.ToString() == "Show All")
+            {
+                btnShowOrHide.Content = "Hide";
+                txtDisplay.Text = _totalOutput;
+            }
+            else
+            {
+                btnShowOrHide.Content = "Show All";
+                txtDisplay.Text = _prefixOutput + skipText + _suffixOutput;
+            }
         }
     }
 }

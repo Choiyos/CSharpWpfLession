@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using LessonLibrary.Interface;
 using LessonLibrary.Model;
 
@@ -32,7 +33,7 @@ namespace LessonLibrary.Patterns
             {
                 // 입력값이 짝수이므로 취소.
                 MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
-                return null;
+                return new PatternResultModel(String.Empty, TextAlignment.Center);
             }
 
             return new PatternResultModel(star, TextAlignment.Center);
