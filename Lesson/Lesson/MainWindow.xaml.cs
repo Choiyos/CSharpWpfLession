@@ -1,4 +1,5 @@
-﻿using LessonLibrary;
+﻿using System;
+using LessonLibrary;
 using LessonLibrary.Model;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +36,7 @@ namespace Lesson
         {
             if (_pattern.Create(txtbxInput.Text))
             {
+                if (_pattern.PatternResult == String.Empty) return;
                 txtDisplay.Text = _pattern.PatternResult;
                 txtDisplay.TextAlignment = _pattern.TextAlignment;
                 if (_pattern.ResultStorageCount > 1)

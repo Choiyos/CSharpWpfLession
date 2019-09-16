@@ -32,7 +32,7 @@ namespace LessonLibrary.Patterns
             {
                 // 입력값이 짝수이므로 취소.
                 MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
-                return new PatternResultModel(string.Empty, TextAlignment.Center);
+                return null;
             }
 
             return new PatternResultModel(star, TextAlignment.Center);

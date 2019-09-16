@@ -46,19 +46,22 @@ namespace LessonLibrary
 
             var pattern = _patternStorage[_patternIndex];
 
-            var resultModel = pattern.Create(inputNum);
+            var resultModel = pattern?.Create(inputNum);
 
-            PatternResult = resultModel.Content;
-            TextAlignment = resultModel.TextAlignment;
-
-            ResultStorageOffset = 1;
-
-            if (_resultStorage.Count == MaxStorageCapacity)
+            if (resultModel != null)
             {
-                _resultStorage.RemoveAt(0);
-            }
+                PatternResult = resultModel.Content;
+                TextAlignment = resultModel.TextAlignment;
 
-            _resultStorage.Add(new PatternResultModel(PatternResult, TextAlignment));
+                ResultStorageOffset = 1;
+
+                if (_resultStorage.Count == MaxStorageCapacity)
+                {
+                    _resultStorage.RemoveAt(0);
+                }
+
+                _resultStorage.Add(new PatternResultModel(PatternResult, TextAlignment));
+            }
 
             return true;
         }
