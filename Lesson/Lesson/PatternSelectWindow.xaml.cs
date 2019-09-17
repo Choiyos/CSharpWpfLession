@@ -50,9 +50,7 @@ namespace Lesson
 
             // 패턴 텍스트 네임을 딕셔너리에 넣고 네임을 Key로 주면 RadioButton의 인덱스로 사용할 수 있도록 입력.
             for (var i = 0; i < patternTextList.Count; i++)
-            {
                 _radioButtonIndexes[patternTextList[i].Name] = i;
-            }
         }
 
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)

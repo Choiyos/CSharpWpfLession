@@ -25,7 +25,8 @@ namespace LessonLibrary
             { 3, new ThirdPattern() },
             { 4, new FourthPattern() },
             { 5, new FifthPattern() },
-            { 6, new SixthPattern() }
+            { 6, new SixthPattern() },
+            { 7, new SeventhPattern()}
         };
 
         private readonly List<PatternResultModel> _resultStorage = new List<PatternResultModel>();

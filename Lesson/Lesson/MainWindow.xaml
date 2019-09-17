@@ -34,8 +34,8 @@
         <Button x:Name="btnNextResult" Grid.Column="2" Grid.Row="2" Click="BtnNextResult_Click" IsEnabled="False" Width="20" Height="20" Content="&gt;" Margin="30,0,0,0"  />
 
 
-        <ScrollViewer x:Name="scrollViewer" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="0" HorizontalScrollBarVisibility="Auto">
-            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center"  ></TextBlock>
+        <ScrollViewer x:Name="scrollViewer" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="0" HorizontalScrollBarVisibility="Auto" FontFamily="Consolas">
+            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </ScrollViewer>
 
         <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" Margin="0,0,20,0" />
