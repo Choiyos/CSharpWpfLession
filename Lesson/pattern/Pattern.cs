@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using LessonLibrary.Interface;
+﻿using LessonLibrary.Interface;
 using LessonLibrary.Model;
 using LessonLibrary.Patterns;
+using System;
+using System.Collections.Generic;
+using System.Windows;
 using static System.Int32;
 
 namespace LessonLibrary
@@ -43,6 +43,10 @@ namespace LessonLibrary
 
         public const int MaxLineInputNum = 100;
 
+        public string FoldedOutput { get; private set; }
+
+        public string UnfoldedOutput { get; private set; }
+
         public bool Create(string input)
         {
             if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > MaxLineInputNum))
@@ -69,7 +73,7 @@ namespace LessonLibrary
 
         public bool ChangePattern(string patternName)
         {
-            if (string.IsNullOrEmpty(patternName) || !TryParse(patternName.Substring(patternName.Length - 1, 1),
+            if (String.IsNullOrEmpty(patternName) || !TryParse(patternName.Substring(patternName.Length - 1, 1),
                     out var parsedPatternIndex)) return false;
 
             _patternIndex = parsedPatternIndex;
@@ -104,6 +108,12 @@ namespace LessonLibrary
         public PatternResultModel GetPreviousResult()
         {
             return _resultStorage[_resultStorage.Count - (--ResultStorageOffset)];
+        }
+
+        public void FoldOutput(PatternResultModel model)
+        {
+            FoldedOutput = model.Pattern.Fold(model.Output);
+            UnfoldedOutput = model.Output;
         }
     }
 }

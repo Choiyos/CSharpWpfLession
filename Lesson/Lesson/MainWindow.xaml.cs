@@ -1,7 +1,5 @@
 ﻿using LessonLibrary;
 using LessonLibrary.Model;
-using System;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using static System.Int32;
@@ -16,19 +14,6 @@ namespace Lesson
         private readonly Pattern _pattern = Pattern.Instance;
 
         private PatternSelectWindow _patternSelectWindow;
-
-        private string _totalOutput = String.Empty;
-
-        private string _prefixOutput = String.Empty;
-
-        private string _suffixOutput = String.Empty;
-
-        private readonly string skipText = "\n.\n.\n.\n";
-
-        /// <summary>
-        /// 처음부터 N 번째 별까지 출력 
-        /// </summary>
-        private const int StartOutputLineNum = 3;
 
         public MainWindow()
         {
@@ -51,7 +36,7 @@ namespace Lesson
         {
             if (_pattern.Create(txtbxInput.Text))
             {
-                ApllyPattern(_pattern.CurrentResult);
+                Aplly(_pattern.CurrentResult);
 
                 if (_pattern.ResultStorageCount > 1)
                 {
@@ -90,7 +75,7 @@ namespace Lesson
 
         private void BtnPreviousResult_Click(object sender, RoutedEventArgs e)
         {
-            ApllyPattern(_pattern.GetPreviousResult());
+            Aplly(_pattern.GetPreviousResult());
             if (_pattern.ResultStorageOffset == 1)
             {
                 btnPreviousResult.IsEnabled = false;
@@ -105,7 +90,7 @@ namespace Lesson
 
         private void BtnNextResult_Click(object sender, RoutedEventArgs e)
         {
-            ApllyPattern(_pattern.GetNextResult());
+            Aplly(_pattern.GetNextResult());
             if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
             {
                 btnNextResult.IsEnabled = false;
@@ -125,7 +110,7 @@ namespace Lesson
             if (TryParse(textBox.Text, out var offset)
                 && offset > 0 && offset <= _pattern.ResultStorageCount)
             {
-                ApllyPattern(_pattern.GetResult(offset));
+                Aplly(_pattern.GetResult(offset));
                 textBox.SelectAll();
             }
             else
@@ -157,12 +142,23 @@ namespace Lesson
             }
         }
 
-        private void ApllyPattern(PatternResultModel result)
+        /// <summary>
+        /// Print나 Storage의 출력값을 적용하기 위해 호출되는 함수.
+        /// 출력 값이 너무 길 경우 해당 패턴에 축약함수가 있는경우 축약함수를 호출해 축약된 값으로 적용시킨다.
+        /// </summary>
+        /// <param name="result">TextBlock에 적용해야할 결괏값.</param>
+        private void Aplly(PatternResultModel result)
         {
+            // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
             if (result.Lines > Pattern.MaxLineInputNum * 2)
             {
-                SplitOutput(result.Output);
-                txtDisplay.Text = _prefixOutput + skipText + _suffixOutput;
+                _pattern.FoldOutput(result);
+
+                // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화.
+                btnShowOrHide.Content = "Show All";
+                btnShowOrHide.Visibility = Visibility.Visible;
+
+                txtDisplay.Text = _pattern.FoldedOutput;
                 txtDisplay.TextAlignment = result.TextAlignment;
             }
             else
@@ -176,31 +172,17 @@ namespace Lesson
             txtbxResult.Text = _pattern.ResultStorageOffset.ToString();
         }
 
-        private void SplitOutput(string output)
-        {
-            var suffixMatch = Regex.Matches(output, "\n\n");
-            var prefixStartIndex = suffixMatch[StartOutputLineNum - 1].Index;
-            var suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
-            _prefixOutput = output.Substring(0, prefixStartIndex+1);
-            _suffixOutput = output.Substring(suffixStartIndex, length: output.Length - suffixStartIndex);
-
-            // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화
-            btnShowOrHide.Content = "Show All";
-            btnShowOrHide.Visibility = Visibility.Visible;
-            _totalOutput = output;
-        }
-
         private void BtnShowOrHide_OnClick(object sender, RoutedEventArgs e)
         {
             if (btnShowOrHide.Content.ToString() == "Show All")
             {
-                btnShowOrHide.Content = "Hide";
-                txtDisplay.Text = _totalOutput;
+                btnShowOrHide.Content = "Fold";
+                txtDisplay.Text = _pattern.UnfoldedOutput;
             }
             else
             {
                 btnShowOrHide.Content = "Show All";
-                txtDisplay.Text = _prefixOutput + skipText + _suffixOutput;
+                txtDisplay.Text = _pattern.FoldedOutput;
             }
         }
     }

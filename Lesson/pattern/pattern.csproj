@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IFoldable.cs" />
     <Compile Include="Interface\IPattern.cs" />
     <Compile Include="Model\PatternModel.cs" />
     <Compile Include="Pattern.cs" />

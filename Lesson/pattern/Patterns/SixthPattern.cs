@@ -1,10 +1,11 @@
-﻿using LessonLibrary.Interface;
+﻿using System.Text.RegularExpressions;
+using LessonLibrary.Interface;
 using LessonLibrary.Model;
 using System.Windows;
 
 namespace LessonLibrary.Patterns
 {
-    public class SixthPattern : IPattern
+    public class SixthPattern : IPattern, IFoldable
     {
         public PatternResultModel Create(int inputNum)
         {
@@ -27,7 +28,18 @@ namespace LessonLibrary.Patterns
                 sum++;
                 lineCount++;
             }
-            return new PatternResultModel(star, TextAlignment.Left, lineCount);
+            return new PatternResultModel(star, TextAlignment.Left, lineCount, this);
+        }
+
+        public string Fold(string message)
+        {
+            var suffixMatch = Regex.Matches(message, "\n\n");
+            var prefixStartIndex = suffixMatch[3 - 1].Index;
+            var suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
+            var prefixOutput = message.Substring(0, prefixStartIndex + 1);
+            var suffixOutput = message.Substring(suffixStartIndex, length: message.Length - suffixStartIndex);
+
+            return prefixOutput + "\n.\n.\n.\n" + suffixOutput;
         }
     }
 }
