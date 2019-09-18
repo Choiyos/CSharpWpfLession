@@ -22,11 +22,11 @@
         </Grid.RowDefinitions>
         <TextBlock   Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">How many lines?</TextBlock>
         <TextBox x:Name="txtbxInput" Grid.Row="0" Grid.Column="1" KeyDown="TxtbxInput_KeyDown" TextAlignment="Center" HorizontalAlignment="Center" Height="23" Text="1" VerticalAlignment="Center" Width="25" />
-        <Button  x:Name="btnShow" Grid.Row="0" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnShow_Click" >Print</Button>
+        <Button  x:Name="btnShow" Grid.Row="0" Grid.Column="2" Width="50" Height="30" HorizontalAlignment="Center" Click="BtnShow_Click" >Print</Button>
 
         <TextBlock  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">What Pattern?</TextBlock>
         <TextBlock x:Name="txtPattern" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="23" Text="Pattern 1" VerticalAlignment="Center" Width="50" TextAlignment="Center" />
-        <Button  x:Name="btnPatternShow" Grid.Row="1" Grid.Column="2" Width="40" Height="20" HorizontalAlignment="Center" Click="BtnPatternShow_Click"  >Select</Button>
+        <Button  x:Name="btnPatternShow" Grid.Row="1" Grid.Column="2" Width="50" Height="30" HorizontalAlignment="Center" Click="BtnPatternShow_Click"  >Change</Button>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Results" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="txtbxResult" Grid.Column="1" Grid.Row="2" KeyDown="TxtbxResult_KeyDown" Width="25" Height="23" TextAlignment="Center" Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,30,0"/>

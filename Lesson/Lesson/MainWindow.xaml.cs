@@ -11,8 +11,14 @@ namespace Lesson
     /// </summary>
     public partial class MainWindow
     {
+        /// <summary>
+        /// 패턴 라이브러리의 인스턴스. 
+        /// </summary>
         private readonly Pattern _pattern = Pattern.Instance;
 
+        /// <summary>
+        /// 패턴 변경 버튼을 누르면 띄워질 자식 윈도우
+        /// </summary>
         private PatternSelectWindow _patternSelectWindow;
 
         public MainWindow()
@@ -32,6 +38,9 @@ namespace Lesson
             txtbxInput.SelectAll();
         }
 
+        /// <summary>
+        /// 텍스트박스에 입력된 숫자만큼 별을 출력한다.
+        /// </summary>
         private void Print()
         {
             if (_pattern.Create(txtbxInput.Text))
@@ -143,8 +152,8 @@ namespace Lesson
         }
 
         /// <summary>
-        /// Print나 Storage의 출력값을 적용하기 위해 호출되는 함수.
-        /// 출력 값이 너무 길 경우 해당 패턴에 축약함수가 있는경우 축약함수를 호출해 축약된 값으로 적용시킨다.
+        /// Print나 Storage의 출력값을 적용한다.
+        /// 출력 값이 너무 길 경우 해당 패턴에 요약함수가 있을 때 요약함수를 호출한다.
         /// </summary>
         /// <param name="result">TextBlock에 적용해야할 결괏값.</param>
         private void Aplly(PatternResultModel result)

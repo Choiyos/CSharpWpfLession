@@ -9,9 +9,7 @@ namespace LessonLibrary.Patterns
         public PatternResultModel Create(int inputNum)
         {
             int sum = 0;
-
             string star = string.Empty;
-
 
             for (int i = 1; i <= inputNum; i++)
             {
@@ -21,7 +19,6 @@ namespace LessonLibrary.Patterns
                 star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }
-
             return new PatternResultModel(star, TextAlignment.Left);
         }
     }

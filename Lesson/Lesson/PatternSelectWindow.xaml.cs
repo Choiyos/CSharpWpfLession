@@ -38,7 +38,6 @@ namespace Lesson
         public PatternSelectWindow()
         {
             InitializeComponent();
-
             InitButtonList();
         }
 
