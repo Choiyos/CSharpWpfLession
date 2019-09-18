@@ -158,7 +158,7 @@ namespace LessonLibrary
         /// <param name="model">출력 예정인 결과.</param>
         public void FoldOutput(PatternResultModel model)
         {
-            FoldedOutput = model.Pattern.Fold(model.Output);
+            FoldedOutput = model.Pattern.GetFoldedOutput(model.Output);
             UnfoldedOutput = model.Output;
         }
     }

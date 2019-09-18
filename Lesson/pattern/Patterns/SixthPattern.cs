@@ -31,7 +31,7 @@ namespace LessonLibrary.Patterns
             return new PatternResultModel(star, TextAlignment.Left, lineCount, this);
         }
 
-        public string Fold(string message)
+        public string GetFoldedOutput(string message)
         {
             var suffixMatch = Regex.Matches(message, "\n\n");
             var prefixStartIndex = suffixMatch[3 - 1].Index;
