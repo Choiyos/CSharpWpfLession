@@ -4,7 +4,6 @@ using LessonLibrary.Patterns;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows;
 using static System.Int32;
 
 namespace LessonLibrary

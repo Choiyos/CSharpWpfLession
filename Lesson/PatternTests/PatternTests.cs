@@ -112,7 +112,7 @@ namespace LessonLibrary.Patterns.Tests
         #region 패턴 생성 실패 테스트
 
         [TestMethod()]
-        public void CreateInvalidTest1()
+        public void CreateInvalidTest_InputString()
         {
             // Arrange
             var invalidResult = PatternResult.InvalidValue;
@@ -125,7 +125,7 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void CreateInvalidTest2()
+        public void CreateInvalidTest_OutOfNum()
         {
             // Arrange
             var invalidResult = PatternResult.InvalidValue;
@@ -138,7 +138,7 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void CreateInvalidTest3()
+        public void CreateInvalidTest_InputEven()
         {
             // Arrange
             Pattern.Instance.ChangePattern("Pattern 3");
@@ -250,7 +250,7 @@ namespace LessonLibrary.Patterns.Tests
 
         #region 패턴 변경 실패 테스트
         [TestMethod()]
-        public void ChangePatternTest2()
+        public void ChangePatternTest_NoPatternNum()
         {
             // Arrange
             var invalidResult = false;
@@ -263,7 +263,7 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void ChangePatternTest3()
+        public void ChangePatternTest_OutOfPatternNum()
         {
             // Arrange
             var invalidResult = false;
@@ -329,7 +329,7 @@ namespace LessonLibrary.Patterns.Tests
 
         #region 결과 요약 테스트
         [TestMethod()]
-        public void FoldOutputTest()
+        public void FoldOutputTest_FoldedResult()
         {
             // Arrange
             var validResult_접힌결과 =
@@ -345,7 +345,7 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void FoldOutputTest2()
+        public void FoldOutputTest_UnfoldedResult()
         {
             // Arrange
             var validResult_안접힌결과 =
