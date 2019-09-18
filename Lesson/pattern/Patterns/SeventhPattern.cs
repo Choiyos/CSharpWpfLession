@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace LessonLibrary.Patterns
 {
-    class SeventhPattern : IPattern, IFoldable
+    public class SeventhPattern : IPattern, IFoldable
     {
         public PatternResultModel Create(int inputNum)
         {
