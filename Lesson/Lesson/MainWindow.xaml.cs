@@ -45,7 +45,7 @@ namespace Lesson
         {
             if (_pattern.Create(txtbxInput.Text))
             {
-                ApllyResult(_pattern.CurrentResult);
+                ApplyResult(_pattern.CurrentResult);
 
                 if (_pattern.ResultStorageCount > 1)
                 {
@@ -84,7 +84,7 @@ namespace Lesson
 
         private void BtnPreviousResult_Click(object sender, RoutedEventArgs e)
         {
-            ApllyResult(_pattern.GetPreviousResult());
+            ApplyResult(_pattern.GetPreviousResult());
             if (_pattern.ResultStorageOffset == 1)
             {
                 btnPreviousResult.IsEnabled = false;
@@ -99,7 +99,7 @@ namespace Lesson
 
         private void BtnNextResult_Click(object sender, RoutedEventArgs e)
         {
-            ApllyResult(_pattern.GetNextResult());
+            ApplyResult(_pattern.GetNextResult());
             if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
             {
                 btnNextResult.IsEnabled = false;
@@ -119,7 +119,7 @@ namespace Lesson
             if (TryParse(textBox.Text, out var offset)
                 && offset > 0 && offset <= _pattern.ResultStorageCount)
             {
-                ApllyResult(_pattern.GetResult(offset));
+                ApplyResult(_pattern.GetResult(offset));
                 textBox.SelectAll();
             }
             else
@@ -156,7 +156,7 @@ namespace Lesson
         /// 출력 값이 너무 길 경우 해당 패턴에 요약함수가 있을 때 요약함수를 호출한다.
         /// </summary>
         /// <param name="result">TextBlock에 적용해야할 결괏값.</param>
-        private void ApllyResult(PatternResultModel result)
+        private void ApplyResult(PatternResultModel result)
         {
             // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
             if (result.Lines > Pattern.MaxLineInputNum * 2)

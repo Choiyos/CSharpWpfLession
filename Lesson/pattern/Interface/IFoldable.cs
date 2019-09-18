@@ -2,6 +2,6 @@
 {
     public interface IFoldable
     {
-        string GetFoldedOutput(string message);
+        string CreateFoldedOutput(string message);
     }
 }

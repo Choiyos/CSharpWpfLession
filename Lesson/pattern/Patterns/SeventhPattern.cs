@@ -44,7 +44,7 @@ namespace LessonLibrary.Patterns
             return new PatternResultModel(star, TextAlignment.Left, lines, this);
         }
 
-        public string GetFoldedOutput(string message)
+        public string CreateFoldedOutput(string message)
         {
             string result = String.Empty;
             string[] splitMessage = message.Split('\n');
