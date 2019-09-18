@@ -11,8 +11,7 @@ namespace LessonLibrary.Patterns
     {
         public PatternResultModel Create(int inputNum)
         {
-            if (inputNum > 1000) return new PatternResultModel(String.Empty, PatternResult.TooHighNum);
-            if (inputNum < 0) return new PatternResultModel(String.Empty, PatternResult.NegativeNum);
+            if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
 
             int sum = 0;
             string star = string.Empty;

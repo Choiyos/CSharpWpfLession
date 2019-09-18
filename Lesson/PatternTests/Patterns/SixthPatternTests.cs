@@ -1,18 +1,21 @@
-﻿using LessonLibrary.Model;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PatternTests;
+﻿using System;
 using System.Windows;
+using LessonLibrary.Model;
+using LessonLibrary.Patterns;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace LessonLibrary.Patterns.Tests
+namespace PatternTests.Patterns
 {
-    [TestClass()]
+    [TestClass]
     public class SixthPatternTests
     {
         [TestMethod]
         public void CreateSixthStar()
         {
             // Arrange
-            var validResult = new PatternResultModel("*\n\n*\n**\n\n*\n**\n***\n\n*\n**\n***\n****\n\n*\n**\n***\n****\n*****\n\n", TextAlignment.Left, 20, new SixthPattern());
+            var validResult =
+                new PatternResultModel("*\n\n*\n**\n\n*\n**\n***\n\n*\n**\n***\n****\n\n*\n**\n***\n****\n*****\n\n",
+                    TextAlignment.Left, 20, new SixthPattern());
             var pattern = new SixthPattern();
 
             // Act
@@ -26,7 +29,8 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateFoldedOutputTest()
         {
             // Arrange
-            var validResult = "*\n\n*\n**\n\n*\n**\n***\n" + "\n.\n.\n.\n" + "\n\n*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n***********\n************\n*************\n**************\n***************\n****************\n*****************\n******************\n*******************\n********************\n\n";
+            var validResult = "*\n\n*\n**\n\n*\n**\n***\n" + "\n.\n.\n.\n" +
+                              "\n\n*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n***********\n************\n*************\n**************\n***************\n****************\n*****************\n******************\n*******************\n********************\n\n";
             var pattern = new SixthPattern();
 
             // Act
@@ -36,33 +40,21 @@ namespace LessonLibrary.Patterns.Tests
             Assert.AreEqual(validResult, result);
         }
 
-        [TestMethod()]
-        public void CreateSixthStar_InputMinus()
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException),
+            "입력 숫자에 음수는 허용되지 않습니다.")]
+        public void CreateStar_InputMinus()
         {
-            // Arrange
-            var validResult = new PatternResultModel("", PatternResult.NegativeNum);
-            var pattern = new SixthPattern();
-
             // Act
-            var result = pattern.Create(-1);
-
-            // Assert
-            PatternAssert.ArePatternResultEqual(validResult, result);
+            var result = new FifthPattern().Create(-1);
         }
 
-        [TestMethod()]
-        public void CreateSixthStar_TooHigh()
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException),
+            "입력 숫자가 너무 큽니다.")]
+        public void CreateStar_TooHigh()
         {
-            // Arrange
-            var validResult = new PatternResultModel("", PatternResult.TooHighNum);
-            var pattern = new SixthPattern();
-
-            // Act
-            var result = pattern.Create(100000);
-
-            // Assert
-            PatternAssert.ArePatternResultEqual(validResult, result);
+            var result = new FifthPattern().Create(100000);
         }
-
     }
 }

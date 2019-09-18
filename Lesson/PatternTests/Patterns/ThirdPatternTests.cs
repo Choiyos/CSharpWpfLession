@@ -1,4 +1,5 @@
-﻿using LessonLibrary.Model;
+﻿using System;
+using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatternTests;
 using System.Windows;
@@ -37,31 +38,20 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void CreateThirdStar_InputMinus()
+        [ExpectedException(typeof(ArgumentOutOfRangeException),
+            "입력 숫자에 음수는 허용되지 않습니다.")]
+        public void CreateStar_InputMinus()
         {
-            // Arrange
-            var validResult = new PatternResultModel("", PatternResult.NegativeNum);
-            var pattern = new ThirdPattern();
-
             // Act
-            var result = pattern.Create(-1);
-
-            // Assert
-            PatternAssert.ArePatternResultEqual(validResult, result);
+            var result = new ThirdPattern().Create(-1);
         }
 
         [TestMethod()]
-        public void CreateThirdStar_TooHigh()
+        [ExpectedException(typeof(ArgumentOutOfRangeException),
+            "입력 숫자가 너무 큽니다.")]
+        public void CreateStar_TooHigh()
         {
-            // Arrange
-            var validResult = new PatternResultModel("", PatternResult.TooHighNum);
-            var pattern = new ThirdPattern();
-
-            // Act
-            var result = pattern.Create(100000);
-
-            // Assert
-            PatternAssert.ArePatternResultEqual(validResult, result);
+            var result = new ThirdPattern().Create(100000);
         }
 
     }
