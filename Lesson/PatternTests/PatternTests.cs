@@ -284,6 +284,7 @@ namespace LessonLibrary.Patterns.Tests
             var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
 
             // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
             Pattern.Instance.Create("1");
             Pattern.Instance.Create("5");
             var result = Pattern.Instance.GetResult(1);
@@ -299,6 +300,7 @@ namespace LessonLibrary.Patterns.Tests
             var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
 
             // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
             Pattern.Instance.Create("5");
             Pattern.Instance.Create("1");
             var result = Pattern.Instance.GetNextResult();
@@ -314,6 +316,7 @@ namespace LessonLibrary.Patterns.Tests
             var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
 
             // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
             Pattern.Instance.Create("1");
             Pattern.Instance.Create("5");
             Pattern.Instance.GetNextResult();

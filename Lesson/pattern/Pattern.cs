@@ -99,7 +99,7 @@ namespace LessonLibrary
                 var pattern = _patternStorage[_patternIndex];
 
                 Debug.Assert(pattern != null, nameof(pattern) + " != null");
-                CurrentResult = pattern?.Create(inputNum);
+                CurrentResult = pattern.Create(inputNum);
             }
 
             if (String.IsNullOrEmpty(CurrentResult?.Output)) return false;

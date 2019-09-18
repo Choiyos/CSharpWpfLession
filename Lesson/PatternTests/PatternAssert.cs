@@ -14,7 +14,8 @@ namespace PatternTests
         {
             Assert.AreEqual(compareResult1.Output, compareResult2.Output);
             Assert.AreEqual(compareResult1.TextAlignment, compareResult2.TextAlignment);
-            Assert.AreEqual(compareResult1.Pattern, compareResult2.Pattern);
+            if(compareResult1.Pattern != null && compareResult2.Pattern != null)
+                Assert.AreEqual(compareResult1.Pattern.ToString(), compareResult2.Pattern.ToString());
             Assert.AreEqual(compareResult1.Lines, compareResult2.Lines);
         }
     }
