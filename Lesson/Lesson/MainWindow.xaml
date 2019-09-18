@@ -40,5 +40,8 @@
         </ScrollViewer>
 
         <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" />
+        
+        <CheckBox x:Name="chkRandom" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Tag ="Random" Visibility="Hidden"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Random" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="Random" Visibility="Hidden"/>
     </Grid>
 </Window>
