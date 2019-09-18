@@ -3,6 +3,7 @@ using LessonLibrary.Model;
 using LessonLibrary.Patterns;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using static System.Int32;
 
@@ -92,9 +93,14 @@ namespace LessonLibrary
                 MessageBox.Show("1부터 " + MaxLineInputNum + "까지의 숫자만 입력해주세요!");
                 return false;
             }
-            var pattern = _patternStorage[_patternIndex];
 
-            CurrentResult = pattern?.Create(inputNum);
+            if (_patternStorage.ContainsKey(_patternIndex))
+            {
+                var pattern = _patternStorage[_patternIndex];
+
+                Debug.Assert(pattern != null, nameof(pattern) + " != null");
+                CurrentResult = pattern?.Create(inputNum);
+            }
 
             if (String.IsNullOrEmpty(CurrentResult?.Output)) return false;
 
@@ -116,10 +122,14 @@ namespace LessonLibrary
         /// <returns>성공 여부.</returns>
         public bool ChangePattern(string patternName)
         {
-            if (String.IsNullOrEmpty(patternName) || !TryParse(patternName.Substring(patternName.Length - 1, 1),
+            if (String.IsNullOrEmpty(patternName) || !TryParse(patternName.Split(' ')[1],
                     out var parsedPatternIndex)) return false;
-            _patternIndex = parsedPatternIndex;
-            PatternName = patternName;
+            if (_patternStorage.ContainsKey(parsedPatternIndex))
+            {
+                _patternIndex = parsedPatternIndex;
+                PatternName = patternName;
+            }
+            else return false;
             return true;
         }
 
@@ -131,7 +141,11 @@ namespace LessonLibrary
         public PatternResultModel GetResult(int index)
         {
             ResultStorageOffset = index;
-            return _resultStorage[_resultStorage.Count - ResultStorageOffset];
+            var resultStorageOffset = _resultStorage.Count - ResultStorageOffset;
+            if (resultStorageOffset >= 0 && _resultStorage.Count > resultStorageOffset)
+                return _resultStorage[resultStorageOffset];
+            Debug.Assert(_resultStorage[resultStorageOffset]!=null,"Invalid index");
+            return null;
         }
 
         /// <summary>

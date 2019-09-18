@@ -1,4 +1,5 @@
-﻿using LessonLibrary;
+﻿using System;
+using LessonLibrary;
 using LessonLibrary.Model;
 using System.Windows;
 using System.Windows.Controls;
@@ -158,6 +159,7 @@ namespace Lesson
         /// <param name="result">TextBlock에 적용해야할 결괏값.</param>
         private void ApplyResult(PatternResultModel result)
         {
+            if (result == null) throw new ArgumentNullException(nameof(result));
             // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
             if (result.Lines > Pattern.MaxLineInputNum * 2)
             {
