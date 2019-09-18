@@ -44,22 +44,30 @@ namespace Lesson
         /// </summary>
         private void Print()
         {
-            if (_pattern.Create(txtbxInput.Text))
+            switch (_pattern.Create(txtbxInput.Text))
             {
-                ApplyResult(_pattern.CurrentResult);
+                case PatternResult.Success:
+                    ApplyResult(_pattern.CurrentResult);
 
-                if (_pattern.ResultStorageCount > 1)
-                {
-                    btnNextResult.IsEnabled = true;
-                    btnPreviousResult.IsEnabled = false;
-                }
+                    if (_pattern.ResultStorageCount > 1)
+                    {
+                        btnNextResult.IsEnabled = true;
+                        btnPreviousResult.IsEnabled = false;
+                    }
 
-                txtbxResult.Text = "1";
-                txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount.ToString();
-            }
-            else
-            {
-                txtbxInput.Text = "1";
+                    txtbxResult.Text = "1";
+                    txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount.ToString();
+                    break;
+                case PatternResult.Pattern3Even:
+                    MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
+                    txtbxInput.Text = "1";
+                    break;
+                case PatternResult.InvalidValue:
+                    MessageBox.Show("1부터 " + Pattern.MaxLineInputNum + "까지의 숫자만 입력해주세요!");
+                    txtbxInput.Text = "1";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

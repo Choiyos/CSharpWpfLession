@@ -9,6 +9,13 @@ using static System.Int32;
 
 namespace LessonLibrary
 {
+    public enum PatternResult
+    {
+        Success,
+        Pattern3Even,
+        InvalidValue
+    }
+
     public class Pattern
     {
         private static Pattern _instance;
@@ -86,12 +93,11 @@ namespace LessonLibrary
         /// </summary>
         /// <param name="input">출력할 별의 개수.</param>
         /// <returns>생성 성공 여부.</returns>
-        public bool Create(string input)
+        public PatternResult Create(string input)
         {
             if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > MaxLineInputNum))
             {
-                MessageBox.Show("1부터 " + MaxLineInputNum + "까지의 숫자만 입력해주세요!");
-                return false;
+                return PatternResult.InvalidValue;
             }
 
             if (_patternStorage.ContainsKey(_patternIndex))
@@ -102,7 +108,10 @@ namespace LessonLibrary
                 CurrentResult = pattern.Create(inputNum);
             }
 
-            if (String.IsNullOrEmpty(CurrentResult?.Output)) return false;
+            if (String.IsNullOrEmpty(CurrentResult?.Output))
+            {
+                return PatternResult.Pattern3Even;
+            }
 
             ResultStorageOffset = 1;
 
@@ -112,7 +121,7 @@ namespace LessonLibrary
             }
 
             _resultStorage.Add(CurrentResult);
-            return true;
+            return PatternResult.Success;
         }
 
         /// <summary>

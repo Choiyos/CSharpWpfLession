@@ -14,7 +14,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FirstPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 1");
@@ -28,7 +28,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SecondPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 2");
@@ -42,7 +42,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_ThirdPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 3");
@@ -56,7 +56,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FourthPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 4");
@@ -70,7 +70,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FifthPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 5");
@@ -84,7 +84,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SixthPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 6");
@@ -98,7 +98,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SeventhPattern()
         {
             // Arrange
-            var validResult = true;
+            var validResult= PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 7");
@@ -115,7 +115,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateInvalidTest1()
         {
             // Arrange
-            var invalidResult = false;
+            var invalidResult = PatternResult.InvalidValue;
 
             // Act
             var result = Pattern.Instance.Create("asdf");
@@ -128,7 +128,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateInvalidTest2()
         {
             // Arrange
-            var invalidResult = false;
+            var invalidResult = PatternResult.InvalidValue;
 
             // Act
             var result = Pattern.Instance.Create("123");
@@ -142,7 +142,7 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             Pattern.Instance.ChangePattern("Pattern 3");
-            var invalidResult = false;
+            var invalidResult = PatternResult.Pattern3Even;
 
             // Act
             var result = Pattern.Instance.Create("4");
