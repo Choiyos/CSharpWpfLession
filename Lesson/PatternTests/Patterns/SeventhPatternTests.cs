@@ -1,29 +1,26 @@
-﻿using System.Windows;
-using LessonLibrary.Model;
-using LessonLibrary.Patterns;
+﻿using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PatternTests;
+using System.Windows;
 
-namespace LessonLibrary.Tests
+namespace LessonLibrary.Patterns.Tests
 {
-    [TestClass]
-    public class TestSeventhPattern
+    [TestClass()]
+    public class SeventhPatternTests
     {
         [TestMethod]
         public void CreateSeventhStar()
         {
             // Arrange
             var validResult = new PatternResultModel("*     *      *       *        *         \n      **     **      **       **        \n             ***     ***      ***       \n                     ****     ****      \n                              *****     \n"
-                , TextAlignment.Left,25,new SeventhPattern());
+                , TextAlignment.Left, 25, new SeventhPattern());
             var pattern = new SeventhPattern();
 
             // Act
             var result = pattern.Create(5);
 
             // Assert
-            Assert.AreEqual(validResult.Output, result.Output);
-            Assert.AreEqual(validResult.TextAlignment, result.TextAlignment);
-            Assert.AreEqual(validResult.Pattern.ToString(), result.Pattern.ToString());
-            Assert.AreEqual(validResult.Lines, result.Lines);
+            PatternAssert.ArePatternResultEqual(validResult, result);
         }
 
         [TestMethod]

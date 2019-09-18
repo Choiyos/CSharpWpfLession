@@ -1,12 +1,12 @@
-﻿using System.Windows;
-using LessonLibrary.Model;
-using LessonLibrary.Patterns;
+﻿using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PatternTests;
+using System.Windows;
 
-namespace LessonLibrary.Tests
+namespace LessonLibrary.Patterns.Tests
 {
-    [TestClass]
-    public class TestThirdPattern
+    [TestClass()]
+    public class ThirdPatternTests
     {
         [TestMethod]
         public void CreateThirdOddStar()
@@ -19,10 +19,7 @@ namespace LessonLibrary.Tests
             var result = pattern.Create(5);
 
             // Assert
-            Assert.AreEqual(validResult.Output, result.Output);
-            Assert.AreEqual(validResult.TextAlignment, result.TextAlignment);
-            Assert.AreEqual(validResult.Pattern, result.Pattern);
-            Assert.AreEqual(validResult.Lines, result.Lines);
+            PatternAssert.ArePatternResultEqual(validResult, result);
         }
 
         [TestMethod]
@@ -36,10 +33,7 @@ namespace LessonLibrary.Tests
             var result = pattern.Create(4);
 
             // Assert
-            Assert.AreEqual(validResult.Output, result.Output);
-            Assert.AreEqual(validResult.TextAlignment, result.TextAlignment);
-            Assert.AreEqual(validResult.Pattern, result.Pattern);
-            Assert.AreEqual(validResult.Lines, result.Lines);
+            PatternAssert.ArePatternResultEqual(validResult, result);
         }
     }
 }
