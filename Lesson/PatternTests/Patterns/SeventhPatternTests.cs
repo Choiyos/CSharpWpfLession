@@ -37,5 +37,34 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             Assert.AreEqual(validResult, result);
         }
+
+        [TestMethod()]
+        public void CreateSeventhStar_InputMinus()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.NegativeNum);
+            var pattern = new SeventhPattern();
+
+            // Act
+            var result = pattern.Create(-1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void CreateSeventhStar_TooHigh()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.TooHighNum);
+            var pattern = new SeventhPattern();
+
+            // Act
+            var result = pattern.Create(100000);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
     }
 }

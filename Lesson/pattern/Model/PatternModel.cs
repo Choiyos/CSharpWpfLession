@@ -9,6 +9,13 @@ namespace LessonLibrary.Model
         public string Output { get; }
         public int Lines { get; }
         public IFoldable Pattern { get; }
+        public PatternResult PatternResult { get; }
+
+        public PatternResultModel(string empty, PatternResult result)
+        {
+            Output = empty;
+            PatternResult = result;
+        }
 
         public PatternResultModel(string content, TextAlignment textAlignment)
         {

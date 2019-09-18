@@ -17,6 +17,7 @@ namespace PatternTests
             if(compareResult1.Pattern != null && compareResult2.Pattern != null)
                 Assert.AreEqual(compareResult1.Pattern.ToString(), compareResult2.Pattern.ToString());
             Assert.AreEqual(compareResult1.Lines, compareResult2.Lines);
+            Assert.AreEqual(compareResult1.PatternResult,compareResult2.PatternResult);
         }
     }
 }

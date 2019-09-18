@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using LessonLibrary.Model;
-using LessonLibrary.Patterns;
+﻿using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatternTests;
+using System.Windows;
 
 namespace LessonLibrary.Patterns.Tests
 {
@@ -18,6 +17,34 @@ namespace LessonLibrary.Patterns.Tests
 
             // Act
             var result = pattern.Create(5);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void CreateFifthStar_InputMinus()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.NegativeNum);
+            var pattern = new FifthPattern();
+
+            // Act
+            var result = pattern.Create(-1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void CreateFifthStar_TooHigh()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.TooHighNum);
+            var pattern = new FifthPattern();
+
+            // Act
+            var result = pattern.Create(100000);
 
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);

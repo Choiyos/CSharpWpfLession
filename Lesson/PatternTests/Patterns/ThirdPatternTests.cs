@@ -26,7 +26,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateThirdEvenStar()
         {
             // Arrange
-            var validResult = new PatternResultModel("", TextAlignment.Center);
+            var validResult = new PatternResultModel("", PatternResult.Pattern3Even);
             var pattern = new ThirdPattern();
 
             // Act
@@ -35,5 +35,34 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);
         }
+
+        [TestMethod()]
+        public void CreateThirdStar_InputMinus()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.NegativeNum);
+            var pattern = new ThirdPattern();
+
+            // Act
+            var result = pattern.Create(-1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void CreateThirdStar_TooHigh()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("", PatternResult.TooHighNum);
+            var pattern = new ThirdPattern();
+
+            // Act
+            var result = pattern.Create(100000);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
     }
 }

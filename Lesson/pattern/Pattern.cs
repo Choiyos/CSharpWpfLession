@@ -12,7 +12,9 @@ namespace LessonLibrary
     {
         Success,
         Pattern3Even,
-        InvalidValue
+        InvalidValue,
+        TooHighNum,
+        NegativeNum
     }
 
     public class Pattern
@@ -109,7 +111,8 @@ namespace LessonLibrary
 
             if (String.IsNullOrEmpty(CurrentResult?.Output))
             {
-                return PatternResult.Pattern3Even;
+                Debug.Assert(CurrentResult != null, nameof(CurrentResult) + " != null");
+                return CurrentResult.PatternResult;
             }
 
             ResultStorageOffset = 1;

@@ -9,6 +9,9 @@ namespace LessonLibrary.Patterns
     {
         public PatternResultModel Create(int inputNum)
         {
+            if (inputNum > 10000) return new PatternResultModel(String.Empty, PatternResult.TooHighNum);
+            if (inputNum < 0) return new PatternResultModel(String.Empty, PatternResult.NegativeNum);
+
             int sum = 0;
 
             string star = string.Empty;
@@ -34,7 +37,7 @@ namespace LessonLibrary.Patterns
             else
             {
                 // 입력값이 짝수이므로 취소.
-                return new PatternResultModel(String.Empty, TextAlignment.Center);
+                return new PatternResultModel(String.Empty, PatternResult.Pattern3Even);
             }
 
             return new PatternResultModel(star, TextAlignment.Center);
