@@ -12,9 +12,7 @@ namespace LessonLibrary
     {
         Success,
         Pattern3Even,
-        InvalidValue,
-        TooHighNum,
-        NegativeNum
+        InvalidValue
     }
 
     public class Pattern
@@ -129,19 +127,27 @@ namespace LessonLibrary
         /// <summary>
         /// 전달받은 이름에 해당하는 패턴으로 변경한다.
         /// </summary>
-        /// <param name="patternName">패턴 이름.</param>
+        /// <param name="patternName">"Pattern {N}"의 형식으로 인자가 전달되어야함.</param>
         /// <returns>성공 여부.</returns>
         public bool ChangePattern(string patternName)
         {
-            if (String.IsNullOrEmpty(patternName) || !TryParse(patternName.Split(' ')[1],
-                    out var parsedPatternIndex)) return false;
-            if (_patternStorage.ContainsKey(parsedPatternIndex))
-            {
-                _patternIndex = parsedPatternIndex;
-                PatternName = patternName;
-            }
-            else return false;
+            CheckConditionChangePattern(patternName, out var parsedPatternIndex);
+
+            _patternIndex = parsedPatternIndex;
+            PatternName = patternName;
             return true;
+        }
+
+        private void CheckConditionChangePattern(string patternName, out int parsedPatternIndex)
+        {
+            if (String.IsNullOrEmpty(patternName)) throw new ArgumentNullException(patternName, "패턴이름이 Null이거나 Empty입니다.");
+
+            string[] slicedPatternName = patternName.Split(' ');
+            if (slicedPatternName.Length < 2) throw new ArgumentException("패턴은 띄어쓰기와 숫자를 통해 구분되어야합니다.");
+            if (!TryParse(slicedPatternName[1],
+                out parsedPatternIndex)) throw new NotFiniteNumberException("띄어쓰기 뒤에는 숫자가 와야합니다.");
+            if (!_patternStorage.ContainsKey(parsedPatternIndex))
+                throw new ArgumentOutOfRangeException(patternName, "숫자와 일치하는 패턴이 없습니다.");
         }
 
         /// <summary>
@@ -151,11 +157,12 @@ namespace LessonLibrary
         /// <returns></returns>
         public PatternResultModel GetResult(int index)
         {
+            if (index <= 0 || index > 99) throw new ArgumentOutOfRangeException(nameof(index));
             ResultStorageOffset = index;
             var resultStorageOffset = _resultStorage.Count - ResultStorageOffset;
             if (resultStorageOffset >= 0 && _resultStorage.Count > resultStorageOffset)
                 return _resultStorage[resultStorageOffset];
-            Debug.Assert(_resultStorage[resultStorageOffset]!=null,"Invalid index");
+            Debug.Assert(_resultStorage[resultStorageOffset] != null, "Invalid index");
             return null;
         }
 
@@ -183,6 +190,7 @@ namespace LessonLibrary
         /// <param name="model">출력 예정인 결과.</param>
         public void FoldOutput(PatternResultModel model)
         {
+            if (model == null || String.IsNullOrEmpty(model.Output)) throw new ArgumentNullException(nameof(model));
             FoldedOutput = model.Pattern.CreateFoldedOutput(model.Output);
             UnfoldedOutput = model.Output;
         }

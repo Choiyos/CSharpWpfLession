@@ -1,4 +1,5 @@
-﻿using LessonLibrary.Model;
+﻿using System;
+using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatternTests;
 using System.Windows;
@@ -10,6 +11,7 @@ namespace LessonLibrary.Patterns.Tests
     {
 
         #region 패턴 생성 성공 테스트
+
         [TestMethod()]
         public void CreateValidTest_FirstPattern()
         {
@@ -28,7 +30,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SecondPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 2");
@@ -42,7 +44,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_ThirdPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 3");
@@ -56,7 +58,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FourthPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 4");
@@ -70,7 +72,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FifthPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 5");
@@ -84,7 +86,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SixthPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 6");
@@ -98,7 +100,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SeventhPattern()
         {
             // Arrange
-            var validResult= PatternResult.Success;
+            var validResult = PatternResult.Success;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 7");
@@ -107,6 +109,7 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             Assert.AreEqual(validResult, result);
         }
+
         #endregion
 
         #region 패턴 생성 실패 테스트
@@ -249,34 +252,51 @@ namespace LessonLibrary.Patterns.Tests
         #endregion
 
         #region 패턴 변경 실패 테스트
+
         [TestMethod()]
+        [ExpectedException(typeof(NotFiniteNumberException))]
         public void ChangePatternTest_NoPatternNum()
         {
-            // Arrange
-            var invalidResult = false;
-
             // Act
-            var result = Pattern.Instance.ChangePattern("Pattern WPF");
-
-            // Assert
-            Assert.AreEqual(invalidResult, result);
+            Pattern.Instance.ChangePattern("Pattern WPF");
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ChangePatternTest_OutOfPatternNum()
         {
-            // Arrange
-            var invalidResult = false;
-
             // Act
-            var result = Pattern.Instance.ChangePattern("Pattern 999");
-
-            // Assert
-            Assert.AreEqual(invalidResult, result);
+            Pattern.Instance.ChangePattern("Pattern 999");
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ChangePatternTest_SingleBlock()
+        {
+            // Act
+            Pattern.Instance.ChangePattern("Pattern");
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ChangePatternTest_InputEmpty()
+        {
+            // Act
+            Pattern.Instance.ChangePattern("");
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ChangePatternTest_InputNull()
+        {
+            // Act
+            Pattern.Instance.ChangePattern(null);
+        }
+
         #endregion
 
         #region 기록 가져오기 테스트
+
         [TestMethod()]
         public void GetResultTest()
         {
@@ -291,6 +311,20 @@ namespace LessonLibrary.Patterns.Tests
 
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetResultTest_OutOfIndex_TooBig()
+        {
+            Pattern.Instance.GetResult(999);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetResultTest_OutOfIndex_Negative()
+        {
+            Pattern.Instance.GetResult(-1);
         }
 
         [TestMethod()]
@@ -325,9 +359,11 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);
         }
+
         #endregion
 
         #region 결과 요약 테스트
+
         [TestMethod()]
         public void FoldOutputTest_FoldedResult()
         {
@@ -359,6 +395,23 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             Assert.AreEqual(validResult_안접힌결과, result);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FoldOutputTest_Null()
+        {
+            // Act
+            Pattern.Instance.FoldOutput(null);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FoldOutputTest_OutputNull()
+        {
+            // Act
+            Pattern.Instance.FoldOutput(new PatternResultModel("", PatternResult.InvalidValue));
+        }
+
         #endregion
     }
 }

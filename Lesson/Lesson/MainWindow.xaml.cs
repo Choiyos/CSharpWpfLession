@@ -67,7 +67,7 @@ namespace Lesson
                     txtbxInput.Text = "1";
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new NotImplementedException();
             }
         }
 
