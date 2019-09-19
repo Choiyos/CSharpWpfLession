@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using LessonLibrary;
 using LessonLibrary.Model;
 using System.Windows;
@@ -22,9 +23,24 @@ namespace Lesson
         /// </summary>
         private PatternSelectWindow _patternSelectWindow;
 
+        public ObservableCollection<int> Increases { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            ViewModel();
+        }
+
+        public void ViewModel()
+        {
+            Increases = new ObservableCollection<int>()
+            {
+                1,
+                2,
+                5,
+                10
+            };
         }
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
@@ -46,17 +62,13 @@ namespace Lesson
         {
             switch (_pattern.Create(txtbxInput.Text))
             {
-                case PatternResult.Success:
+                case PatternResult.CreateSuccess:
                     ApplyResult(_pattern.CurrentResult);
-
-                    if (_pattern.ResultStorageCount > 1)
-                    {
-                        btnNextResult.IsEnabled = true;
-                        btnPreviousResult.IsEnabled = false;
-                    }
-
+                    CheckMovable();
+                    if (_pattern.ResultStorageCount == 1)
+                        btnEdit.Visibility = Visibility.Visible;
                     txtbxResult.Text = "1";
-                    txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount.ToString();
+                    txtMaxHistory.Text = "/ " + _pattern.ResultStorageCount;
                     break;
                 case PatternResult.Pattern3Even:
                     MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
@@ -93,7 +105,8 @@ namespace Lesson
 
         private void BtnPreviousResult_Click(object sender, RoutedEventArgs e)
         {
-            ApplyResult(_pattern.GetPreviousResult());
+            var patternResultModel = _pattern.GetPreviousResult(_pattern.PatternShift);
+            ApplyResult(patternResultModel);
             if (_pattern.ResultStorageOffset == 1)
             {
                 btnPreviousResult.IsEnabled = false;
@@ -104,12 +117,14 @@ namespace Lesson
                 btnNextResult.IsEnabled = true;
                 btnPreviousResult.IsEnabled = true;
             }
+            CheckMovable();
         }
 
         private void BtnNextResult_Click(object sender, RoutedEventArgs e)
         {
-            ApplyResult(_pattern.GetNextResult());
-            if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
+            var patternResultModel = _pattern.GetNextResult(_pattern.PatternShift);
+            ApplyResult(patternResultModel);
+            if (_pattern.ResultStorageOffset >= _pattern.ResultStorageCount)
             {
                 btnNextResult.IsEnabled = false;
                 btnPreviousResult.IsEnabled = true;
@@ -119,6 +134,7 @@ namespace Lesson
                 btnNextResult.IsEnabled = true;
                 btnPreviousResult.IsEnabled = true;
             }
+            CheckMovable();
         }
 
         private void TxtbxResult_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -137,27 +153,11 @@ namespace Lesson
                     MessageBox.Show("아직 생성된 패턴이 없습니다.");
                 else
                     MessageBox.Show("1부터 " + _pattern.ResultStorageCount + "까지의 숫자만 입력해주세요!");
-
                 textBox.Text = _pattern.ResultStorageOffset.ToString();
                 return;
             }
 
-            if (_pattern.ResultStorageOffset == 1)
-            {
-                btnPreviousResult.IsEnabled = false;
-
-                if (_pattern.ResultStorageCount > 1) btnNextResult.IsEnabled = true;
-            }
-            else if (_pattern.ResultStorageOffset == _pattern.ResultStorageCount)
-            {
-                btnNextResult.IsEnabled = false;
-                btnPreviousResult.IsEnabled = true;
-            }
-            else
-            {
-                btnNextResult.IsEnabled = true;
-                btnPreviousResult.IsEnabled = true;
-            }
+            CheckMovable();
         }
 
         /// <summary>
@@ -202,6 +202,42 @@ namespace Lesson
             {
                 btnShowOrHide.Content = "Show All";
                 txtDisplay.Text = _pattern.FoldedOutput;
+            }
+        }
+
+        private void CboIncrease_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Int32.TryParse(((ComboBoxItem)e.AddedItems[0]).Content.ToString(), out int shift))
+            {
+                _pattern.PatternShift = shift;
+                CheckMovable();
+            }
+        }
+
+        private void CheckMovable()
+        {
+            btnNextResult.IsEnabled = _pattern.ResultStorageOffset + _pattern.PatternShift <= _pattern.ResultStorageCount;
+
+            btnPreviousResult.IsEnabled = _pattern.ResultStorageOffset - _pattern.PatternShift >= 1;
+        }
+
+        private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
+        {
+            switch (_pattern.Edit(txtbxInput.Text))
+            {
+                case PatternResult.EditSuccess:
+                    ApplyResult(_pattern.CurrentResult);
+                    break;
+                case PatternResult.Pattern3Even:
+                    MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
+                    txtbxInput.Text = "1";
+                    break;
+                case PatternResult.InvalidValue:
+                    MessageBox.Show("1부터 " + Pattern.MaxLineInputNum + "까지의 숫자만 입력해주세요!");
+                    txtbxInput.Text = "1";
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
         }
     }

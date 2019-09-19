@@ -10,7 +10,8 @@ namespace LessonLibrary
 {
     public enum PatternResult
     {
-        Success,
+        CreateSuccess,
+        EditSuccess,
         Pattern3Even,
         InvalidValue
     }
@@ -50,7 +51,7 @@ namespace LessonLibrary
         /// <summary>
         /// 결과 저장소 최대 크기 수.
         /// </summary>
-        private const int MaxStorageCapacity = 10;
+        private const int MaxStorageCapacity = 100;
 
         /// <summary>
         /// 현재 가리키고 있는 결과 저장소의 위치.
@@ -88,12 +89,46 @@ namespace LessonLibrary
         public string UnfoldedOutput { get; private set; }
 
         /// <summary>
+        /// 패턴 기록 탐색시 건너뛰기 정도.
+        /// </summary>
+        public int PatternShift { get; set; }
+
+        /// <summary>
         /// 입력된 매개변수만큼 적용된 패턴으로 별을 생성하고 결과를 반환한다.
         /// </summary>
         /// <param name="input">출력할 별의 개수.</param>
         /// <returns>생성 성공 여부.</returns>
         public PatternResult Create(string input)
         {
+            var result = RegisterResults(input, "Create");
+            if (result == PatternResult.CreateSuccess)
+                RegisterInStorage();
+            return result;
+        }
+
+        private void RegisterInStorage()
+        {
+            ResultStorageOffset = 1;
+
+            if (_resultStorage.Count == MaxStorageCapacity)
+            {
+                _resultStorage.RemoveAt(0);
+            }
+
+            _resultStorage.Add(CurrentResult);
+        }
+
+        public PatternResult Edit(string input)
+        {
+            var result = RegisterResults(input, "Edit");
+            if (result == PatternResult.EditSuccess)
+                ReplacePatternResult();
+            return result;
+        }
+
+        private PatternResult RegisterResults(string input, string state)
+        {
+            if (String.IsNullOrEmpty(state)) throw new ArgumentNullException(nameof(state));
             if (!TryParse(input, out int inputNum) || (inputNum <= 0 || inputNum > MaxLineInputNum))
             {
                 return PatternResult.InvalidValue;
@@ -113,15 +148,7 @@ namespace LessonLibrary
                 return CurrentResult.PatternResult;
             }
 
-            ResultStorageOffset = 1;
-
-            if (_resultStorage.Count == MaxStorageCapacity)
-            {
-                _resultStorage.RemoveAt(0);
-            }
-
-            _resultStorage.Add(CurrentResult);
-            return PatternResult.Success;
+            return state == "Create" ? PatternResult.CreateSuccess : PatternResult.EditSuccess;
         }
 
         /// <summary>
@@ -131,8 +158,8 @@ namespace LessonLibrary
         /// <returns>성공 여부.</returns>
         public bool ChangePattern(string patternName)
         {
+            if (String.IsNullOrEmpty(patternName)) return false;
             CheckConditionChangePattern(patternName, out var parsedPatternIndex);
-
             _patternIndex = parsedPatternIndex;
             PatternName = patternName;
             return true;
@@ -140,8 +167,6 @@ namespace LessonLibrary
 
         private void CheckConditionChangePattern(string patternName, out int parsedPatternIndex)
         {
-            if (String.IsNullOrEmpty(patternName)) throw new ArgumentNullException(patternName, "패턴이름이 Null이거나 Empty입니다.");
-
             string[] slicedPatternName = patternName.Split(' ');
             if (slicedPatternName.Length < 2) throw new ArgumentException("패턴은 띄어쓰기와 숫자를 통해 구분되어야합니다.");
             if (!TryParse(slicedPatternName[1],
@@ -157,7 +182,7 @@ namespace LessonLibrary
         /// <returns></returns>
         public PatternResultModel GetResult(int index)
         {
-            if (index <= 0 || index > 99) throw new ArgumentOutOfRangeException(nameof(index));
+            if (index <= 0 || index > 999) throw new ArgumentOutOfRangeException(nameof(index));
             ResultStorageOffset = index;
             var resultStorageOffset = _resultStorage.Count - ResultStorageOffset;
             if (resultStorageOffset >= 0 && _resultStorage.Count > resultStorageOffset)
@@ -170,18 +195,31 @@ namespace LessonLibrary
         /// 다음 순서의 패턴기록을 반환한다.
         /// </summary>
         /// <returns></returns>
-        public PatternResultModel GetNextResult()
+        public PatternResultModel GetNextResult(int increase)
         {
-            return _resultStorage[_resultStorage.Count - (++ResultStorageOffset)];
+            if (increase <= 0 || increase > 999) throw new ArgumentOutOfRangeException(nameof(increase));
+
+            ResultStorageOffset += increase;
+            var resultStorageIndex = _resultStorage.Count - ResultStorageOffset;
+            return _resultStorage[resultStorageIndex];
         }
 
         /// <summary>
         /// 이전 순서의 패턴기록을 반환한다.
         /// </summary>
         /// <returns></returns>
-        public PatternResultModel GetPreviousResult()
+        public PatternResultModel GetPreviousResult(int increase)
         {
-            return _resultStorage[_resultStorage.Count - (--ResultStorageOffset)];
+            if (increase <= 0 || increase > 999) throw new ArgumentOutOfRangeException(nameof(increase));
+
+            ResultStorageOffset -= increase;
+            var resultStorageIndex = _resultStorage.Count - ResultStorageOffset;
+            return _resultStorage[resultStorageIndex];
+        }
+
+        private void ReplacePatternResult()
+        {
+            _resultStorage[_resultStorage.Count - (ResultStorageOffset)] = CurrentResult;
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
-﻿using System;
-using LessonLibrary.Model;
+﻿using LessonLibrary.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatternTests;
+using System;
 using System.Windows;
 
 namespace LessonLibrary.Patterns.Tests
@@ -9,14 +9,13 @@ namespace LessonLibrary.Patterns.Tests
     [TestClass()]
     public class PatternTests
     {
-
         #region 패턴 생성 성공 테스트
 
         [TestMethod()]
         public void CreateValidTest_FirstPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 1");
@@ -30,7 +29,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SecondPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 2");
@@ -44,7 +43,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_ThirdPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 3");
@@ -58,7 +57,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FourthPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 4");
@@ -72,7 +71,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_FifthPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 5");
@@ -86,7 +85,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SixthPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 6");
@@ -100,7 +99,7 @@ namespace LessonLibrary.Patterns.Tests
         public void CreateValidTest_SeventhPattern()
         {
             // Arrange
-            var validResult = PatternResult.Success;
+            var validResult = PatternResult.CreateSuccess;
 
             // Act
             Pattern.Instance.ChangePattern("Pattern 7");
@@ -317,7 +316,7 @@ namespace LessonLibrary.Patterns.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetResultTest_OutOfIndex_TooBig()
         {
-            Pattern.Instance.GetResult(999);
+            Pattern.Instance.GetResult(9999);
         }
 
         [TestMethod()]
@@ -328,7 +327,7 @@ namespace LessonLibrary.Patterns.Tests
         }
 
         [TestMethod()]
-        public void GetNextResultTest()
+        public void GetNextResultTest_Increase1()
         {
             // Arrange
             var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
@@ -337,14 +336,77 @@ namespace LessonLibrary.Patterns.Tests
             Pattern.Instance.ChangePattern("Pattern 1");
             Pattern.Instance.Create("5");
             Pattern.Instance.Create("1");
-            var result = Pattern.Instance.GetNextResult();
+            var result = Pattern.Instance.GetNextResult(1);
 
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);
         }
 
         [TestMethod()]
-        public void GetPreviousResultTest()
+        public void GetNextResultTest_Increase3()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            var result = Pattern.Instance.GetNextResult(3);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetNextResultTest_Increase5()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            var result = Pattern.Instance.GetNextResult(5);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetNextResultTest_Increase10()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            var result = Pattern.Instance.GetNextResult(10);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetPreviousResultTest_Increase1()
         {
             // Arrange
             var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
@@ -353,11 +415,78 @@ namespace LessonLibrary.Patterns.Tests
             Pattern.Instance.ChangePattern("Pattern 1");
             Pattern.Instance.Create("1");
             Pattern.Instance.Create("5");
-            Pattern.Instance.GetNextResult();
-            var result = Pattern.Instance.GetPreviousResult();
+            Pattern.Instance.GetNextResult(1);
+            var result = Pattern.Instance.GetPreviousResult(1);
 
             // Assert
             PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetPreviousResultTest_Increase3()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.GetNextResult(3);
+            var result = Pattern.Instance.GetPreviousResult(3);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetPreviousResultTest_Increase5()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.GetNextResult(1);
+            var result = Pattern.Instance.GetPreviousResult(1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        public void GetPreviousResultTest_Increase10()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("5");
+            Pattern.Instance.GetNextResult(1);
+            var result = Pattern.Instance.GetPreviousResult(1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetNextResultTest_TooBig()
+        {
+            Pattern.Instance.GetNextResult(9999);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetPreviousResultTest_TooBig()
+        {
+            Pattern.Instance.GetPreviousResult(9999);
         }
 
         #endregion
@@ -412,6 +541,67 @@ namespace LessonLibrary.Patterns.Tests
             Pattern.Instance.FoldOutput(new PatternResultModel("", PatternResult.InvalidValue));
         }
 
+
         #endregion
+
+        [TestMethod()]
+        public void EditTest()
+        {
+            // Arrange
+            var validResult = new PatternResultModel("*\n**\n***\n****\n*****\n", TextAlignment.Left);
+
+            // Act
+            Pattern.Instance.ChangePattern("Pattern 1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Create("1");
+            Pattern.Instance.Edit("5");
+
+            Pattern.Instance.GetNextResult(1);
+
+            var result = Pattern.Instance.GetPreviousResult(1);
+
+            // Assert
+            PatternAssert.ArePatternResultEqual(validResult, result);
+        }
+        [TestMethod()]
+        public void EditInvalidTest_InputString()
+        {
+            // Arrange
+            var invalidResult = PatternResult.InvalidValue;
+
+            // Act
+            var result = Pattern.Instance.Edit("asdf");
+
+            // Assert
+            Assert.AreEqual(invalidResult, result);
+        }
+
+        [TestMethod()]
+        public void EditInvalidTest_OutOfNum()
+        {
+            // Arrange
+            var invalidResult = PatternResult.InvalidValue;
+
+            // Act
+            var result = Pattern.Instance.Edit("123");
+
+            // Assert
+            Assert.AreEqual(invalidResult, result);
+        }
+
+        [TestMethod()]
+        public void EditInvalidTest_InputEven()
+        {
+            // Arrange
+            Pattern.Instance.ChangePattern("Pattern 3");
+            var invalidResult = PatternResult.Pattern3Even;
+
+            // Act
+            var result = Pattern.Instance.Edit("4");
+
+            // Assert
+            Assert.AreEqual(invalidResult, result);
+        }
+
     }
 }
