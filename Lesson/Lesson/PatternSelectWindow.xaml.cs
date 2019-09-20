@@ -1,4 +1,5 @@
-﻿using LessonLibrary;
+﻿using LessonLibrary.Interface;
+using LessonLibrary.Patterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,18 +29,40 @@ namespace Lesson
         /// </summary>
         private readonly Dictionary<string, int> _radioButtonIndexes = new Dictionary<string, int>();
 
-        /// <summary>
-        /// 패턴 라이브러리의 인스턴스. 
-        /// </summary>
-        private readonly Pattern _pattern = Pattern.Instance;
-
         public event EventHandler<string> OnChildSelectPatternEvent;
 
         public PatternSelectWindow()
         {
             InitializeComponent();
             InitButtonList();
+            InitTextPatterns();
         }
+
+        private void InitTextPatterns()
+        {
+            IPattern pattern = new FirstPattern();
+            pattern.Create(5);
+            txtPattern1.Text = pattern.Result;
+            pattern = new SecondPattern();
+            pattern.Create(5);
+            txtPattern2.Text = pattern.Result;
+            pattern = new ThirdPattern();
+            pattern.Create(5);
+            txtPattern3.Text = pattern.Result;
+            pattern = new FourthPattern();
+            pattern.Create(5);
+            txtPattern4.Text = pattern.Result;
+            pattern = new FifthPattern();
+            pattern.Create(5);
+            txtPattern5.Text = pattern.Result;
+            pattern = new SixthPattern();
+            pattern.Create(3);
+            txtPattern6.Text = pattern.Result;
+            pattern = new SeventhPattern();
+            pattern.Create(3);
+            txtPattern7.Text = pattern.Result;
+        }
+
 
         private void InitButtonList()
         {
@@ -55,9 +78,9 @@ namespace Lesson
         private void BtnPatternSelect_Click(object sender, RoutedEventArgs e)
         {
             // 패턴 선택 창에서 확인을 누르는 경우.
-            if (_pattern.ChangePattern(_currentRadioButton?.Content.ToString()))
+            if (_currentRadioButton != null)
             {
-                OnChildSelectPatternEvent?.Invoke(sender, _currentRadioButton?.Content.ToString());
+                OnChildSelectPatternEvent?.Invoke(sender, _currentRadioButton.Content.ToString());
                 Close();
             }
             else

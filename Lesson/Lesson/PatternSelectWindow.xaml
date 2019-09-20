@@ -22,7 +22,8 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <RadioButton x:Name="rbPattern1" Checked="RadioButtonClicked" Grid.Column="0" Content="Pattern 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
+
+        <RadioButton x:Name="rbPattern1" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="0" Content="Pattern 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
         <RadioButton x:Name="rbPattern2" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="1" Content="Pattern 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
         <RadioButton x:Name="rbPattern3" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="2" Content="Pattern 3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
         <RadioButton x:Name="rbPattern4" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="3" Content="Pattern 4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
@@ -30,59 +31,13 @@
         <RadioButton x:Name="rbPattern6" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="5" Content="Pattern 6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
         <RadioButton x:Name="rbPattern7" Checked="RadioButtonClicked" Grid.Row="0" Grid.Column="6" Content="Pattern 7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,15"/>
 
-        <TextBlock x:Name="txtPattern1" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Left" xml:space="preserve"  MouseDown="TxtPattern_MouseDown" FontFamily="Consolas">
-        *
-        **
-        ***
-        ****
-        *****
-        </TextBlock>
-        <TextBlock x:Name="txtPattern2" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" TextAlignment="Left" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas">
-        *****
-         ****
-          ***
-           **
-            *
-        </TextBlock>
-        <TextBlock x:Name="txtPattern3" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Center" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas">
-  *
-  ***
-  *****
-  ***
-  *
-        </TextBlock>
-        <TextBlock x:Name="txtPattern4" Grid.Row="1" Grid.Column="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Center" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas">
-
-  ***
- ***
-***
-        </TextBlock>
-        <TextBlock x:Name="txtPattern5" Grid.Row="1" Grid.Column="4"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Center" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas">
-
-      ***
-   **
-*
-        </TextBlock>
-        <TextBlock x:Name="txtPattern6" Grid.Row="1" Grid.Column="5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Left" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontSize="12" LineStackingStrategy = "BlockLineHeight" LineHeight="9" FontFamily="Consolas">
-
-         *
-
-         *
-         **
-
-         *
-         **
-         ***
-
-        </TextBlock>
-
-        <TextBlock x:Name="txtPattern7" Grid.Row="1" Grid.Column="6"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextAlignment="Left" xml:space="preserve" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas" >
-
-  *     *      *       
-        **     **     
-               ***
-
-        </TextBlock>
+        <TextBlock x:Name="txtPattern1" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"  MouseDown="TxtPattern_MouseDown" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern3" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern4" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern5" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Stretch" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern6" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"  MouseDown="TxtPattern_MouseDown" FontSize="12" LineStackingStrategy = "BlockLineHeight" LineHeight="9" FontFamily="Consolas"/>
+        <TextBlock x:Name="txtPattern7" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDown="TxtPattern_MouseDown" FontFamily="Consolas" />
 
         <Button x:Name="btnPatternSelect" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="7" HorizontalAlignment="Center" Width="50" Height="20" Content="Select" Click="BtnPatternSelect_Click"/>
     </Grid>

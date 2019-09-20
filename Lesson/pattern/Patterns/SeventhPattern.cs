@@ -1,5 +1,4 @@
 ﻿using LessonLibrary.Interface;
-using LessonLibrary.Model;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -9,14 +8,19 @@ namespace LessonLibrary.Patterns
 {
     public class SeventhPattern : IPattern, IFoldable
     {
-        public PatternResultModel Create(int inputNum)
+        public string Result { get; private set; }
+        public TextAlignment Alignment { get; private set; }
+
+        public string FoldedResult { get; private set; }
+        public int Lines { get; private set; }
+
+        public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
 
             int sum = 0;
             string star = string.Empty;
             int starCount = 1;
-            int lines = 0;
             for (int i = 1; i <= inputNum; i++)
             {
                 var blank = 5;
@@ -37,20 +41,24 @@ namespace LessonLibrary.Patterns
                         star = star.PadRight(sum, ' ');
                         fullBlank++;
                     }
-                    lines++;
+                    Lines++;
                 }
                 starCount++;
                 star += "\n";
                 sum++;
             }
-            return new PatternResultModel(star, TextAlignment.Left, lines, this);
+
+            Result = star;
+            Alignment = TextAlignment.Left;
         }
 
-        public string CreateFoldedOutput(string message)
+
+        public string CreateFoldedOutput()
         {
             string result = String.Empty;
-            string[] splitMessage = message.Split('\n');
-            string[] prefixOutput = Create(3).Output.Split('\n');
+            string[] splitMessage = Result.Split('\n');
+            Create(3);
+            string[] prefixOutput = Result.Split('\n');
             int num = splitMessage.Length - 1;
             int prefixBlank = 0;
             int suffixLength = 0;
@@ -83,6 +91,8 @@ namespace LessonLibrary.Patterns
                     .Substring(suffixMatch[suffixMatch.Count - (i + 1)].Index, suffixLength);
                 result += "\n";
             }
+
+            FoldedResult = result;
             return result;
         }
     }

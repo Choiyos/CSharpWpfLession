@@ -58,15 +58,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="PatternAssert.cs" />
-    <Compile Include="Patterns\FifthPatternTests.cs" />
-    <Compile Include="Patterns\FirstPatternTests.cs" />
-    <Compile Include="Patterns\FourthPatternTests.cs" />
-    <Compile Include="Patterns\SecondPatternTests.cs" />
-    <Compile Include="Patterns\SeventhPatternTests.cs" />
-    <Compile Include="Patterns\SixthPatternTests.cs" />
-    <Compile Include="Patterns\ThirdPatternTests.cs" />
-    <Compile Include="PatternTests.cs" />
+    <Compile Include="NavigationHistoryTests.cs" />
+    <Compile Include="PatternServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

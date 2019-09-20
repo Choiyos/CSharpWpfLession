@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using LessonLibrary.Interface;
-using LessonLibrary.Model;
 using System.Windows;
 
 namespace LessonLibrary.Patterns
 {
     public class SixthPattern : IPattern, IFoldable
     {
-        public PatternResultModel Create(int inputNum)
+        public string Result { get; private set; }
+        public TextAlignment Alignment { get; private set; }
+
+        public string FoldedResult { get; private set; }
+        public int Lines { get; private set; }
+
+        public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
 
             int sum = 0;
 
             string star = string.Empty;
-
-            int lineCount = 0;
 
             for (int i = 1; i <= inputNum; i++)
             {
@@ -25,24 +28,26 @@ namespace LessonLibrary.Patterns
                     sum += k;
                     star = star.PadRight(sum, '*') + "\n";
                     sum++;
-                    lineCount++;
+                    Lines++;
                 }
                 star += "\n";
                 sum++;
-                lineCount++;
             }
-            return new PatternResultModel(star, TextAlignment.Left, lineCount, this);
+
+            Result = star;
+            Alignment = TextAlignment.Left;
         }
 
-        public string CreateFoldedOutput(string message)
+
+        public string CreateFoldedOutput()
         {
-            var suffixMatch = Regex.Matches(message, "\n\n");
+            var suffixMatch = Regex.Matches(Result, "\n\n");
             var prefixStartIndex = suffixMatch[3 - 1].Index;
             var suffixStartIndex = suffixMatch[suffixMatch.Count - 2].Index;
-            var prefixOutput = message.Substring(0, prefixStartIndex + 1);
-            var suffixOutput = message.Substring(suffixStartIndex, length: message.Length - suffixStartIndex);
-
-            return prefixOutput + "\n.\n.\n.\n" + suffixOutput;
+            var prefixOutput = Result.Substring(0, prefixStartIndex + 1);
+            var suffixOutput = Result.Substring(suffixStartIndex, length: Result.Length - suffixStartIndex);
+            FoldedResult = prefixOutput + "\n.\n.\n.\n" + suffixOutput;
+            return FoldedResult;
         }
     }
 }

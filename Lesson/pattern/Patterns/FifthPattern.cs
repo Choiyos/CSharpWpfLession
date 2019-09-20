@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Windows;
 using LessonLibrary.Interface;
-using LessonLibrary.Model;
 
 namespace LessonLibrary.Patterns
 {
     public class FifthPattern : IPattern
     {
-        public PatternResultModel Create(int inputNum)
+        public string Result { get; private set; }
+        public TextAlignment Alignment { get; private set; }
+
+        public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
 
@@ -22,7 +24,9 @@ namespace LessonLibrary.Patterns
                 star = star.PadRight(sum, '*') + "\n";
                 sum++;
             }
-            return new PatternResultModel(star, TextAlignment.Left);
+
+            Result = star;
+            Alignment = TextAlignment.Left;
         }
     }
 }

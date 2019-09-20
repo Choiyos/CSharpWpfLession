@@ -1,9 +1,12 @@
-﻿using LessonLibrary.Model;
+﻿using System.Windows;
 
 namespace LessonLibrary.Interface
 {
     public interface IPattern
     {
-        PatternResultModel Create(int inputNum);
+        string Result { get; }
+        TextAlignment Alignment { get;  }
+
+        void Create(int inputNum);
     }
 }

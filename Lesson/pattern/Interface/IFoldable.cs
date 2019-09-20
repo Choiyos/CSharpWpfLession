@@ -2,6 +2,8 @@
 {
     public interface IFoldable
     {
-        string CreateFoldedOutput(string message);
+        string FoldedResult { get; }
+        int Lines { get; }
+        string CreateFoldedOutput();
     }
 }
