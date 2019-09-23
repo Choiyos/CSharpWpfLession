@@ -6,8 +6,11 @@ namespace LessonLibrary
     public class PatternService
     {
         private IPattern _pattern;
+
         public const int MaxInputLine = 100;
+
         public string CurrentPattern;
+
         public IPattern Create(int num)
         {
             _pattern = PatternSelector.SelectPattern(CurrentPattern);
@@ -18,7 +21,6 @@ namespace LessonLibrary
         public void ChangePattern(string pattern)
         {
             CurrentPattern = pattern;
-            
         }
     }
 }

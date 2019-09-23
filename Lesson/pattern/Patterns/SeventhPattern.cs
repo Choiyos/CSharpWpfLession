@@ -51,7 +51,7 @@ namespace LessonLibrary.Patterns
             Alignment = TextAlignment.Left;
         }
 
-        public string CreateFoldedOutput()
+        public void CreateFoldedOutput()
         {
             string result = String.Empty;
             string[] splitMessage = Result.Split('\n');
@@ -92,7 +92,6 @@ namespace LessonLibrary.Patterns
             }
 
             FoldedResult = result;
-            return result;
         }
     }
 }

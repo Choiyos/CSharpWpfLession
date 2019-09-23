@@ -1,4 +1,5 @@
-﻿using LessonLibrary.Interface;
+﻿using System;
+using LessonLibrary.Interface;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,9 +8,13 @@ namespace LessonLibrary
     public class NavigationHistory
     {
         public int Capacity => _patterns.Capacity;
+
         public int Count => _patterns.Count;
+
         public int CurrentIndex { get; private set; }
-        public int MoveValue=1;
+
+        public int MoveValue = 1;
+
         private readonly List<IPattern> _patterns;
 
         public NavigationHistory(int capacity)
@@ -20,8 +25,8 @@ namespace LessonLibrary
         public bool PushPattern(IPattern pattern)
         {
             if (pattern == null) return false;
-            if (_patterns.Count==_patterns.Capacity)
-                _patterns.RemoveAt(_patterns.Capacity-1);
+            if (_patterns.Count == _patterns.Capacity)
+                _patterns.RemoveAt(_patterns.Capacity - 1);
             _patterns.Insert(0, pattern);
             CurrentIndex = 0;
             return true;
@@ -32,11 +37,10 @@ namespace LessonLibrary
             return _patterns.ToList();
         }
 
-        public bool ReplacePattern(IPattern pattern, int index)
+        public void ReplacePattern(IPattern pattern, int index)
         {
-            if (pattern == null) return false;
+            if (pattern == null || String.IsNullOrEmpty(pattern.Result)) return;
             _patterns[index] = pattern;
-            return true;
         }
 
         public IPattern GetCurrentPattern()

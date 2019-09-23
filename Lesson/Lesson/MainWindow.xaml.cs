@@ -106,7 +106,7 @@ namespace Lesson
         private void TxtbxResult_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            var textBox = (TextBox) sender;
+            var textBox = (TextBox)sender;
             if (TryParse(textBox.Text, out var index)
                 && index > 0 && index <= _history.Count)
             {
@@ -119,7 +119,7 @@ namespace Lesson
                     MessageBox.Show("아직 생성된 패턴이 없습니다.");
                 else
                     MessageBox.Show("1부터 " + _history.Count + "까지의 숫자만 입력해주세요!");
-                textBox.Text = (_history.CurrentIndex+1).ToString();
+                textBox.Text = (_history.CurrentIndex + 1).ToString();
                 return;
             }
 
@@ -131,11 +131,11 @@ namespace Lesson
         ///     출력 값이 너무 길 경우 해당 패턴에 요약함수가 있을 때 요약함수를 호출한다.
         /// </summary>
         /// <param name="pattern">TextBlock에 적용해야할 결괏값.</param>
-        private void ApplyResult(IPattern pattern)
+        public void ApplyResult(IPattern pattern)
         {
             if (pattern == null) throw new ArgumentNullException(nameof(pattern));
             // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
-            if ((pattern is IFoldable foldable)&&foldable.Lines > PatternService.MaxInputLine * 2)
+            if ((pattern is IFoldable foldable) && foldable.Lines > PatternService.MaxInputLine * 2)
             {
                 foldable.CreateFoldedOutput();
 
@@ -154,7 +154,7 @@ namespace Lesson
                 txtDisplay.TextAlignment = pattern.Alignment;
             }
 
-            txtbxResult.Text = (_history.CurrentIndex+1).ToString();
+            txtbxResult.Text = (_history.CurrentIndex + 1).ToString();
         }
 
         private void BtnShowOrHide_OnClick(object sender, RoutedEventArgs e)
@@ -167,13 +167,13 @@ namespace Lesson
             else
             {
                 btnShowOrHide.Content = "Show All";
-                txtDisplay.Text = ((IFoldable) _history.GetCurrentPattern()).FoldedResult;
+                txtDisplay.Text = ((IFoldable)_history.GetCurrentPattern()).FoldedResult;
             }
         }
 
         private void CboIncrease_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TryParse(((ComboBoxItem) e.AddedItems[0]).Content.ToString(), out var value))
+            if (TryParse(((ComboBoxItem)e.AddedItems[0]).Content.ToString(), out var value))
             {
                 _history.MoveValue = value;
                 CheckMovable();
@@ -183,15 +183,17 @@ namespace Lesson
         private void CheckMovable()
         {
             btnNextResult.IsEnabled = _history.IsHistoryMoveNext();
-
             btnPreviousResult.IsEnabled = _history.IsHistoryMovePrevious();
         }
 
         private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!_history.ReplacePattern(GeneratePattern(), _history.CurrentIndex)) return;
+            IPattern replaceItem = GeneratePattern();
+            if (String.IsNullOrEmpty(replaceItem.Result)) return;
+            _history.ReplacePattern(replaceItem, _history.CurrentIndex);
             ApplyResult(_history.GetCurrentPattern());
             CheckMovable();
+
         }
     }
 }

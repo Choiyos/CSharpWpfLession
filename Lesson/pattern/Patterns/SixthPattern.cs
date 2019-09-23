@@ -38,7 +38,7 @@ namespace LessonLibrary.Patterns
             Alignment = TextAlignment.Left;
         }
 
-        public string CreateFoldedOutput()
+        public void CreateFoldedOutput()
         {
             var suffixMatch = Regex.Matches(Result, "\n\n");
             var prefixStartIndex = suffixMatch[3 - 1].Index;
@@ -46,7 +46,6 @@ namespace LessonLibrary.Patterns
             var prefixOutput = Result.Substring(0, prefixStartIndex + 1);
             var suffixOutput = Result.Substring(suffixStartIndex, length: Result.Length - suffixStartIndex);
             FoldedResult = prefixOutput + "\n.\n.\n.\n" + suffixOutput;
-            return FoldedResult;
         }
     }
 }

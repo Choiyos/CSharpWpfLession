@@ -11,7 +11,7 @@ namespace LessonLibrary.Patterns
 
         public void Create(int inputNum)
         {
-            if (inputNum < 0||inputNum>10000) throw new ArgumentOutOfRangeException();
+            if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
 
             int sum = 0;
 
@@ -20,14 +20,14 @@ namespace LessonLibrary.Patterns
             if (inputNum % 2 != 0)
             {
                 // 다이아몬드모양 출력.
-                for (int i = 1; i <= inputNum ; i++)
+                for (int i = 1; i <= inputNum; i++)
                 {
                     if (i % 2 == 0) continue;
                     sum += i;
                     star = star.PadRight(sum, '*') + "\n";
                     sum++;
                 }
-                for (int i = inputNum-1 ; i >= 1; i--)
+                for (int i = inputNum - 1; i >= 1; i--)
                 {
                     if (i % 2 == 0) continue;
                     sum += i;
