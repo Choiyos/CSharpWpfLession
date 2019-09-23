@@ -52,6 +52,8 @@
             <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center" x:FieldModifier="public"/>
         </ScrollViewer>
 
+        <CheckBox x:Name="chkRandom" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Tag ="Random" Visibility="Hidden"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Random" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="Random" Visibility="Hidden"/>
         <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" x:FieldModifier="public"/>
         <Button x:Name="btnEdit" Grid.Row="3" Grid.Column="0" Width="40" Height="25" Content="Edit" Visibility="Hidden" Click="BtnEdit_OnClick"></Button>
     </Grid>
