@@ -49,10 +49,10 @@
         </ComboBox>
 
         <ScrollViewer x:Name="scrollViewer" Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" HorizontalScrollBarVisibility="Auto" FontFamily="Consolas">
-            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtDisplay" Margin="10" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center" x:FieldModifier="public"/>
         </ScrollViewer>
 
-        <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" />
+        <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" x:FieldModifier="public"/>
         <Button x:Name="btnEdit" Grid.Row="3" Grid.Column="0" Width="40" Height="25" Content="Edit" Visibility="Hidden" Click="BtnEdit_OnClick"></Button>
     </Grid>
 </Window>

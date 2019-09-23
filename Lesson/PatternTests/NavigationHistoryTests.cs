@@ -85,10 +85,12 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var navi = NaviInit();
-            navi.PushPattern(new FirstPattern());
+            var pattern = new SecondPattern();
 
             // Act
-            navi.ReplacePattern(new SecondPattern(), 0);
+            navi.PushPattern(new FirstPattern());
+            pattern.Create(3);
+            navi.ReplacePattern(pattern, 0);
 
             // Assert
             Assert.IsInstanceOfType(navi.GetCurrentPattern(), typeof(SecondPattern));
@@ -99,10 +101,10 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var navi = NaviInit();
-            navi.PushPattern(new FirstPattern());
 
             // Act
-
+            navi.PushPattern(new FirstPattern());
+            
             // Assert
             Assert.AreEqual(navi.GetCurrentPattern().ToString(), typeof(FirstPattern).ToString());
             Assert.IsInstanceOfType(navi.GetCurrentPattern(), typeof(FirstPattern));

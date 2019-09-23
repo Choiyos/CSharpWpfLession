@@ -48,6 +48,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -58,6 +59,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="MainWindowTests.cs" />
     <Compile Include="NavigationHistoryTests.cs" />
     <Compile Include="PatternSelectorTests.cs" />
     <Compile Include="PatternServiceTests.cs" />
@@ -74,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lesson\Lesson.csproj">
+      <Project>{7FA5849E-67BE-4EE0-97DE-AF2852EF59F3}</Project>
+      <Name>Lesson</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pattern\Pattern.csproj">
       <Project>{03A9DFEB-D537-4AC5-89B9-ED9E9F6B5AB1}</Project>
       <Name>Pattern</Name>
