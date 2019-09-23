@@ -41,7 +41,22 @@ namespace LessonLibrary.Patterns.Tests
             var pattern = new SixthPattern();
 
             // Assert
-            pattern.Create(999999);
+            pattern.Create(99999);
+        }
+
+        [TestMethod]
+        public void CreateTest_Random()
+        {
+            // Arrange
+            var pattern = new SixthPattern();
+            var randPattern = new SixthPattern();
+
+            // Act
+            pattern.Create(5);
+            randPattern.CreateRandom(5);
+
+            // Assert
+            Assert.AreNotEqual(pattern.Result, randPattern.Result);
         }
     }
 }

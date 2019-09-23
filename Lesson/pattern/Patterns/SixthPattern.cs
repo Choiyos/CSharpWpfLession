@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using LessonLibrary.Interface;
 using System.Windows;
 
 namespace LessonLibrary.Patterns
 {
-    public class SixthPattern : IPattern, IFoldable
+    public class SixthPattern : IPattern, IFoldable, IRandomable
     {
         public string Result { get; private set; }
         public TextAlignment Alignment { get; private set; }
@@ -46,6 +49,25 @@ namespace LessonLibrary.Patterns
             var prefixOutput = Result.Substring(0, prefixStartIndex + 1);
             var suffixOutput = Result.Substring(suffixStartIndex, length: Result.Length - suffixStartIndex);
             FoldedResult = prefixOutput + "\n.\n.\n.\n" + suffixOutput;
+        }
+
+        public void CreateRandom(int inputNum)
+        {
+            Create(inputNum);
+            Random r = new Random();
+            var randomResult = String.Empty;
+            var list = Enumerable.Range(0, inputNum).ToList();
+            var splitResult = Regex.Split(Result, "\n\n");
+
+            for (int i = 0; i < inputNum; i++)
+            {
+                var listIndex = r.Next(0, list.Count);
+                var randomIndex = list[listIndex];
+                list.RemoveAt(listIndex);
+                randomResult += splitResult[randomIndex]+"\n\n";
+            }
+
+            Result = randomResult;
         }
     }
 }

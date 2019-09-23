@@ -17,6 +17,12 @@ namespace LessonLibrary
             _pattern.Create(num);
             return _pattern;
         }
+        public IPattern CreateRandom(int num)
+        {
+            _pattern = PatternSelector.SelectPattern(CurrentPattern);
+            ((IRandomable)_pattern).CreateRandom(num);
+            return _pattern;
+        }
 
         public void ChangePattern(string pattern)
         {

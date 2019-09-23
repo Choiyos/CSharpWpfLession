@@ -1,4 +1,4 @@
-﻿using LessonLibrary;
+using LessonLibrary;
 using LessonLibrary.Interface;
 using System;
 using System.Windows;
@@ -53,9 +53,17 @@ namespace Lesson
 
         private IPattern GeneratePattern()
         {
-            if (TryParse(txtbxInput.Text, out var num))
+            if (TryParse(txtbxInput.Text, out var num) && num < 100 && num > 0)
             {
-                var pattern = _service.Create(num);
+                IPattern pattern;
+                if (chkRandom.IsChecked != null && (_service.CurrentPattern == "Pattern 6" && (bool)chkRandom.IsChecked))
+                {
+                    pattern = _service.CreateRandom(num);
+                }
+                else
+                {
+                    pattern = _service.Create(num);
+                }
                 if (string.IsNullOrEmpty(pattern.Result))
                 {
                     MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
@@ -84,6 +92,15 @@ namespace Lesson
                 _service.ChangePattern(patternName);
                 txtPattern.Text = patternName;
                 _patternSelectWindow = null;
+                if (patternName == "Pattern 6")
+                {
+                    chkRandom.IsChecked = false;
+                    chkRandom.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    chkRandom.Visibility = Visibility.Hidden;
+                }
             };
             _patternSelectWindow.Closing += (o, args) => { _patternSelectWindow = null; };
             _patternSelectWindow.ShowDialog();
@@ -116,10 +133,15 @@ namespace Lesson
             else
             {
                 if (_history.Count == 0)
+                {
                     MessageBox.Show("아직 생성된 패턴이 없습니다.");
+                    textBox.Text = (_history.CurrentIndex).ToString();
+                }
                 else
+                {
                     MessageBox.Show("1부터 " + _history.Count + "까지의 숫자만 입력해주세요!");
-                textBox.Text = (_history.CurrentIndex + 1).ToString();
+                    textBox.Text = (_history.CurrentIndex + 1).ToString();
+                }
                 return;
             }
 
@@ -189,11 +211,10 @@ namespace Lesson
         private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
         {
             IPattern replaceItem = GeneratePattern();
-            if (String.IsNullOrEmpty(replaceItem.Result)) return;
+            if (String.IsNullOrEmpty(replaceItem?.Result)) return;
             _history.ReplacePattern(replaceItem, _history.CurrentIndex);
             ApplyResult(_history.GetCurrentPattern());
             CheckMovable();
-
         }
     }
 }

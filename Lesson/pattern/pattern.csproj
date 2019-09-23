@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Interface\IFoldable.cs" />
     <Compile Include="Interface\IPattern.cs" />
+    <Compile Include="Interface\IRandomable.cs" />
     <Compile Include="NavigationHistory.cs" />
     <Compile Include="PatternSelector.cs" />
     <Compile Include="PatternService.cs" />
