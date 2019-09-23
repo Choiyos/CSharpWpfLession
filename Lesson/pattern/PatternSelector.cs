@@ -9,7 +9,6 @@ namespace Lesson
     {
         public static IPattern SelectPattern(string pattern)
         {
-
             if (Int32.TryParse(pattern.Split(' ')[1], out int num))
             {
                 switch (num)
@@ -32,7 +31,6 @@ namespace Lesson
                         throw new InvalidDataException();
                 }
             }
-
             throw new ArgumentException();
         }
     }

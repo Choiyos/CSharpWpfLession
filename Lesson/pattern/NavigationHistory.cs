@@ -62,24 +62,14 @@ namespace LessonLibrary
             return _patterns.ToList()[index];
         }
 
-        public bool CanHistoryMoveNext()
+        public bool IsHistoryMoveNext()
         {
             return CurrentIndex + MoveValue < Count;
         }
 
-        public bool CanHistoryMovePrevious()
+        public bool IsHistoryMovePrevious()
         {
             return CurrentIndex - MoveValue >= 0;
-        }
-
-        public void ChangeMoveValue(int value)
-        {
-            MoveValue = value;
-        }
-
-        public int GetIndex()
-        {
-            return CurrentIndex;
         }
     }
 }

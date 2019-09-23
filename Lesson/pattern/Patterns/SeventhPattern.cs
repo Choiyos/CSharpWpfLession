@@ -10,7 +10,6 @@ namespace LessonLibrary.Patterns
     {
         public string Result { get; private set; }
         public TextAlignment Alignment { get; private set; }
-
         public string FoldedResult { get; private set; }
         public int Lines { get; private set; }
 
@@ -52,13 +51,13 @@ namespace LessonLibrary.Patterns
             Alignment = TextAlignment.Left;
         }
 
-
         public string CreateFoldedOutput()
         {
             string result = String.Empty;
             string[] splitMessage = Result.Split('\n');
-            Create(3);
-            string[] prefixOutput = Result.Split('\n');
+            IPattern prePattern = new SeventhPattern();
+            prePattern.Create(3);
+            string[] prefixOutput = prePattern.Result.Split('\n');
             int num = splitMessage.Length - 1;
             int prefixBlank = 0;
             int suffixLength = 0;

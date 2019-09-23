@@ -4,6 +4,7 @@
     {
         string FoldedResult { get; }
         int Lines { get; }
+
         string CreateFoldedOutput();
     }
 }

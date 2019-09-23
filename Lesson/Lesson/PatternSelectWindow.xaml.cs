@@ -63,7 +63,6 @@ namespace Lesson
             txtPattern7.Text = pattern.Result;
         }
 
-
         private void InitButtonList()
         {
             // 패턴 선택 창에서 라디오버튼과 텍스트블록의 네이밍 규칙을 미리 정했다는 것을 전제로, 컨트롤 네임을 통해 리스트에 대입한다.

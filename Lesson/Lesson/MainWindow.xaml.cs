@@ -182,9 +182,9 @@ namespace Lesson
 
         private void CheckMovable()
         {
-            btnNextResult.IsEnabled = _history.CanHistoryMoveNext();
+            btnNextResult.IsEnabled = _history.IsHistoryMoveNext();
 
-            btnPreviousResult.IsEnabled = _history.CanHistoryMovePrevious();
+            btnPreviousResult.IsEnabled = _history.IsHistoryMovePrevious();
         }
 
         private void BtnEdit_OnClick(object sender, RoutedEventArgs e)

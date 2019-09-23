@@ -38,7 +38,6 @@ namespace LessonLibrary.Patterns
             Alignment = TextAlignment.Left;
         }
 
-
         public string CreateFoldedOutput()
         {
             var suffixMatch = Regex.Matches(Result, "\n\n");

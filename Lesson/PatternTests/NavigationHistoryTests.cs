@@ -46,6 +46,7 @@ namespace LessonLibrary.Patterns.Tests
 
             // Assert
             Assert.AreEqual(navi.Count, 1);
+            Assert.IsInstanceOfType(navi.GetCurrentPattern(), typeof(FirstPattern));
         }
 
         [TestMethod]
@@ -55,7 +56,7 @@ namespace LessonLibrary.Patterns.Tests
             var navi = new NavigationHistory(3);
 
             // Act
-            for (int i = 0; i < navi.Capacity+1; i++)
+            for (int i = 0; i < navi.Capacity + 1; i++)
             {
                 navi.PushPattern(new FirstPattern());
             }
@@ -63,7 +64,7 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             Assert.AreEqual(navi.Count, 3);
         }
-        
+
         [TestMethod()]
         public void GetPatternsTest()
         {
@@ -76,7 +77,7 @@ namespace LessonLibrary.Patterns.Tests
 
             // Assert
             Assert.IsNotNull(list);
-            Assert.AreEqual(list.Count,1);
+            Assert.AreEqual(list.Count, 1);
         }
 
         [TestMethod()]
@@ -103,8 +104,8 @@ namespace LessonLibrary.Patterns.Tests
             // Act
 
             // Assert
-            Assert.AreEqual(navi.GetCurrentPattern().ToString(),typeof(FirstPattern).ToString());
-            Assert.IsInstanceOfType(navi.GetCurrentPattern(),typeof(FirstPattern));
+            Assert.AreEqual(navi.GetCurrentPattern().ToString(), typeof(FirstPattern).ToString());
+            Assert.IsInstanceOfType(navi.GetCurrentPattern(), typeof(FirstPattern));
         }
 
         [TestMethod()]
@@ -134,7 +135,7 @@ namespace LessonLibrary.Patterns.Tests
             navi.GetNextPattern();
 
             // Act
-            var previous= navi.GetPreviousPattern();
+            var previous = navi.GetPreviousPattern();
 
             // Assert
             Assert.IsInstanceOfType(previous, typeof(ThirdPattern));
@@ -150,7 +151,7 @@ namespace LessonLibrary.Patterns.Tests
             navi.PushPattern(new ThirdPattern());
 
             // Act
-            var pattern= navi.GetPattern(1);
+            var pattern = navi.GetPattern(1);
 
             // Assert
             Assert.IsInstanceOfType(pattern, typeof(SecondPattern));
@@ -158,6 +159,65 @@ namespace LessonLibrary.Patterns.Tests
         private static NavigationHistory NaviInit()
         {
             return new NavigationHistory(100);
+        }
+
+        [TestMethod()]
+        public void IsHistoryMoveNextTest_True()
+        {
+            // Arrange
+            var navi = NaviInit();
+            navi.PushPattern(new FirstPattern());
+            navi.PushPattern(new FirstPattern());
+
+            // Act
+            bool flag = navi.IsHistoryMoveNext();
+
+            // Assert
+            Assert.AreEqual(flag,true);
+        }
+
+        [TestMethod()]
+        public void IsHistoryMoveNextTest_False()
+        {
+            // Arrange
+            var navi = NaviInit();
+            navi.PushPattern(new FirstPattern());
+
+            // Act
+            bool flag = navi.IsHistoryMoveNext();
+
+            // Assert
+            Assert.AreEqual(flag,false);
+        }
+
+        [TestMethod()]
+        public void IsHistoryMovePreviousTest_True()
+        {
+            // Arrange
+            var navi = NaviInit();
+            navi.PushPattern(new FirstPattern());
+            navi.PushPattern(new FirstPattern());
+            navi.GetNextPattern();
+            // Act
+            bool flag = navi.IsHistoryMovePrevious();
+
+            // Assert
+            Assert.AreEqual(flag, true);
+        }
+
+        [TestMethod()]
+        public void IsHistoryMovePreviousTest_False()
+        {
+            // Arrange
+            var navi = NaviInit();
+            navi.PushPattern(new FirstPattern());
+            navi.PushPattern(new FirstPattern());
+
+            // Act
+            bool flag = navi.IsHistoryMovePrevious();
+
+            // Assert
+            Assert.AreEqual(flag, false);
         }
     }
 }
