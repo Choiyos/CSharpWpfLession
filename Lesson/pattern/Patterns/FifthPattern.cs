@@ -7,6 +7,7 @@ namespace LessonLibrary.Patterns
     public class FifthPattern : IPattern
     {
         public string Result { get; private set; }
+
         public TextAlignment Alignment { get; private set; }
 
         public void Create(int inputNum)

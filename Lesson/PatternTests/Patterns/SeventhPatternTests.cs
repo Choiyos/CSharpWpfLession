@@ -11,12 +11,13 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var pattern = new SeventhPattern();
+            const string validResult = "*     *      *       *        *         \n      **     **      **       **        \n             ***     ***      ***       \n                     ****     ****      \n                              *****     \n";
 
             // Act
             pattern.Create(5);
 
             // Assert
-            Assert.AreEqual(pattern.Result, "*     *      *       *        *         \n      **     **      **       **        \n             ***     ***      ***       \n                     ****     ****      \n                              *****     \n");
+            Assert.AreEqual(pattern.Result, validResult);
         }
 
         [TestMethod()]
@@ -24,12 +25,13 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var pattern = new SeventhPattern();
+            const string validResult = "*     *      *                   *                   \n      **     **                  **                  \n             ***     .  .  .     ***                 \n                                 ****                \n                                 *****               \n                                 ******              \n                                 *******             \n                                 ********            \n                                 *********           \n                                 **********          \n                                 ***********         \n                                 ************        \n                                 *************       \n                                 **************      \n                                 ***************     \n";
 
             // Act
             pattern.Create(15);
             pattern.CreateFoldedOutput();
             // Assert
-            Assert.AreEqual(pattern.FoldedResult, "*     *      *                   *                   \n      **     **                  **                  \n             ***     .  .  .     ***                 \n                                 ****                \n                                 *****               \n                                 ******              \n                                 *******             \n                                 ********            \n                                 *********           \n                                 **********          \n                                 ***********         \n                                 ************        \n                                 *************       \n                                 **************      \n                                 ***************     \n");
+            Assert.AreEqual(pattern.FoldedResult, validResult);
         }
 
         [TestMethod]

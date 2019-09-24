@@ -9,8 +9,11 @@ namespace LessonLibrary.Patterns
     public class SeventhPattern : IPattern, IFoldable
     {
         public string Result { get; private set; }
+
         public TextAlignment Alignment { get; private set; }
+
         public string FoldedResult { get; private set; }
+
         public int Lines { get; private set; }
 
         public void Create(int inputNum)

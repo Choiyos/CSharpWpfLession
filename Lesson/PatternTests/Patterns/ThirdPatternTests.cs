@@ -11,12 +11,13 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var pattern = new ThirdPattern();
+            const string validResult = "*\n***\n*****\n***\n*\n";
 
             // Act
             pattern.Create(5);
 
             // Assert
-            Assert.AreEqual(pattern.Result, "*\n***\n*****\n***\n*\n");
+            Assert.AreEqual(pattern.Result, validResult);
         }
 
         [TestMethod]

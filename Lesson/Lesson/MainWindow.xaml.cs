@@ -53,7 +53,7 @@ namespace Lesson
 
         private IPattern GeneratePattern()
         {
-            if (TryParse(txtbxInput.Text, out var num) && num < 100 && num > 0)
+            if (TryParse(txtbxInput.Text, out var num) && num <= PatternService.MaxInputLine && num > 0)
             {
                 IPattern pattern;
                 if (chkRandom.IsChecked != null && (_service.CurrentPattern == "Pattern 6" && (bool)chkRandom.IsChecked))
@@ -64,14 +64,13 @@ namespace Lesson
                 {
                     pattern = _service.Create(num);
                 }
-                if (string.IsNullOrEmpty(pattern.Result))
-                {
-                    MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
-                    txtbxInput.Text = "1";
-                    return null;
-                }
 
-                return pattern;
+                if (!string.IsNullOrEmpty(pattern.Result)) return pattern;
+
+                MessageBox.Show("패턴 3은 홀수 라인만 입력 가능합니다.");
+                txtbxInput.Text = "1";
+                return null;
+
             }
 
             MessageBox.Show("1부터 " + PatternService.MaxInputLine + "까지의 숫자만 입력해주세요!");
@@ -155,25 +154,27 @@ namespace Lesson
         /// <param name="pattern">TextBlock에 적용해야할 결괏값.</param>
         public void ApplyResult(IPattern pattern)
         {
-            if (pattern == null) throw new ArgumentNullException(nameof(pattern));
-            // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
-            if ((pattern is IFoldable foldable) && foldable.Lines > PatternService.MaxInputLine * 2)
+            switch (pattern)
             {
-                foldable.CreateFoldedOutput();
+                case null:
+                    throw new ArgumentNullException(nameof(pattern));
+                // 임의적으로 표현되는 줄 수가 입력가능 줄 수의 2배를 넘으면 접힌 결괏값으로 표현하도록 설정했음.
+                case IFoldable foldable when foldable.Lines > PatternService.MaxInputLine * 2:
+                    foldable.CreateFoldedOutput();
 
-                // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화.
-                btnShowOrHide.Content = "Show All";
-                btnShowOrHide.Visibility = Visibility.Visible;
+                    // 펼쳐놓은 상태에서 RecodeNum을 이용해 새로고침할 경우를 위한 텍스트 초기화.
+                    btnShowOrHide.Content = "Show All";
+                    btnShowOrHide.Visibility = Visibility.Visible;
 
-                txtDisplay.Text = foldable.FoldedResult;
-                txtDisplay.TextAlignment = pattern.Alignment;
-            }
-            else
-            {
-                btnShowOrHide.Visibility = Visibility.Hidden;
-                btnShowOrHide.Content = "Show All";
-                txtDisplay.Text = pattern.Result;
-                txtDisplay.TextAlignment = pattern.Alignment;
+                    txtDisplay.Text = foldable.FoldedResult;
+                    txtDisplay.TextAlignment = pattern.Alignment;
+                    break;
+                default:
+                    btnShowOrHide.Visibility = Visibility.Hidden;
+                    btnShowOrHide.Content = "Show All";
+                    txtDisplay.Text = pattern.Result;
+                    txtDisplay.TextAlignment = pattern.Alignment;
+                    break;
             }
 
             txtbxResult.Text = (_history.CurrentIndex + 1).ToString();
@@ -195,11 +196,9 @@ namespace Lesson
 
         private void CboIncrease_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TryParse(((ComboBoxItem)e.AddedItems[0]).Content.ToString(), out var value))
-            {
-                _history.MoveValue = value;
-                CheckMovable();
-            }
+            if (!TryParse(((ComboBoxItem) e.AddedItems[0]).Content.ToString(), out var value)) return;
+            _history.MoveValue = value;
+            CheckMovable();
         }
 
         private void CheckMovable()
