@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using LessonLibrary.Patterns;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace LessonLibrary.Patterns.Tests
+namespace PatternTests.Patterns
 {
     [TestClass()]
     public class SeventhPatternTests
@@ -30,6 +31,7 @@ namespace LessonLibrary.Patterns.Tests
             // Act
             pattern.Create(15);
             pattern.CreateFoldedOutput();
+
             // Assert
             Assert.AreEqual(pattern.FoldedResult, validResult);
         }

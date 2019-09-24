@@ -13,9 +13,7 @@ namespace LessonLibrary.Patterns
         public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
-
             int sum = 0;
-
             string star = string.Empty;
 
             if (inputNum % 2 != 0)

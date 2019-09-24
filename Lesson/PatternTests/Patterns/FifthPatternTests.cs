@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using LessonLibrary.Patterns;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace LessonLibrary.Patterns.Tests
+namespace PatternTests.Patterns
 {
     [TestClass()]
     public class FifthPatternTests

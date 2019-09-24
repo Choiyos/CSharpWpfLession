@@ -19,10 +19,10 @@ namespace LessonLibrary.Patterns
         public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
-
             int sum = 0;
             string star = string.Empty;
             int starCount = 1;
+            
             for (int i = 1; i <= inputNum; i++)
             {
                 var blank = 5;

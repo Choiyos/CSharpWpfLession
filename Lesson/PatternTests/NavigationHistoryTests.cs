@@ -158,6 +158,7 @@ namespace LessonLibrary.Patterns.Tests
             // Assert
             Assert.IsInstanceOfType(pattern, typeof(SecondPattern));
         }
+
         private static NavigationHistory NaviInit()
         {
             return new NavigationHistory(100);
@@ -200,6 +201,7 @@ namespace LessonLibrary.Patterns.Tests
             navi.PushPattern(new FirstPattern());
             navi.PushPattern(new FirstPattern());
             navi.GetNextPattern();
+
             // Act
             bool flag = navi.IsHistoryMovePrevious();
 

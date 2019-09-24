@@ -1,10 +1,8 @@
-﻿using System;
-using System.Reflection;
-using System.Threading;
-using System.Windows;
-using Lesson;
+﻿using Lesson;
 using LessonLibrary.Interface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Windows;
 
 namespace LessonLibrary.Patterns.Tests
 {
@@ -47,7 +45,6 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             MainWindow mainWindow = new MainWindow();
-
             SeventhPattern pattern = new SeventhPattern();
             pattern.Create(50);
             pattern.CreateFoldedOutput();
@@ -64,7 +61,6 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             MainWindow main = new MainWindow();
-
             SeventhPattern pattern = new SeventhPattern();
             pattern.Create(5);
             pattern.CreateFoldedOutput();
@@ -73,7 +69,6 @@ namespace LessonLibrary.Patterns.Tests
             main.ApplyResult(pattern);
 
             // Assert
-
             Assert.AreEqual(main.btnShowOrHide.Visibility, Visibility.Hidden);
         }
 

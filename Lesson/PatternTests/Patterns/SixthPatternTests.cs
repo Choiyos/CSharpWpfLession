@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using LessonLibrary.Patterns;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace LessonLibrary.Patterns.Tests
+namespace PatternTests.Patterns
 {
     [TestClass()]
     public class SixthPatternTests
@@ -13,12 +14,13 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var pattern = new SixthPattern();
+            const string validResult = "*\n\n*\n**\n\n*\n**\n***\n\n*\n**\n***\n****\n\n*\n**\n***\n****\n*****\n\n";
 
             // Act
             pattern.Create(5);
 
             // Assert
-            Assert.AreEqual(pattern.Result, "*\n\n*\n**\n\n*\n**\n***\n\n*\n**\n***\n****\n\n*\n**\n***\n****\n*****\n\n");
+            Assert.AreEqual(pattern.Result, validResult);
         }
 
         [TestMethod()]
@@ -26,13 +28,14 @@ namespace LessonLibrary.Patterns.Tests
         {
             // Arrange
             var pattern = new SixthPattern();
+            const string validResult = "*\n\n*\n**\n\n*\n**\n***\n\n.\n.\n.\n\n\n*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n***********\n************\n*************\n**************\n***************\n****************\n*****************\n******************\n*******************\n********************\n\n";
 
             // Act
             pattern.Create(20);
             pattern.CreateFoldedOutput();
 
             // Assert
-            Assert.AreEqual(pattern.FoldedResult, "*\n\n*\n**\n\n*\n**\n***\n\n.\n.\n.\n\n\n*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n***********\n************\n*************\n**************\n***************\n****************\n*****************\n******************\n*******************\n********************\n\n");
+            Assert.AreEqual(pattern.FoldedResult, validResult);
         }
 
         [TestMethod]

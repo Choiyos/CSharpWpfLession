@@ -7,16 +7,16 @@ namespace LessonLibrary.Patterns
 {
     public class SixthPattern : IPattern, IFoldable, IRandomable
     {
-        private readonly RandomWrapper _randomWrapper;
+        public SixthPattern()
+        {
+        }
 
         public SixthPattern(RandomWrapper randomWrapper)
         {
             _randomWrapper = randomWrapper;
         }
 
-        public SixthPattern()
-        {
-        }
+        private readonly RandomWrapper _randomWrapper;
 
         public string Result { get; private set; }
 
@@ -29,9 +29,7 @@ namespace LessonLibrary.Patterns
         public void Create(int inputNum)
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
-
             int sum = 0;
-
             string star = string.Empty;
 
             for (int i = 1; i <= inputNum; i++)
@@ -65,7 +63,6 @@ namespace LessonLibrary.Patterns
         {
             if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
             Create(inputNum);
-
             var randomResult = String.Empty;
             var splitResult = Regex.Split(Result, "\n\n");
 
