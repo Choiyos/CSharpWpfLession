@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using Moq;
 
 namespace LessonLibrary.Patterns.Tests
 {
@@ -44,19 +46,25 @@ namespace LessonLibrary.Patterns.Tests
             pattern.Create(99999);
         }
 
+
         [TestMethod]
         public void CreateTest_Random()
         {
             // Arrange
-            var pattern = new SixthPattern();
-            var randPattern = new SixthPattern();
+            var obj = new Mock<RandomWrapper>();
+            obj.Setup(q => q.Create(5)).Returns(
+                new List<int>()
+                {
+                    1,4,0,3,2
+                });
+            var randPattern = new SixthPattern(obj.Object);
+            const string validResult = "*\n**\n\n*\n**\n***\n****\n*****\n\n*\n\n*\n**\n***\n****\n\n*\n**\n***\n\n";
 
             // Act
-            pattern.Create(5);
             randPattern.CreateRandom(5);
 
             // Assert
-            Assert.AreNotEqual(pattern.Result, randPattern.Result);
+            Assert.AreEqual(validResult, randPattern.Result);
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="Patterns\FifthPattern.cs" />
     <Compile Include="Patterns\FirstPattern.cs" />
     <Compile Include="Patterns\FourthPattern.cs" />
+    <Compile Include="RandomWrapper.cs" />
     <Compile Include="Patterns\SecondPattern.cs" />
     <Compile Include="Patterns\SeventhPattern.cs" />
     <Compile Include="Patterns\SixthPattern.cs" />

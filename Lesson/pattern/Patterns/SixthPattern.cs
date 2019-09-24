@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LessonLibrary.Interface;
+using System;
 using System.Text.RegularExpressions;
-using LessonLibrary.Interface;
 using System.Windows;
 
 namespace LessonLibrary.Patterns
 {
     public class SixthPattern : IPattern, IFoldable, IRandomable
     {
+        private readonly RandomWrapper _randomWrapper;
+
+        public SixthPattern(RandomWrapper randomWrapper)
+        {
+            _randomWrapper = randomWrapper;
+        }
+
+        public SixthPattern()
+        {
+        }
+
         public string Result { get; private set; }
+
         public TextAlignment Alignment { get; private set; }
 
         public string FoldedResult { get; private set; }
+
         public int Lines { get; private set; }
 
         public void Create(int inputNum)
@@ -53,18 +63,15 @@ namespace LessonLibrary.Patterns
 
         public void CreateRandom(int inputNum)
         {
+            if (inputNum < 0 || inputNum > 10000) throw new ArgumentOutOfRangeException();
             Create(inputNum);
-            Random r = new Random();
+
             var randomResult = String.Empty;
-            var list = Enumerable.Range(0, inputNum).ToList();
             var splitResult = Regex.Split(Result, "\n\n");
 
-            for (int i = 0; i < inputNum; i++)
+            foreach (var i in _randomWrapper.Create(inputNum))
             {
-                var listIndex = r.Next(0, list.Count);
-                var randomIndex = list[listIndex];
-                list.RemoveAt(listIndex);
-                randomResult += splitResult[randomIndex]+"\n\n";
+                randomResult += splitResult[i] + "\n\n";
             }
 
             Result = randomResult;
