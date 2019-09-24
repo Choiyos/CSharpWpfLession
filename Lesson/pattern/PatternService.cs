@@ -11,15 +11,29 @@ namespace LessonLibrary
 
         public string CurrentPattern;
 
-        public IPattern Create(int num)
+        public IPattern Create(int num, bool? chkRandomIsChecked)
         {
             _pattern = PatternSelector.SelectPattern(CurrentPattern);
+            if (chkRandomIsChecked != null && !chkRandomIsChecked.Value)
+            {
+                CreateNonrandom(num);
+            }
+            else
+            {
+                if (_pattern.GetType() != typeof(IRandomable)) return null;
+                CreateRandom(num);
+            }
+            return chkRandomIsChecked is false ? CreateNonrandom(num) : CreateRandom(num);
+        }
+
+        public IPattern CreateNonrandom(int num)
+        {
             _pattern.Create(num);
             return _pattern;
         }
+
         public IPattern CreateRandom(int num)
         {
-            _pattern = PatternSelector.SelectPattern(CurrentPattern);
             ((IRandomable)_pattern).CreateRandom(num);
             return _pattern;
         }

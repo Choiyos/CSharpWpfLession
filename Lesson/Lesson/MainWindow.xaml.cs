@@ -55,15 +55,7 @@ namespace Lesson
         {
             if (TryParse(txtbxInput.Text, out var num) && num <= PatternService.MaxInputLine && num > 0)
             {
-                IPattern pattern;
-                if (chkRandom.IsChecked != null && (_service.CurrentPattern == "Pattern 6" && (bool)chkRandom.IsChecked))
-                {
-                    pattern = _service.CreateRandom(num);
-                }
-                else
-                {
-                    pattern = _service.Create(num);
-                }
+                var pattern = _service.Create(num,chkRandom.IsChecked);
 
                 if (!string.IsNullOrEmpty(pattern.Result)) return pattern;
 
