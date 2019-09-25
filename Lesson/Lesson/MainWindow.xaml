@@ -54,6 +54,6 @@
 
         <Button x:Name="btnShowOrHide" Grid.Row="3" Grid.Column="2" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Show All" Click="BtnShowOrHide_OnClick" Visibility="Hidden" x:FieldModifier="public"/>
         <Button x:Name="btnEdit" Grid.Row="3" Grid.Column="0" Width="40" Height="25" Content="Edit" Visibility="Hidden" Click="BtnEdit_OnClick"/>
-        <CheckBox x:Name="chkRandom" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Tag ="Random" Visibility="Hidden" Content="Random"/>
+        <CheckBox x:Name="chkRandom" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Tag ="Random" Visibility="Hidden" Content="Random" Checked="ChkRandom_OnChecked" Unchecked="ChkRandom_OnUnchecked"/>
     </Grid>
 </Window>

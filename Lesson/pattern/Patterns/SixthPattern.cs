@@ -16,7 +16,7 @@ namespace LessonLibrary.Patterns
             _randomWrapper = randomWrapper;
         }
 
-        private readonly RandomWrapper _randomWrapper;
+        private readonly RandomWrapper _randomWrapper = new RandomWrapper();
 
         public string Result { get; private set; }
 

@@ -1,4 +1,6 @@
-﻿using LessonLibrary;
+﻿using System;
+using Lesson;
+using LessonLibrary;
 using LessonLibrary.Interface;
 using LessonLibrary.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,12 +15,11 @@ namespace PatternTests
         {
             // Arrange
             var service = new PatternService();
-            service.ChangePattern("Pattern 1");
             var validResult = new FirstPattern();
             validResult.Create(3);
 
             // Act
-            var pattern = service.Create(3,false);
+            var pattern = service.Create(3);
 
             // Assert
             Assert.IsInstanceOfType(pattern, typeof(FirstPattern));
@@ -30,14 +31,12 @@ namespace PatternTests
         {
             // Arrange
             var service = new PatternService();
-            const string validResult = "Pattern 1";
 
             // Act
-            service.ChangePattern("Pattern 1");
+            service.ChangePattern(PatternOption.Fifth);
 
             // Assert
-            Assert.AreEqual(service.CurrentPattern, validResult);
-
+            Assert.IsInstanceOfType(service.Create(5), typeof(FifthPattern));
         }
 
         [TestMethod()]
@@ -45,10 +44,10 @@ namespace PatternTests
         {
             // Arrange
             var service = new PatternService();
-            service.ChangePattern("Pattern 6");
+            service.ChangePattern(PatternOption.Sixth);
 
             // Act
-            var pattern = service.Create(5, true);
+            var pattern = service.Create(5);
 
             // Assert
             Assert.IsNotNull(pattern);
@@ -60,13 +59,26 @@ namespace PatternTests
         {
             // Arrange
             var service = new PatternService();
-            service.ChangePattern("Pattern 1");
 
             // Act
-            var pattern = service.Create(5, true);
+            service.ChangeRandomFlag(true);
 
             // Assert
-            Assert.IsNull(pattern);
+            Assert.AreEqual(service.IsRandom, false);
+        }
+
+        [TestMethod()]
+        public void ChangeRandomFlagTest()
+        {
+            // Arrange
+            var service = new PatternService();
+
+            // Act
+            service.ChangePattern(PatternOption.Sixth);
+            service.ChangeRandomFlag(true);
+
+            //Assert
+            Assert.AreEqual(service.IsRandom,true);
         }
     }
 }

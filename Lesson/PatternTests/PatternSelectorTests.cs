@@ -13,7 +13,7 @@ namespace LessonLibrary.Patterns.Tests
         public void SelectPatternTest()
         {
             // Arrange
-            var pattern = PatternSelector.SelectPattern("Pattern 1");
+            var pattern = PatternSelector.SelectPattern(MainWindow.ParsePattern("Pattern 1"));
             
             // Act
 
@@ -26,7 +26,7 @@ namespace LessonLibrary.Patterns.Tests
         public void SelectPatternTest_invalid()
         {
             // Assert
-            PatternSelector.SelectPattern("Pattern 999");
+            PatternSelector.SelectPattern(MainWindow.ParsePattern("Pattern 999"));
         }
 
         [TestMethod()]
@@ -34,7 +34,7 @@ namespace LessonLibrary.Patterns.Tests
         public void SelectPatternTest_OutOfRange()
         {
             // Assert
-            PatternSelector.SelectPattern("Pattern_TEST");
+            PatternSelector.SelectPattern(MainWindow.ParsePattern("Pattern_TEST"));
         }
 
         [TestMethod()]
@@ -42,7 +42,7 @@ namespace LessonLibrary.Patterns.Tests
         public void SelectPatternTest_invalid_Argue()
         {
             // Assert
-            PatternSelector.SelectPattern("Pattern TEST");
+            PatternSelector.SelectPattern(MainWindow.ParsePattern("Pattern TEST"));
         }
     }
 }

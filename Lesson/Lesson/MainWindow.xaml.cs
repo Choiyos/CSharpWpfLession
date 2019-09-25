@@ -13,9 +13,9 @@ namespace Lesson
     /// </summary>
     public partial class MainWindow
     {
-        private readonly NavigationHistory _history = new NavigationHistory(PatternService.MaxInputLine);
-
         private readonly PatternService _service = new PatternService();
+
+        private readonly NavigationHistory _history = new NavigationHistory(PatternService.MaxInputLine);
 
         /// <summary>
         ///     패턴 변경 버튼을 누르면 띄워질 자식 윈도우
@@ -25,7 +25,6 @@ namespace Lesson
         public MainWindow()
         {
             InitializeComponent();
-            _service.ChangePattern(txtPattern.Text);
         }
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
@@ -55,7 +54,7 @@ namespace Lesson
         {
             if (TryParse(txtbxInput.Text, out var num) && num <= PatternService.MaxInputLine && num > 0)
             {
-                var pattern = _service.Create(num,chkRandom.IsChecked);
+                var pattern = _service.Create(num);
 
                 if (!string.IsNullOrEmpty(pattern.Result)) return pattern;
 
@@ -80,7 +79,8 @@ namespace Lesson
             };
             _patternSelectWindow.OnChildSelectPatternEvent += (o, patternName) =>
             {
-                _service.ChangePattern(patternName);
+                
+                _service.ChangePattern(ParsePattern(patternName));
                 txtPattern.Text = patternName;
                 _patternSelectWindow = null;
                 if (patternName == "Pattern 6")
@@ -95,6 +95,36 @@ namespace Lesson
             };
             _patternSelectWindow.Closing += (o, args) => { _patternSelectWindow = null; };
             _patternSelectWindow.ShowDialog();
+        }
+
+        public static PatternOption ParsePattern(string patternName)
+        {
+            if (Int32.TryParse(patternName.Split(' ')[1], out int num))
+            {
+                switch (num)
+                {
+                    case 1:
+                        return PatternOption.First;
+                    case 2:
+                        return PatternOption.Second;
+                    case 3:
+                        return PatternOption.Third;
+                    case 4:
+                        return PatternOption.Fourth;
+                    case 5:
+                        return PatternOption.Fifth;
+                    case 6:
+                        return PatternOption.Sixth;
+                    case 7:
+                        return PatternOption.Seventh;
+                    default:
+                        MessageBox.Show("Invalid value. Automatically selected as the first pattern.");
+                        return PatternOption.First;
+                }
+            }
+
+            MessageBox.Show("Invalid value. Automatically selected as the first pattern.");
+            return PatternOption.First;
         }
 
         private void BtnPreviousResult_Click(object sender, RoutedEventArgs e)
@@ -206,6 +236,18 @@ namespace Lesson
             _history.ReplacePattern(replaceItem, _history.CurrentIndex);
             ApplyResult(_history.GetCurrentPattern());
             CheckMovable();
+        }
+
+        private void ChkRandom_OnChecked(object sender, RoutedEventArgs e)
+        {
+            var isChecked = ((CheckBox) sender).IsChecked;
+            _service.ChangeRandomFlag(isChecked != null && (bool)isChecked);
+        }
+
+        private void ChkRandom_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            var isChecked = ((CheckBox)sender).IsChecked;
+            _service.ChangeRandomFlag(isChecked != null && (bool)isChecked);
         }
     }
 }

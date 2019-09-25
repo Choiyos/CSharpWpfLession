@@ -9,38 +9,40 @@ namespace LessonLibrary
 
         public const int MaxInputLine = 100;
 
-        public string CurrentPattern;
+        public bool IsRandom { get; private set; }
 
-        public IPattern Create(int num, bool? chkRandomIsChecked)
+        public PatternService()
         {
-            _pattern = PatternSelector.SelectPattern(CurrentPattern);
-            if (chkRandomIsChecked != null && !chkRandomIsChecked.Value)
-            {
-                CreateNonrandom(num);
-            }
-            else
-            {
-                if (_pattern.GetType() != typeof(IRandomable)) return null;
-                CreateRandom(num);
-            }
-            return chkRandomIsChecked is false ? CreateNonrandom(num) : CreateRandom(num);
+            _pattern = PatternSelector.SelectPattern(0);
         }
 
-        public IPattern CreateNonrandom(int num)
+        public IPattern Create(int num)
+        {
+            return IsRandom ? CreateRandom(num) : CreateNonrandom(num);
+        }
+
+        private IPattern CreateNonrandom(int num)
         {
             _pattern.Create(num);
             return _pattern;
         }
 
-        public IPattern CreateRandom(int num)
+        private IPattern CreateRandom(int num)
         {
             ((IRandomable)_pattern).CreateRandom(num);
             return _pattern;
         }
 
-        public void ChangePattern(string pattern)
+        public void ChangePattern(PatternOption pattern)
         {
-            CurrentPattern = pattern;
+            _pattern = PatternSelector.SelectPattern(pattern);
+            IsRandom = false;
+        }
+
+        public void ChangeRandomFlag(bool flag)
+        {
+            if (_pattern is IRandomable)
+                IsRandom = flag;
         }
     }
 }

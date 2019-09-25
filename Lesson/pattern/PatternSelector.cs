@@ -5,33 +5,40 @@ using System.IO;
 
 namespace Lesson
 {
+    public enum PatternOption
+    {
+        First,
+        Second,
+        Third,
+        Fourth,
+        Fifth,
+        Sixth,
+        Seventh
+    }
+
     public static class PatternSelector
     {
-        public static IPattern SelectPattern(string pattern)
+        public static IPattern SelectPattern(PatternOption pattern)
         {
-            if (Int32.TryParse(pattern.Split(' ')[1], out int num))
+            switch (pattern)
             {
-                switch (num)
-                {
-                    case 1:
-                        return new FirstPattern();
-                    case 2:
-                        return new SecondPattern();
-                    case 3:
-                        return new ThirdPattern();
-                    case 4:
-                        return new FourthPattern();
-                    case 5:
-                        return new FifthPattern();
-                    case 6:
-                        return new SixthPattern();
-                    case 7:
-                        return new SeventhPattern();
-                    default:
-                        throw new InvalidDataException();
-                }
+                case PatternOption.First:
+                    return new FirstPattern();
+                case PatternOption.Second:
+                    return new SecondPattern();
+                case PatternOption.Third:
+                    return new ThirdPattern();
+                case PatternOption.Fourth:
+                    return new FourthPattern();
+                case PatternOption.Fifth:
+                    return new FifthPattern();
+                case PatternOption.Sixth:
+                    return new SixthPattern();
+                case PatternOption.Seventh:
+                    return new SeventhPattern();
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            throw new ArgumentException();
         }
     }
 }
